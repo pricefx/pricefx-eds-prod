@@ -185,5 +185,24 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "quote",
+    "fields": [
+      {
+        "component": "text-area",
+        "valueType": "string",
+        "value": "",
+        "name": "quote",
+        "label": "Quote"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "author",
+        "label": "Author",
+        "value": ""
+      }
+    ]
   }
 ]
