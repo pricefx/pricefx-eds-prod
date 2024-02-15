@@ -10,17 +10,18 @@ import {
   waitForLCP,
   loadBlocks,
   loadCSS,
-} from './aem.js';
+} from './aem.js'
 
-const LCP_BLOCKS = []; // add your LCP blocks to the list
+const LCP_BLOCKS = [] // add your LCP blocks to the list
 
 /**
  * load fonts.css and set a session storage flag
  */
 async function loadFonts() {
-  await loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`);
+  await loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`)
   try {
-    if (!window.location.hostname.includes('localhost')) sessionStorage.setItem('fonts-loaded', 'true');
+    if (!window.location.hostname.includes('localhost'))
+      sessionStorage.setItem('fonts-loaded', 'true')
   } catch (e) {
     // do nothing
   }
@@ -35,7 +36,7 @@ function buildAutoBlocks() {
     // TODO: add auto block, if needed
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('Auto Blocking failed', error);
+    console.error('Auto Blocking failed', error)
   }
 }
 
@@ -46,11 +47,11 @@ function buildAutoBlocks() {
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
-  decorateButtons(main);
-  decorateIcons(main);
-  buildAutoBlocks(main);
-  decorateSections(main);
-  decorateBlocks(main);
+  decorateButtons(main)
+  decorateIcons(main)
+  buildAutoBlocks(main)
+  decorateSections(main)
+  decorateBlocks(main)
 }
 
 /**
@@ -58,19 +59,19 @@ export function decorateMain(main) {
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
-  document.documentElement.lang = 'en';
-  decorateTemplateAndTheme();
-  const main = doc.querySelector('main');
+  document.documentElement.lang = 'en'
+  decorateTemplateAndTheme()
+  const main = doc.querySelector('main')
   if (main) {
-    decorateMain(main);
-    document.body.classList.add('appear');
-    await waitForLCP(LCP_BLOCKS);
+    decorateMain(main)
+    document.body.classList.add('appear')
+    await waitForLCP(LCP_BLOCKS)
   }
 
   try {
     /* if desktop (proxy for fast connection) or fonts already loaded, load fonts.css */
     if (window.innerWidth >= 900 || sessionStorage.getItem('fonts-loaded')) {
-      loadFonts();
+      loadFonts()
     }
   } catch (e) {
     // do nothing
@@ -82,22 +83,22 @@ async function loadEager(doc) {
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
-  const main = doc.querySelector('main');
-  await loadBlocks(main);
+  const main = doc.querySelector('main')
+  await loadBlocks(main)
 
-  const { hash } = window.location;
-  const element = hash ? doc.getElementById(hash.substring(1)) : false;
-  if (hash && element) element.scrollIntoView();
+  const { hash } = window.location
+  const element = hash ? doc.getElementById(hash.substring(1)) : false
+  if (hash && element) element.scrollIntoView()
 
-  loadHeader(doc.querySelector('header'));
-  loadFooter(doc.querySelector('footer'));
+  loadHeader(doc.querySelector('header'))
+  loadFooter(doc.querySelector('footer'))
 
-  loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
-  loadFonts();
+  loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`)
+  loadFonts()
 
-  sampleRUM('lazy');
-  sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
-  sampleRUM.observe(main.querySelectorAll('picture > img'));
+  sampleRUM('lazy')
+  sampleRUM.observe(main.querySelectorAll('div[data-block-name]'))
+  sampleRUM.observe(main.querySelectorAll('picture > img'))
 }
 
 /**
@@ -106,14 +107,14 @@ async function loadLazy(doc) {
  */
 function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
-  window.setTimeout(() => import('./delayed.js'), 3000);
+  window.setTimeout(() => import('./delayed.js'), 3000)
   // load anything that can be postponed to the latest here
 }
 
 async function loadPage() {
-  await loadEager(document);
-  await loadLazy(document);
-  loadDelayed();
+  await loadEager(document)
+  await loadLazy(document)
+  loadDelayed()
 }
 
-loadPage();
+loadPage()
