@@ -20,7 +20,8 @@
   },
   "lint-staged": {
     "**/*.json": "prettier -w",
-    "**/*.c?js": "eslint --fix"
+    "**/*.js": "eslint --fix",
+    "*.cjs": "eslint --fix"
   },
   "homepage": "https://github.com/adobe/aem-boilerplate#readme",
   "devDependencies": {
