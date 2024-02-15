@@ -3,5 +3,3 @@ mountpoints:
     url: "https://author-p28206-e1206067.adobeaemcloud.com/bin/franklin.delivery/Bounteous-Inc/pricefx-aem/main"
     type: "markup"
     suffix: ".html"
-  /data:
-    url: "https://drive.google.com/drive/folders/1bW1L_sOpNgpta7BfyfLSosRX-_QbHADy"
