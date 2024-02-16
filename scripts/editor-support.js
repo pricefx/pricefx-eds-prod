@@ -1,9 +1,4 @@
-import {
-  decorateBlock,
-  decorateButtons,
-  decorateIcons,
-  loadBlock,
-} from './aem.js';
+import { decorateBlock, decorateButtons, decorateIcons, loadBlock } from './aem.js';
 
 const connectionPrefix = 'urn:aemconnection:';
 
@@ -14,21 +9,15 @@ async function handleEditorUpdate(event) {
   if (!resource) return;
 
   const element = document.querySelector(`[data-aue-resource="${resource}"]`);
-  const block =
-    element?.parentElement?.closest('.block') || element?.closest('.block');
+  const block = element?.parentElement?.closest('.block') || element?.closest('.block');
   const blockResource = block?.getAttribute('data-aue-resource');
   if (!block || !blockResource?.startsWith(connectionPrefix)) return;
 
   const updates = detail?.response?.updates;
   if (updates.length > 0) {
     const { content } = updates[0];
-    const newBlockDocument = new DOMParser().parseFromString(
-      content,
-      'text/html',
-    );
-    const newBlock = newBlockDocument?.querySelector(
-      `[data-aue-resource="${blockResource}"]`,
-    );
+    const newBlockDocument = new DOMParser().parseFromString(content, 'text/html');
+    const newBlock = newBlockDocument?.querySelector(`[data-aue-resource="${blockResource}"]`);
     if (newBlock) {
       newBlock.style.display = 'none';
       block.insertAdjacentElement('afterend', newBlock);
@@ -45,6 +34,4 @@ async function handleEditorUpdate(event) {
   }
 }
 
-document
-  .querySelector('main')
-  ?.addEventListener('aue:content-patch', handleEditorUpdate);
+document.querySelector('main')?.addEventListener('aue:content-patch', handleEditorUpdate);

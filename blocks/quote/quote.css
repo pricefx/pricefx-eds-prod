@@ -1,14 +1,14 @@
 .quote {
-    background-color: lightgray;
-    margin: .5rem;
-    padding: 2rem;
-    border-radius: 2rem;
+  background-color: lightgray;
+  margin: 0.5rem;
+  padding: 2rem;
+  border-radius: 2rem;
 }
 
 .quote > div:nth-of-type(2) {
-    font-style: italic;
+  font-style: italic;
 }
 
 .quote > div:nth-of-type(2)::before {
-    content: '--';
+  content: '--';
 }
