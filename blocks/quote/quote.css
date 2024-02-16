@@ -1,3 +1,8 @@
+.quote-wrapper {
+  display: flex;
+  place-content: center;
+}
+
 .quote {
   background-color: lightgray;
   margin: 0.5rem;
@@ -5,10 +10,11 @@
   border-radius: 2rem;
 }
 
-.quote > div:nth-of-type(2) {
+.quote > q {
   font-style: italic;
 }
 
-.quote > div:nth-of-type(2)::before {
-  content: '--';
+.quote > .author {
+  font-size: 0.9rem;
+  margin-left: 1rem;
 }
