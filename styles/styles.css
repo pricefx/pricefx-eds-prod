@@ -10,13 +10,13 @@
  * governing permissions and limitations under the License.
  */
 
-/* stylelint-disable */
 /*
 --------------------------------
   CSS VARIABLES
 --------------------------------
 */
 :root {
+
   /* || FONTS || */
   /* ----------- */
 
@@ -59,6 +59,7 @@
 
   /* Base Font Sizing */
   font-size: var(--base-font-size);
+
   --base-font-size: calc((16 / 16) * 1rem); /* for Accessible Font Sizing */
   --base-line-height: calc((24 / 16) * 1rem);
   --body-font-size-l: calc((18 / 16) * 1rem);
@@ -152,6 +153,7 @@
 /* ------------------------- */
 @media (width >= 768px) {
   :root {
+
     /* Headings */
     --heading-font-size-xxl: calc((80 / 16) * 1rem);
     --heading-font-size-xl: calc((50 / 16) * 1rem);
@@ -186,7 +188,7 @@ body {
   font-family: var(--ff-secondary);
   font-weight: var(--fw-regular);
   margin: 0;
-  text-rendering: optimizelegibility;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
