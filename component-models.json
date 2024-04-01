@@ -117,15 +117,15 @@
         "component": "text-input",
         "valueType": "string",
         "name": "href",
-        "value": "",
-        "label": "Link"
+        "label": "Link",
+        "value": ""
       },
       {
         "component": "text-input",
         "valueType": "string",
         "name": "text",
-        "value": "",
-        "label": "Button Label"
+        "label": "Button Label",
+        "value": "Placeholder Label"
       },
       {
         "component": "select",
