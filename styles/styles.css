@@ -10,110 +10,200 @@
  * governing permissions and limitations under the License.
  */
 
+/*
+--------------------------------
+  CSS VARIABLES
+--------------------------------
+*/
 :root {
 
-  /* colors */
-  --link-color: #035fe6;
-  --link-hover-color: #136ff6;
-  --background-color: white;
-  --light-color: #eee;
-  --dark-color: #ccc;
-  --text-color: black;
+  /* || FONTS || */
+  /* ----------- */
 
-  /* fonts */
-  --body-font-family: roboto, roboto-fallback;
-  --heading-font-family: var(--body-font-family);
+  /* Base Fonts */
+  --ff-primary: 'neo-sans-pro', sans-serif;
+  --ff-secondary: 'open-sans', sans-serif;
+  --ff-pricefx-icons: 'pricefx-icons';
   --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
 
-  /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 18px;
-  --body-font-size-xs: 16px;
+  /* Font Weights */
+  --fw-regular: 400;
+  --fw-med: 500;
+  --fw-lt-bold: 600;
+  --fw-bold: 700;
 
-  /* heading sizes */
-  --heading-font-size-xxl: 48px;
-  --heading-font-size-xl: 40px;
-  --heading-font-size-l: 32px;
-  --heading-font-size-m: 24px;
-  --heading-font-size-s: 20px;
-  --heading-font-size-xs: 18px;
+  /* Font Icons */
+  --icon-plus: "\e917";
+  --icon-minus: "\e915";
+  --icon-arrow-left: "\e903";
+  --icon-arrow-right: "\e904";
+  --icon-arrow-up: "\e905";
+  --icon-arrow-down: "\e902";
+  --icon-chevron-left: "\e90b";
+  --icon-chevron-right: "\e90c";
+  --icon-chevron-up: "\e90d";
+  --icon-chevron-down: "\e90a";
+  --icon-search: "\e918";
+  --icon-menu: "\e914";
+  --icon-filter: "\e901";
+  --icon-x: "\e91e";
+  --icon-check: "\e909";
+  --icon-triangle-right: "\e900";
+  --icon-check-circle: "\e908";
+  --icon-x-circle: "\e91d";
+  --icon-exclamation-circle: "\e90f";
+  --icon-info-circle: "\e913";
+  
+  /* || BASE SIZING || */
+  /* ----------------- */
 
-  /* nav height */
-  --nav-height: 64px;
+  /* Base Font Sizing */
+  font-size: var(--base-font-size);
+
+  --base-font-size: calc((16 / 16) * 1rem); /* for Accessible Font Sizing */
+  --base-line-height: calc((24 / 16) * 1rem);
+  --body-font-size-l: calc((18 / 16) * 1rem);
+  --body-font-size-m: var(--base-font-size);
+  --body-font-size-s: calc((15 / 16) * 1rem);
+  --body-font-size-xs: calc((13 / 16) * 1rem);
+
+  /* Default Heading Sizing (Mobile 1st) */
+  --heading-font-size-xxl: calc((40 / 16) * 1rem);
+  --heading-font-size-xl: calc((30 / 16) * 1rem);
+  --heading-font-size-l: calc((26 / 16) * 1rem);
+  --heading-font-size-m: calc((22 / 16) * 1rem);
+  --heading-font-size-s: calc((20 / 16) * 1rem);
+
+  /* Base Spacing */
+  --spacing-micro: 4px;
+  --spacing-xxsmall: 8px;
+  --spacing-xsmall: 16px;
+  --spacing-small: 24px;
+  --spacing-medium: 32px;
+  --spacing-large: 48px;
+  --spacing-xlarge: 64px;
+  --spacing-xxlarge: 96px;
+  --spacing-jumbo: 128px;
+
+  /* || COLOR PALETTE || */
+  /* ------------------- */
+
+  /* Primary Shades */
+  --c-primary: #2955a3;
+  --c-primary-lt: #41b6e6;
+
+  /* Secondary Shades */
+  --c-copy: #484d56;
+  --c-secondary-green: #a3d28d;
+  --c-secondary-orange: #e95316;
+  --c-secondary-pink: #df549d;
+  --c-secondary-turquoise: #00c9d4;
+
+  /*  Gray Shades */
+  --c-gray: #dfe1e6;
+  --c-gray-lt: #ebecee;
+  --c-gray-med: #b5bac4;
+  --c-gray-drk: #6e7178;
+  --c-gray-border: #d3d3d3;
+  --c-disabled-copy: #575858;
+  --c-disabled: #ebecf0;
+
+  /* Misc */
+  --c-white: #fff;
+  --c-black: #3c3c3b;
+  --c-dark: #353535;
+  --c-offwhite: #f9fafa;
+  --c-outline-drk: #304f8c;
+  --c-outline-lt: #a9c0ec;
+  --c-link: #466cb9;
+  --c-link-lt: #5fbbe8;
+
+  /* Alerts */
+  --c-disabled-border: var(--c-gray-border);
+  --c-disabled-bg: #f4f5f7;
+  --c-error: #ff4b5d;
+  --c-error-bg: #fff0f1;
+  --c-success: #36a300;
+  --c-success-bg: #f1fcec;
+
+  /* Backgrounds */
+  --c-banner-drk: var(--c-dark);
+  --c-banner-lt: var(--c-gray-lt);
+  --c-banner-lt-striping: var(--c-gray-border);
+  --c-btn-drk: #1f3053;
+
+  /* Gradient */
+  --c-blue-gradient: linear-gradient(123deg, #304f8c 9.71%, #466cb9 86.9%);
+  --c-blue-gradient-hover: linear-gradient(123deg, #304f8c 9.71%, #283f6f 86.9%);
+  --c-blue-gradient-lt: linear-gradient(135deg, #c1d2f3 -3.03%, #a1d8f4 100%);
+  --c-blue-gradient-lt-hover: linear-gradient(135deg, #a9c0ec -3.03%, #7fc9ee 100%);
+  --c-blue-gradient-lt-active: linear-gradient(135deg, #93aee6 -3.03%, #5fbbe8 100%);
+
+  /* || SITE LAYOUT || */
+  /* ----------------- */
+  --site-content-width: 1280px;
+
+  /* || VISIBILITY || */
+  /* ---------------- */
+  --base-transition: all 0.15s ease-in-out;
+  --base-transition-2: all 0.3s ease-in-out;
 }
 
-@font-face {
-  font-family: roboto-fallback;
-  size-adjust: 100.06%;
-  ascent-override: 95%;
-  src: local('Arial');
-}
-
-@media (width >= 900px) {
+/* || MEDIA QUERY UPDATES || */
+/* ------------------------- */
+@media (width >= 768px) {
   :root {
-    --heading-font-size-xxl: 60px;
-    --heading-font-size-xl: 48px;
-    --heading-font-size-l: 36px;
-    --heading-font-size-m: 30px;
-    --heading-font-size-s: 24px;
-    --heading-font-size-xs: 22px;
+
+    /* Headings */
+    --heading-font-size-xxl: calc((80 / 16) * 1rem);
+    --heading-font-size-xl: calc((50 / 16) * 1rem);
+    --heading-font-size-l: calc((33 / 16) * 1rem);
+    --heading-font-size-m: calc((27 / 16) * 1rem);
+    --heading-font-size-s: calc((22 / 16) * 1rem);
   }
 }
 
+/*
+----------------------------------------
+  BASE CSS RULES
+----------------------------------------
+*/
+/* Base Styles */
+html,
+body,
+input,
+select {
+  font-size: var(--body-font-size-l);
+  line-height: var(--base-line-height);
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-size: var(--body-font-size-m);
-  margin: 0;
-  font-family: var(--body-font-family);
-  line-height: 1.6;
-  color: var(--text-color);
-  background-color: var(--background-color);
+  color: var(--c-copy);
   display: none;
+  font-size: var(--body-font-size-l);
+  font-family: var(--ff-secondary);
+  font-weight: var(--fw-regular);
+  margin: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body.appear {
   display: block;
 }
 
-header {
-  height: var(--nav-height);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--heading-font-family);
-  font-weight: 600;
-  line-height: 1.25;
-  margin-top: 1em;
-  margin-bottom: 0.5em;
-  scroll-margin: calc(var(--nav-height) + 1em);
-}
-
-h1 {
-  font-size: var(--heading-font-size-xxl);
-}
-
-h2 {
-  font-size: var(--heading-font-size-xl);
-}
-
-h3 {
-  font-size: var(--heading-font-size-l);
-}
-
-h4 {
-  font-size: var(--heading-font-size-m);
-}
-
-h5 {
-  font-size: var(--heading-font-size-s);
-}
-
-h6 {
-  font-size: var(--heading-font-size-xs);
+/* links */
+a,
+a:hover,
+a:visited {
+  color: var(--c-copy);
+  line-height: var(--base-line-height);
+  text-decoration: underline;
 }
 
 p,
@@ -121,44 +211,22 @@ dl,
 ol,
 ul,
 pre,
-blockquote {
-  margin-top: 1em;
-  margin-bottom: 1em;
+blockquote,
+figure {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
-code,
-pre {
-  font-family: var(--fixed-font-family);
-  font-size: var(--body-font-size-s);
+img {
+  display: block;
 }
 
-code {
-  padding: 0.125em;
-}
-
-pre {
-  overflow: scroll;
-}
-
-main pre {
-  background-color: var(--light-color);
-  padding: 1em;
-  border-radius: 0.25em;
-  overflow-x: auto;
-  white-space: pre;
-}
-
-/* links */
-a:any-link {
-  color: var(--link-color);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-  color: var(--link-hover-color);
-}
-
+/*
+------------------------------------
+  BUTTON CSS RULES
+------------------------------------
+*/
 /* buttons */
 a.button:any-link,
 button {
@@ -202,23 +270,103 @@ button.secondary {
   color: var(--text-color);
 }
 
-main img {
-  max-width: 100%;
-  width: auto;
-  height: auto;
+/*
+------------------------------------
+  TYPOGRAPHY CSS RULES
+------------------------------------
+*/
+/* Base Heading Rules */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--c-copy);
+  line-height: 1;
+  margin: var(--spacing-xsmall) 0;
 }
 
-.icon {
-  display: inline-block;
-  height: 24px;
-  width: 24px;
+h1,
+h2,
+h3,
+h6 {
+  font-family: var(--ff-primary);
 }
 
-.icon img {
-  height: 100%;
-  width: 100%;
+h1,
+h2,
+h3 {
+  font-weight: var(--fw-bold);
 }
 
+h1 {
+  font-size: var(--heading-font-size-xxl);
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: var(--heading-font-size-xl);
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: var(--heading-font-size-l);
+  line-height: 1.23;
+}
+
+h4 {
+  font-size: var(--heading-font-size-m);
+  line-height: 1.27;
+}
+
+h5 {
+  font-size: var(--heading-font-size-s);
+  line-height: 1.3;
+}
+
+h6 {
+  font-size: var(--heading-font-size-s);
+  font-weight: var(--fw-med);
+  letter-spacing: 1.5px;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+@media (width >= 768px) {
+  h1 {
+    line-height: 1.075;
+  }
+
+  h2 {
+    line-height: 1.12;
+  }
+
+  h3 {
+    font-weight: var(--fw-med);
+    line-height: 1.18;
+  }
+
+  h4 {
+    line-height: 1.22;
+  }
+
+  h5 {
+    font-weight: var(--fw-lt-bold);
+    line-height: 1.27;
+  }
+
+  h6 {
+    font-weight: var(--fw-bold);
+    letter-spacing: normal;
+    line-height: 1.27;
+    text-transform: none;
+  }
+}
+
+/* ==========================================
+  TODO: ASSESS AND REFACTOR BEFORE REMOVING
+============================================= */
 /* sections */
 main .section {
   padding: 64px 16px;
@@ -240,5 +388,5 @@ main .section {
 /* section metadata */
 main .section.light,
 main .section.highlight {
-  background-color: var(--light-color);
+  background-color: var(--c-gray-lt);
 }
