@@ -288,13 +288,17 @@ button.tertiary-lt:disabled:hover {
 }
 
 .button-container:has(.tertiary.disabled),
-.button-container:has(.tertiary:disabled) {
+.button-container:has(.tertiary:disabled),
+.button-pfx:has(.tertiary.disabled),
+.button-pfx:has(.tertiary:disabled) {
   display: inline-block;
   position: relative;
 }
 
 .button-container:has(.tertiary.disabled)::before,
-.button-container:has(.tertiary:disabled)::before {
+.button-container:has(.tertiary:disabled)::before,
+.button-pfx:has(.tertiary.disabled)::before,
+.button-pfx:has(.tertiary:disabled)::before {
   background: var(--c-gray-drk);
   content: '';
   display: inline-block;
@@ -306,6 +310,8 @@ button.tertiary-lt:disabled:hover {
 }
 
 .button-container:has(.tertiary-lt.disabled)::before,
-.button-container:has(.tertiary-lt:disabled)::before {
+.button-container:has(.tertiary-lt:disabled)::before,
+.button-pfx:has(.tertiary-lt.disabled)::before,
+.button-pfx:has(.tertiary-lt:disabled)::before {
   background: var(--c-gray-med);
 }
