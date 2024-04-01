@@ -93,7 +93,7 @@ button.secondary {
 a.button.secondary:active,
 button.secondary:active {
   backdrop-filter: blur(12px);
-  background: rgba(223, 225, 230, 0.7);
+  background: rgba(223 225 230 / 70%);
 }
 
 a.button.secondary:focus,
@@ -101,7 +101,7 @@ a.button.secondary:hover,
 button.secondary:focus,
 button.secondary:hover {
   backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255 255 255 / 70%);
 }
 
 a.button.secondary:focus,
@@ -129,7 +129,7 @@ button.secondary-light {
 a.button.secondary-light:active,
 button.secondary-light:active {
   backdrop-filter: blur(12px);
-  background: rgba(223, 225, 230, 0.8);
+  background: rgba(223 225 230 / 80%);
 }
 
 a.button.secondary-light:focus,
@@ -137,7 +137,7 @@ a.button.secondary-light:hover,
 button.secondary-light:focus,
 button.secondary-light:hover {
   backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255 255 255 / 60%);
   border: 2px solid var(--c-disabled-bg);
   color: var(--c-copy);
 }
