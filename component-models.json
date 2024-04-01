@@ -125,7 +125,7 @@
         "valueType": "string",
         "name": "text",
         "label": "Button Label",
-        "value": "Placeholder Label"
+        "value": ""
       },
       {
         "component": "select",
