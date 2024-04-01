@@ -2,7 +2,9 @@
 a.button,
 button {
   appearance: none;
-  background: var(--c-blue-gradient);
+  background: linear-gradient(123deg, #304f8c 4.85%, #466cb9 43.45%, #304f8c 54.85%, #283f6f 86.9%);
+  background-position: left;
+  background-size: 300%;
   border: none;
   border-radius: 4px;
   color: var(--c-white);
@@ -31,7 +33,7 @@ a.button:focus,
 a.button:hover,
 button:focus,
 button:hover {
-  background: var(--c-blue-gradient-hover);
+    background-position: right;
 }
 
 a.button:focus,
