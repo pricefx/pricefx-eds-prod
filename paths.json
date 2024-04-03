@@ -2,7 +2,7 @@
   "mappings": [
     "/content/pricefx/:/",
     "/content/pricefx/en:/",
-    "/content/pricefx/en/configuration/redirects.json",
+    "/content/pricefx/en/configuration/redirects.json:/configuration/redirects.json",
     "/content/pricefx.resource/en/configuration/query-index.json:/configuration/query-index.json"
   ],
   "includes": ["/content/pricefx/"]
