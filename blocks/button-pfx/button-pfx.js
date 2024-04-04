@@ -16,35 +16,37 @@ export default function decorate(block) {
   }
 
   if (type.textContent.trim() === 'primary-dropdown') {
-    block.classList.add('button-icon');
+    block.children[0].className = '';
+    block.children[0].classList.add('button', 'button-icon');
   } else if (type.textContent.trim() === 'primary-light') {
-    block.classList.add('primary-lt');
+    block.children[0].className = '';
+    block.children[0].classList.add('button', 'primary-lt');
   } else if (type.textContent.trim() === 'primary-light-dropdown') {
-    block.classList.add('primary-lt');
-    block.classList.add('button-icon');
+    block.children[0].className = '';
+    block.children[0].classList.add('button', 'primary-lt', 'button-icon');
   } else if (type.textContent.trim() === 'secondary') {
-    block.classList.add('secondary');
+    block.children[0].className = '';
+    block.children[0].classList.add('button', 'secondary');
   } else if (type.textContent.trim() === 'secondary-dropdown') {
-    block.classList.add('secondary');
-    block.classList.add('button-icon');
+    block.children[0].className = '';
+    block.children[0].classList.add('button', 'secondary', 'button-icon');
   } else if (type.textContent.trim() === 'secondary-light') {
-    block.classList.add('secondary-lt');
+    block.children[0].className = '';
+    block.children[0].classList.add('button', 'secondary-lt');
   } else if (type.textContent.trim() === 'secondary-light-dropdown') {
-    block.classList.add('secondary-lt');
-    block.classList.add('button-icon');
+    block.children[0].className = '';
+    block.children[0].classList.add('button', 'secondary-lt', 'button-icon');
   } else if (type.textContent.trim() === 'tertiary') {
-    block.classList.add('tertiary');
+    block.children[0].className = '';
+    block.children[0].classList.add('button', 'tertiary');
   } else if (type.textContent.trim() === 'tertiary-underline') {
-    block.classList.add('tertiary');
-    block.classList.add('tertiary-underline');
+    block.children[0].className = '';
+    block.children[0].classList.add('button', 'tertiary', 'tertiary-underline');
   } else if (type.textContent.trim() === 'tertiary-light') {
-    block.classList.add('tertiary');
-    block.classList.add('tertiary-lt');
+    block.children[0].className = '';
+    block.children[0].classList.add('button', 'tertiary', 'tertiary-lt');
   } else if (type.textContent.trim() === 'tertiary-light-underline') {
-    block.classList.add('tertiary');
-    block.classList.add('tertiary-lt');
-    block.classList.add('tertiary-underline');
+    block.children[0].className = '';
+    block.children[0].classList.add('button', 'tertiary', 'tertiary-lt', 'tertiary-underline');
   }
-
-  console.log(block, block.children[0]);
 }
