@@ -1,16 +1,15 @@
 // media query match that indicates mobile/tablet width
 // const isDesktop = window.matchMedia('(min-width: 900px)');
 
-const getHeaderContent = () => {
-  const headerJsonUrl = '/configuration/header.json';
-  fetch(headerJsonUrl, {
-    method: 'GET',
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-    });
-};
+// const getHeaderContent = () => {
+//   const headerJsonUrl = '/header.json';
+//   fetch(headerJsonUrl, {
+//     method: 'GET',
+//   })
+//     .then((response) => {
+//       console.log(response);
+//     });
+// };
 
 const testData = [
   {
@@ -337,10 +336,36 @@ export default async function decorate(block) {
   navLevelOne.classList.add('nav-list-level-1');
 
   // Render Level 3 Navigation
+  const groupByLevelTwo = Object.groupBy(testData, (data) => data['Level 2'].trim());
+  const renderLevelThreeItems = (navLabel) => {
+    const navLevelThreeNames = [];
+    let markup = '';
+    groupByLevelTwo[navLabel].forEach((group) => {
+      navLevelThreeNames.push(group['Level 3']);
+    });
+    const uniqueNavLevelThreeNames = [...new Set(navLevelThreeNames)];
+    console.log(uniqueNavLevelThreeNames);
+    uniqueNavLevelThreeNames.forEach((level3Label) => {
+      if (level3Label.includes('|')) {
+        const linkInfoArray = level3Label.split('|');
+        markup += `
+          <li class="nav-list-level-3-item">
+            <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length === 3 ? linkInfoArray[2].trim() : '_self'}">${linkInfoArray[0].trim()}</a>
+          </li>
+        `;
+        // } else if (level3Label.includes('|') && navLabel === '') {
+        //   markup += `
+        //     <li class="nav-list-level-2-item no-category">
+        //       <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length === 3 ? linkInfoArray[2].trim() : '_self'}">${linkInfoArray[0].trim()}</a>
+        //     </li>
+        //   `;
+      }
+    });
+    return markup;
+  };
 
   // Render Level 2 Navigation
   const groupByLevelOne = Object.groupBy(testData, (data) => data['Level 1'].trim());
-
   const renderLevelTwoItems = (navLabel) => {
     const navLevelTwoNames = [];
     let markup = '';
@@ -352,10 +377,9 @@ export default async function decorate(block) {
     uniqueNavLevelTwoNames.forEach((level2Label) => {
       if (level2Label.includes('|')) {
         const linkInfoArray = level2Label.split('|');
-        console.log(linkInfoArray);
         markup += `
           <li class="nav-list-level-2-item">
-            <a href="${linkInfoArray[1].trim()}" class="nav-list-level-2-item-category" target="${linkInfoArray.length === 3 ? linkInfoArray[2].trim() : '_self'}">${linkInfoArray[0].trim()}</a>
+            <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length === 3 ? linkInfoArray[2].trim() : '_self'}">${linkInfoArray[0].trim()}</a>
           </li>
         `;
       } else if (!level2Label.includes('|') && level2Label !== '') {
@@ -363,8 +387,14 @@ export default async function decorate(block) {
           <li class="nav-list-level-2-item">
             <span class="nav-list-level-2-item-category">${level2Label}</span>
             <ul class="nav-list-level-3">
-
+              ${renderLevelThreeItems(level2Label)}
             </ul>
+          </li>
+        `;
+      } else if (level2Label === '') {
+        markup += `
+          <li class="nav-list-level-2-item no category">
+            ${renderLevelThreeItems(level2Label)}
           </li>
         `;
       }
@@ -395,7 +425,6 @@ export default async function decorate(block) {
     navLevelOne.innerHTML = markup;
   };
   renderLevelOneItems(uniqueNavLevelOneNames);
-  console.log(uniqueNavLevelOneNames);
 
   // if (navSections) {
   //   navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
@@ -425,6 +454,6 @@ export default async function decorate(block) {
   // toggleMenu(nav, navSections, isDesktop.matches);
   // isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
 
-  getHeaderContent();
+  // getHeaderContent();
   nav.append(navLevelOne);
 }
