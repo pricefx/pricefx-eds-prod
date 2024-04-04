@@ -211,7 +211,6 @@ button.tertiary::before {
   font-family: var(--ff-pricefx-icons);
   font-size: calc((24 / 16) * 1rem);
   position: absolute;
-  top: 0;
   left: 5px;
 }
 
@@ -221,7 +220,6 @@ button.tertiary::after {
   font-family: var(--ff-pricefx-icons);
   font-size: calc((24 / 16) * 1rem);
   position: absolute;
-  top: 0;
   right: 5px;
 }
 

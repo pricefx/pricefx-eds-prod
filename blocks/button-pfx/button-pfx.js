@@ -1,4 +1,4 @@
-export default function decorate(block) {
+export default async function decorate(block) {
   const [link, buttonLabel, type] = block.children;
   block.textContent = '';
 
