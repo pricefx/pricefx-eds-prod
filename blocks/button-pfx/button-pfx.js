@@ -46,5 +46,5 @@ export default function decorate(block) {
     block.classList.add('tertiary-underline');
   }
 
-  console.log(block.children, link.textContent.trim(), buttonLabel.textContent.trim(), type.textContent.trim());
+  console.log(block, block.children[0]);
 }
