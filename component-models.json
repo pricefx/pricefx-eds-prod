@@ -128,6 +128,82 @@
     ]
   },
   {
+    "id": "button-pfx",
+    "fields": [
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "href",
+        "label": "Link",
+        "value": ""
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "text",
+        "label": "Button Label",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Type",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Primary",
+            "value": "button"
+          },
+          {
+            "name": "Primary Dropdown",
+            "value": "button button-icon"
+          },
+          {
+            "name": "Primary Light",
+            "value": "button primary-lt"
+          },
+          {
+            "name": "Primary Light Dropdown",
+            "value": "button primary-lt button-icon"
+          },
+          {
+            "name": "Secondary",
+            "value": "button secondary"
+          },
+          {
+            "name": "Secondary Dropdown",
+            "value": "button secondary button-icon"
+          },
+          {
+            "name": "Secondary Light",
+            "value": "button secondary-lt"
+          },
+          {
+            "name": "Secondary Light Dropdown",
+            "value": "button secondary-lt button-icon"
+          },
+          {
+            "name": "Tertiary",
+            "value": "button tertiary"
+          },
+          {
+            "name": "Tertiary Underline",
+            "value": "button tertiary tertiary-underline"
+          },
+          {
+            "name": "Tertiary Light",
+            "value": "button tertiary tertiary-lt"
+          },
+          {
+            "name": "Tertiary Light Underline",
+            "value": "button tertiary tertiary-lt tertiary-underline"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "columns",
     "fields": [
       {
