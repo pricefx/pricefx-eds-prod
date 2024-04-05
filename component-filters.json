@@ -9,7 +9,7 @@
   },
   {
     "id": "column",
-    "components": ["button", "image", "text", "title", "google-map"]
+    "components": ["button", "image", "text", "title", "google-map", "breadcrumb"]
   },
   {
     "id": "section",
