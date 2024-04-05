@@ -37,10 +37,10 @@
   },
   {
     "id": "accordion",
-    "components": ["accordion-item"]
+    "components": ["accordion-item", "spacer"]
   },
   {
     "id": "tabs",
-    "components": ["tab-item"]
+    "components": ["tab-item", "spacer"]
   }
 ]
