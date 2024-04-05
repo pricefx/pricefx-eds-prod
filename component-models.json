@@ -148,7 +148,7 @@
         "component": "select",
         "name": "classes",
         "value": "button",
-        "label": "Type",
+        "label": "Variant",
         "valueType": "string",
         "options": [
           {
@@ -157,7 +157,7 @@
           },
           {
             "name": "Primary Dropdown",
-            "value": ["button", "button-icon"]
+            "value": ["button", "button-icon", "test-class"]
           },
           {
             "name": "Primary Light",
