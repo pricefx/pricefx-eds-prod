@@ -1,7 +1,7 @@
 [
   {
     "id": "main",
-    "components": ["section"]
+    "components": ["section", "spacer"]
   },
   {
     "id": "columns",
@@ -27,7 +27,8 @@
       "tabs",
       "text",
       "title",
-      "richtext"
+      "richtext",
+      "spacer"
     ]
   },
   {
