@@ -1,15 +1,16 @@
 // media query match that indicates mobile/tablet width
 // const isDesktop = window.matchMedia('(min-width: 900px)');
 
-// const getHeaderContent = () => {
-//   const headerJsonUrl = '/header.json';
-//   fetch(headerJsonUrl, {
-//     method: 'GET',
-//   })
-//     .then((response) => {
-//       console.log(response);
-//     });
-// };
+const getHeaderContent = () => {
+  const headerJsonUrl = '/header.json';
+  fetch(headerJsonUrl, {
+    method: 'GET',
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    });
+};
 
 const testData = [
   {
@@ -344,7 +345,6 @@ export default async function decorate(block) {
       navLevelThreeNames.push(group['Level 3']);
     });
     const uniqueNavLevelThreeNames = [...new Set(navLevelThreeNames)];
-    console.log(uniqueNavLevelThreeNames);
     uniqueNavLevelThreeNames.forEach((level3Label) => {
       if (level3Label.includes('|')) {
         const linkInfoArray = level3Label.split('|');
@@ -353,12 +353,6 @@ export default async function decorate(block) {
             <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length === 3 ? linkInfoArray[2].trim() : '_self'}">${linkInfoArray[0].trim()}</a>
           </li>
         `;
-        // } else if (level3Label.includes('|') && navLabel === '') {
-        //   markup += `
-        //     <li class="nav-list-level-2-item no-category">
-        //       <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length === 3 ? linkInfoArray[2].trim() : '_self'}">${linkInfoArray[0].trim()}</a>
-        //     </li>
-        //   `;
       }
     });
     return markup;
@@ -368,12 +362,15 @@ export default async function decorate(block) {
   const groupByLevelOne = Object.groupBy(testData, (data) => data['Level 1'].trim());
   const renderLevelTwoItems = (navLabel) => {
     const navLevelTwoNames = [];
+    const navLevelThreeNames = [];
     let markup = '';
     groupByLevelOne[navLabel].forEach((group) => {
       navLevelTwoNames.push(group['Level 2']);
+      if (group['Level 2'] === '') {
+        navLevelThreeNames.push(group['Level 3']);
+      }
     });
     const uniqueNavLevelTwoNames = [...new Set(navLevelTwoNames)];
-    console.log(uniqueNavLevelTwoNames);
     uniqueNavLevelTwoNames.forEach((level2Label) => {
       if (level2Label.includes('|')) {
         const linkInfoArray = level2Label.split('|');
@@ -392,11 +389,16 @@ export default async function decorate(block) {
           </li>
         `;
       } else if (level2Label === '') {
-        markup += `
-          <li class="nav-list-level-2-item no category">
-            ${renderLevelThreeItems(level2Label)}
-          </li>
-        `;
+        navLevelThreeNames.forEach((level3Label) => {
+          if (level3Label.includes('|')) {
+            const linkInfoArray = level3Label.split('|');
+            markup += `
+              <li class="nav-list-level-2-item no-category">
+                <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length === 3 ? linkInfoArray[2].trim() : '_self'}">${linkInfoArray[0].trim()}</a>
+              </li>
+            `;
+          }
+        });
       }
     });
     return markup;
@@ -425,6 +427,33 @@ export default async function decorate(block) {
     navLevelOne.innerHTML = markup;
   };
   renderLevelOneItems(uniqueNavLevelOneNames);
+  nav.append(navLevelOne);
+
+  // Render Header Search
+  const searchWrapper = document.createElement('div');
+  searchWrapper.classList.add('search-wrapper');
+  searchWrapper.innerHTML = `
+    <button class="header-search-cta" aria-label="Search">
+      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="37" viewBox="0 0 36 37" fill="none">
+        <path d="M31.5 32.0005L22.5 23.0005M25.5 15.5005C25.5 21.2995 20.799 26.0005 15 26.0005C9.20101 26.0005 4.5 21.2995 4.5 15.5005C4.5 9.7015 9.20101 5.00049 15 5.00049C20.799 5.00049 25.5 9.7015 25.5 15.5005Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="search-input-wrapper">
+      <button type="submit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="37" viewBox="0 0 36 37" fill="none">
+          <path d="M31.5 32.0005L22.5 23.0005M25.5 15.5005C25.5 21.2995 20.799 26.0005 15 26.0005C9.20101 26.0005 4.5 21.2995 4.5 15.5005C4.5 9.7015 9.20101 5.00049 15 5.00049C20.799 5.00049 25.5 9.7015 25.5 15.5005Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <input type="text" name="search" aria-label="Search">
+    </div>
+  `;
+  nav.insertAdjacentElement('afterend', searchWrapper);
+
+  // Render Talk to an Expert CTA
+  const expertCta = document.createElement('a');
+  expertCta.classList.add('expertCta');
+  expertCta.textContent = 'Talk to an Expert';
+  block.insertAdjacentElement('beforeend', expertCta);
 
   // if (navSections) {
   //   navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
@@ -454,6 +483,5 @@ export default async function decorate(block) {
   // toggleMenu(nav, navSections, isDesktop.matches);
   // isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
 
-  // getHeaderContent();
-  nav.append(navLevelOne);
+  getHeaderContent();
 }
