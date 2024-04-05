@@ -147,57 +147,57 @@
       {
         "component": "select",
         "name": "classes",
-        "value": "",
+        "value": "button",
         "label": "Type",
         "valueType": "string",
         "options": [
           {
             "name": "Primary",
-            "value": ""
+            "value": "button"
           },
           {
             "name": "Primary Dropdown",
-            "value": "primary-dropdown"
+            "value": ["button", "button-icon"]
           },
           {
             "name": "Primary Light",
-            "value": "primary-light"
+            "value": ["button", "primary-lt"]
           },
           {
             "name": "Primary Light Dropdown",
-            "value": "primary-light-dropdown"
+            "value": ["button", "primary-lt", "button-icon"]
           },
           {
             "name": "Secondary",
-            "value": "secondary"
+            "value": ["button", "secondary"]
           },
           {
             "name": "Secondary Dropdown",
-            "value": "secondary-dropdown"
+            "value": ["button", "secondary", "button-icon"]
           },
           {
             "name": "Secondary Light",
-            "value": "secondary-light"
+            "value": ["button", "secondary-lt"]
           },
           {
             "name": "Secondary Light Dropdown",
-            "value": "secondary-light-dropdown"
+            "value": ["button", "secondary-lt", "button-icon"]
           },
           {
             "name": "Tertiary",
-            "value": "tertiary"
+            "value": ["button", "tertiary"]
           },
           {
             "name": "Tertiary Underline",
-            "value": "tertiary-underline"
+            "value": ["button", "tertiary", "tertiary-underline"]
           },
           {
             "name": "Tertiary Light",
-            "value": "tertiary-light"
+            "value": ["button", "tertiary", "tertiary-lt"]
           },
           {
             "name": "Tertiary Light Underline",
-            "value": "tertiary-light-underline"
+            "value": ["button", "tertiary", "tertiary-lt", "tertiary-underline"]
           }
         ]
       }
