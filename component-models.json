@@ -436,5 +436,36 @@
         "value": "Benjamin Franklin"
       }
     ]
+  },
+  {
+    "id": "breadcrumb",
+    "fields": [
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "Hide Breadcrumb",
+        "name": "hideBreadcrumb"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "label": "Navigation Start Level",
+        "name": "navigationStartLevel",
+        "value": ""
+
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "Hide Current Page",
+        "name": "hideCurrentPage"
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "Show Hidden Navigation Items",
+        "name": "showHiddenNavigationItems"
+      }
+    ]
   }
 ]
