@@ -1,7 +1,7 @@
 [
   {
     "id": "main",
-    "components": ["section"]
+    "components": ["section", "spacer"]
   },
   {
     "id": "columns",
@@ -9,13 +9,14 @@
   },
   {
     "id": "column",
-    "components": ["button", "image", "text", "title", "google-map"]
+    "components": ["button", "button-pfx", "image", "text", "title", "google-map", "spacer", "breadcrumb"]
   },
   {
     "id": "section",
     "components": [
       "accordion",
       "button",
+      "button-pfx",
       "cards",
       "columns",
       "embed",
@@ -25,7 +26,10 @@
       "quote",
       "tabs",
       "text",
-      "title"
+      "title",
+      "richtext",
+      "spacer"
+      "breadcrumb"
     ]
   },
   {

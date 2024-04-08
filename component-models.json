@@ -60,6 +60,23 @@
         "name": "alt",
         "value": "Default alt",
         "label": "Alt Text"
+      },
+      {
+        "component": "select",
+        "name": "roundedCorner",
+        "value": "",
+        "label": "Image Type",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Rounded Corner",
+            "value": "image--rounded-corner"
+          }
+        ]
       }
     ]
   },
@@ -105,6 +122,82 @@
           {
             "name": "secondary",
             "value": "secondary"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "button-pfx",
+    "fields": [
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "href",
+        "label": "Link",
+        "value": ""
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "text",
+        "label": "Button Label",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "primary",
+        "label": "Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Primary",
+            "value": "primary"
+          },
+          {
+            "name": "Primary Dropdown",
+            "value": "primary-icon"
+          },
+          {
+            "name": "Primary Light",
+            "value": "primary-lt"
+          },
+          {
+            "name": "Primary Light Dropdown",
+            "value": "primary-lt-icon"
+          },
+          {
+            "name": "Secondary",
+            "value": "secondary"
+          },
+          {
+            "name": "Secondary Dropdown",
+            "value": "secondary-icon"
+          },
+          {
+            "name": "Secondary Light",
+            "value": "secondary-lt"
+          },
+          {
+            "name": "Secondary Light Dropdown",
+            "value": "secondary-lt-icon"
+          },
+          {
+            "name": "Tertiary",
+            "value": "tertiary"
+          },
+          {
+            "name": "Tertiary Underline",
+            "value": "tertiary-underline"
+          },
+          {
+            "name": "Tertiary Light",
+            "value": "tertiary-lt"
+          },
+          {
+            "name": "Tertiary Light Underline",
+            "value": "tertiary-lt-underline"
           }
         ]
       }
@@ -224,11 +317,11 @@
           },
           {
             "name": "Grey",
-            "value": "section--background-color-grey"
+            "value": "section--bg-color-grey"
           },
           {
             "name": "White",
-            "value": "section--background-color-white"
+            "value": "section--bg-color-white"
           }
         ]
       },
@@ -434,6 +527,90 @@
         "name": "author",
         "label": "Author",
         "value": "Benjamin Franklin"
+      }
+    ]
+  },
+  {
+    "id": "richtext",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "rte",
+        "label": "Rich Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "spacer",
+    "fields": [
+      {
+        "component": "select",
+        "name": "spacer",
+        "value": "",
+        "label": "Spacer",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "None",
+            "value": "spacer-no-spacing"
+          },
+          {
+            "name": "Extra Small",
+            "value": "spacer—extra-small"
+          },
+          {
+            "name": "Small",
+            "value": "spacer—small"
+          },
+          {
+            "name": "Medium",
+            "value": "spacer—medium"
+          },
+          {
+            "name": "Large",
+            "value": "spacer—large"
+          },
+          {
+            "name": "Extra Large",
+            "value": "spacer-extra-large"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "breadcrumb",
+    "fields": [
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "Hide Breadcrumb",
+        "name": "hideBreadcrumb"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "label": "Navigation Start Level",
+        "name": "navigationStartLevel",
+        "value": ""
+
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "Hide Current Page",
+        "name": "hideCurrentPage"
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "Show Hidden Navigation Items",
+        "name": "showHiddenNavigationItems"
       }
     ]
   }
