@@ -547,13 +547,17 @@
       {
         "component": "select",
         "name": "spacer",
-        "value": "none",
+        "value": "",
         "label": "Spacer",
         "valueType": "string",
         "options": [
           {
+            "name": "Default",
+            "value": ""
+          },
+          {
             "name": "None",
-            "value": "spacer--no-spacing"
+            "value": "spacer-no-spacing"
           },
           {
             "name": "Extra Small",
@@ -573,7 +577,7 @@
           },
           {
             "name": "Extra Large",
-            "value": "spacer—extra-large"
+            "value": "spacer-extra-large"
           }
         ]
       }
