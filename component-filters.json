@@ -28,8 +28,9 @@
       "text",
       "title",
       "richtext",
-      "spacer"
-      "breadcrumb"
+      "spacer",
+      "breadcrumb",
+      "socialshare"
     ]
   },
   {

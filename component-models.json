@@ -613,5 +613,22 @@
         "name": "showHiddenNavigationItems"
       }
     ]
+  },
+  {
+    "id": "socialshare",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "socialshare",
+        "label": "Social Share",
+        "valueType": "string",
+        "options": [
+          { "name": "Facebook", "value": "facebook" },
+          { "name": "X (Formerly Twitter)", "value": "twitter" },
+          { "name": "Linkedin", "value": "linkedin" },
+          { "name": "Instagram", "value": "instagram" }
+        ]
+      }
+    ]
   }
 ]
