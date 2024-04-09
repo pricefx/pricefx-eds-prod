@@ -598,7 +598,6 @@
         "label": "Navigation Start Level",
         "name": "navigationStartLevel",
         "value": ""
-
       },
       {
         "component": "boolean",
@@ -626,7 +625,7 @@
           { "name": "Facebook", "value": "facebook" },
           { "name": "X (Formerly Twitter)", "value": "twitter" },
           { "name": "Linkedin", "value": "linkedin" },
-          { "name": "Instagram", "value": "instagram" }
+          { "name": "Email", "value": "email" }
         ]
       }
     ]
