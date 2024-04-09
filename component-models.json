@@ -618,13 +618,15 @@
     "id": "socialshare",
     "fields": [
       {
-        "component": "boolean-group",
+        "component": "select",
         "label": "Social Type",
-        "name": "boolean",
-        "valueType": "boolean[]",
-        "options" : [
-          {"name": "Share", "value":"boolean"},
-          {"name": "Follow", "value":"boolean"}
+        "name": "socialType",
+        "valueType": "string",
+        "required": true,
+        "maxSize": 1,
+        "options": [
+          { "name": "Share", "value": "share-type" },
+          { "name": "Follow", "value": "follow-type" }
         ]
       },
       {
