@@ -618,10 +618,21 @@
     "id": "socialshare",
     "fields": [
       {
+        "component": "boolean-group",
+        "label": "Social Type",
+        "name": "boolean",
+        "valueType": "boolean[]",
+        "options" : [
+          {"name": "Share", "value":"boolean"},
+          {"name": "Follow", "value":"boolean"}
+        ]
+      },
+      {
         "component": "multiselect",
         "name": "socialshare",
         "label": "Social Share",
         "valueType": "string",
+        "placeholder": "Select social platform",
         "options": [
           { "name": "Facebook", "value": "facebook" },
           { "name": "X (Formerly Twitter)", "value": "twitter" },
