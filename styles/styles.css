@@ -31,6 +31,7 @@
   --fw-med: 500;
   --fw-lt-bold: 600;
   --fw-bold: 700;
+  --fw-x-bold: 800;
 
   /* Font Icons */
   --icon-plus: "\e917";
@@ -117,11 +118,13 @@
   --c-black: #3c3c3b;
   --c-dark: #353535;
   --c-mid-dark: #333537;
+  --c-extra-dark: #272727;
   --c-offwhite: #f9fafa;
   --c-outline-drk: #304f8c;
   --c-outline-lt: #a9c0ec;
   --c-link: #466cb9;
   --c-link-lt: #5fbbe8;
+  --c-mega-menu-link: #2d9bd2;
 
   /* Alerts */
   --c-disabled-border: var(--c-gray-border);

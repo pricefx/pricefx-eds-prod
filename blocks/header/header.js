@@ -1,16 +1,16 @@
 // media query match that indicates mobile/tablet width
 // const isDesktop = window.matchMedia('(min-width: 900px)');
 
-const getHeaderContent = () => {
-  const headerJsonUrl = '/header.json';
-  fetch(headerJsonUrl, {
-    method: 'GET',
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-    });
-};
+// const getHeaderContent = () => {
+//   const headerJsonUrl = '/header.json';
+//   fetch(headerJsonUrl, {
+//     method: 'GET',
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log(data);
+//     });
+// };
 
 const testData = [
   {
@@ -451,7 +451,8 @@ export default async function decorate(block) {
 
   // Render Talk to an Expert CTA
   const expertCta = document.createElement('a');
-  expertCta.classList.add('expertCta');
+  expertCta.classList.add('expert-cta');
+  expertCta.href = '';
   expertCta.textContent = 'Talk to an Expert';
   block.insertAdjacentElement('beforeend', expertCta);
 
@@ -483,5 +484,5 @@ export default async function decorate(block) {
   // toggleMenu(nav, navSections, isDesktop.matches);
   // isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
 
-  getHeaderContent();
+  // getHeaderContent();
 }
