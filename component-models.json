@@ -630,6 +630,34 @@
         ]
       },
       {
+        "component": "text",
+        "name": "Facebook",
+        "label": "Simple Text",
+        "valueType": "string",
+        "placeholder": "Enter Facebook Page URL"
+      },
+      {
+        "component": "text",
+        "name": "twitter",
+        "label": "X (Formerly Twitter)",
+        "valueType": "string",
+        "placeholder": "Enter Twitter Page URL"
+      },
+      {
+        "component": "text",
+        "name": "linkedin",
+        "label": "Linkedin",
+        "valueType": "string",
+        "placeholder": "Enter Instagram Page URL"
+      },
+      {
+        "component": "text",
+        "name": "instagram",
+        "label": "Instagram",
+        "valueType": "string",
+        "placeholder": "Enter Instagram Page URL"
+      },
+      {
         "component": "multiselect",
         "name": "socialshare",
         "label": "Social Share",
