@@ -632,7 +632,7 @@
       {
         "component": "text",
         "name": "Facebook",
-        "label": "Simple Text",
+        "label": "Facebook",
         "valueType": "string",
         "placeholder": "Enter Facebook Page URL"
       },
