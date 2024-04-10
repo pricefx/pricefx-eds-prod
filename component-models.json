@@ -638,10 +638,51 @@
     "id": "socialshare",
     "fields": [
       {
+        "component": "select",
+        "label": "Social Type",
+        "name": "socialType",
+        "valueType": "string",
+        "required": true,
+        "maxSize": 1,
+        "options": [
+          { "name": "Share", "value": "share-type" },
+          { "name": "Follow", "value": "follow-type" }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "Facebook",
+        "label": "Facebook",
+        "valueType": "string",
+        "placeholder": "Enter Facebook Page URL"
+      },
+      {
+        "component": "text",
+        "name": "twitter",
+        "label": "X (Formerly Twitter)",
+        "valueType": "string",
+        "placeholder": "Enter Twitter Page URL"
+      },
+      {
+        "component": "text",
+        "name": "linkedin",
+        "label": "Linkedin",
+        "valueType": "string",
+        "placeholder": "Enter Instagram Page URL"
+      },
+      {
+        "component": "text",
+        "name": "instagram",
+        "label": "Instagram",
+        "valueType": "string",
+        "placeholder": "Enter Instagram Page URL"
+      },
+      {
         "component": "multiselect",
         "name": "socialshare",
         "label": "Social Share",
         "valueType": "string",
+        "placeholder": "Select social platform",
         "options": [
           { "name": "Facebook", "value": "facebook" },
           { "name": "X (Formerly Twitter)", "value": "twitter" },
