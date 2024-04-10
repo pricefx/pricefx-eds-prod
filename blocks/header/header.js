@@ -228,6 +228,71 @@ const testData = [
     'Level 2': '',
     'Level 3': 'Awards | www.pricefx.com/test.html | _blank',
   },
+  {
+    'Level 1': 'About Us',
+    'Level 2': '',
+    'Level 3': 'Brand Manual | www.pricefx.com/test.html | _blank',
+  },
+  {
+    'Level 1': 'About Us',
+    'Level 2': 'Pricefx',
+    'Level 3': 'The Corporate Logo Signage | www.pricefx.com/test.html | _blank',
+  },
+  {
+    'Level 1': 'About Us',
+    'Level 2': 'Pricefx',
+    'Level 3': 'The Corporate Fonts | www.pricefx.com/test.html | _blank',
+  },
+  {
+    'Level 1': 'About Us',
+    'Level 2': 'Pricefx',
+    'Level 3': 'Corporate Color Palette | www.pricefx.com/test.html | _blank',
+  },
+  {
+    'Level 1': 'About Us',
+    'Level 2': 'Pricefx',
+    'Level 3': 'Correct Logo Placement | www.pricefx.com/test.html | _blank',
+  },
+  {
+    'Level 1': 'About Us',
+    'Level 2': 'Pricefx',
+    'Level 3': 'Corporate Image | www.pricefx.com/test.html | _blank',
+  },
+  {
+    'Level 1': 'About Us',
+    'Level 2': 'Plan Price Profit',
+    'Level 3': 'The Corporate Logo Signage | www.pricefx.com/test.html | _blank',
+  },
+  {
+    'Level 1': 'About Us',
+    'Level 2': 'Plan Price Profit',
+    'Level 3': 'Corporate Color Palette | www.pricefx.com/test.html | _blank',
+  },
+  {
+    'Level 1': 'About Us',
+    'Level 2': 'Plan Price Profit',
+    'Level 3': 'The Corporate Logo Signage | www.pricefx.com/test.html | _blank',
+  },
+  {
+    'Level 1': 'About Us',
+    'Level 2': 'Accelerate',
+    'Level 3': 'The Corporate Logo Signage | www.pricefx.com/test.html | _blank',
+  },
+  {
+    'Level 1': 'About Us',
+    'Level 2': 'Advantage',
+    'Level 3': 'The Corporate Logo Signage | www.pricefx.com/test.html | _blank',
+  },
+  {
+    'Level 1': 'About Us',
+    'Level 2': 'Advantage',
+    'Level 3': "Affiliate Programs' Logos | www.pricefx.com/test.html | _blank",
+  },
+  {
+    'Level 1': 'About Us',
+    'Level 2': 'Plasma',
+    'Level 3': 'The Corporate Logo Signage | www.pricefx.com/test.html | _blank',
+  },
 ];
 
 // function closeOnEscape(e) {
@@ -376,12 +441,12 @@ export default async function decorate(block) {
         const linkInfoArray = level2Label.split('|');
         markup += `
           <li class="nav-list-level-2-item">
-            <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length === 3 ? linkInfoArray[2].trim() : '_self'}">${linkInfoArray[0].trim()}</a>
+            <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length >= 2 ? linkInfoArray[2].trim() : '_self'}" ${linkInfoArray.length >= 2 ? "class='level-2-item-link'" : ''}>${linkInfoArray[0].trim()}</a>
           </li>
         `;
       } else if (!level2Label.includes('|') && level2Label !== '') {
         markup += `
-          <li class="nav-list-level-2-item">
+          <li class="nav-list-level-2-item category">
             <span class="nav-list-level-2-item-category">${level2Label}</span>
             <ul class="nav-list-level-3">
               ${renderLevelThreeItems(level2Label)}
@@ -389,16 +454,22 @@ export default async function decorate(block) {
           </li>
         `;
       } else if (level2Label === '') {
+        let childMarkup = '';
         navLevelThreeNames.forEach((level3Label) => {
           if (level3Label.includes('|')) {
             const linkInfoArray = level3Label.split('|');
-            markup += `
+            childMarkup += `
               <li class="nav-list-level-2-item no-category">
                 <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length === 3 ? linkInfoArray[2].trim() : '_self'}">${linkInfoArray[0].trim()}</a>
               </li>
             `;
           }
         });
+        markup = `
+          <ul class="no-category-wrapper">
+            ${childMarkup}
+          </ul>
+        `;
       }
     });
     return markup;
@@ -418,9 +489,11 @@ export default async function decorate(block) {
       markup += `
         <li class="nav-list-level-1-item">
           <span class="nav-list-level-1-item-name">${navLabel}</span>
-          <ul class="nav-list-level-2">
-            ${renderLevelTwoItems(navLabel)}
-					</ul>
+          <div class="megamenu-wrapper">
+            <ul class="nav-list-level-2 nav-list-level-2-${navLabels.indexOf(navLabel) + 1}">
+              ${renderLevelTwoItems(navLabel)}
+            </ul>
+          </div>
         </li>
       `;
     });
