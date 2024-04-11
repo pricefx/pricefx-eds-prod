@@ -304,7 +304,6 @@ h4[data-textcolor="title-dark-blue-gradient"],
 h5[data-textcolor="title-dark-blue-gradient"],
 h6[data-textcolor="title-dark-blue-gradient"] {
   color: var(--c-dark-blue-gradient);
-
 }
 
 @media (width >= 768px) {

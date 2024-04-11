@@ -44,9 +44,9 @@
       },
       {
         "component": "select",
-        "name": "textColor",
+        "name": "Color",
         "value": "",
-        "label": "Text Color",
+        "label": "classes",
         "valueType": "string",
         "options": [
           {
