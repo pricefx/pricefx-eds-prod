@@ -41,6 +41,23 @@
             "value": "h6"
           }
         ]
+      },
+      {
+        "component": "select",
+        "name": "textColor",
+        "value": "",
+        "label": "Text Color",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Dark Blue",
+            "value": "title-dark-blue-gradient"
+          }
+        ]
       }
     ]
   },
@@ -66,14 +83,14 @@
         "name": "imageLink",
         "label": "Image Link",
         "valueType": "string",
-        "description" : "If you add link then it will make image clickable"
+        "description": "If you add link then it will make image clickable"
       },
       {
         "component": "boolean",
         "label": "Target Blank",
         "name": "targetBlank",
         "valueType": "boolean",
-        "description" : "If you selected the link will open in new window"
+        "description": "If you selected the link will open in new window"
       }
     ]
   },

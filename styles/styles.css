@@ -141,6 +141,8 @@
   --c-blue-gradient-lt: linear-gradient(135deg, #c1d2f3 -3.03%, #a1d8f4 100%);
   --c-blue-gradient-lt-hover: linear-gradient(135deg, #a9c0ec -3.03%, #7fc9ee 100%);
   --c-blue-gradient-lt-active: linear-gradient(135deg, #93aee6 -3.03%, #5fbbe8 100%);
+  --c-dark-blue-gradient: linear-gradient(122.98deg, #304F8C 9.71%, #466CB9 86.9%);
+
 
   /* || SITE LAYOUT || */
   /* ----------------- */
@@ -293,6 +295,16 @@ h6 {
   letter-spacing: 1.5px;
   line-height: 1.25;
   text-transform: uppercase;
+}
+
+h1[data-textcolor="title-dark-blue-gradient"],
+h2[data-textcolor="title-dark-blue-gradient"],
+h3[data-textcolor="title-dark-blue-gradient"],
+h4[data-textcolor="title-dark-blue-gradient"],
+h5[data-textcolor="title-dark-blue-gradient"],
+h6[data-textcolor="title-dark-blue-gradient"] {
+  color: var(--c-dark-blue-gradient);
+
 }
 
 @media (width >= 768px) {
