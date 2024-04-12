@@ -1,3 +1,10 @@
-.title.title-dark-blue-gradient {
-    color: var(--c-dark-blue-gradient);
+.title.title-dark-blue-gradient h1,
+.title.title-dark-blue-gradient h2,
+.title.title-dark-blue-gradient h3,
+.title.title-dark-blue-gradient h4,
+.title.title-dark-blue-gradient h5,
+.title.title-dark-blue-gradient h6 {
+    background: var(--c-dark-blue-gradient);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
