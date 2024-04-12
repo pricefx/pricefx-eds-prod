@@ -10,4 +10,7 @@ const LINKEDIN =
 const EMAIL =
   '<svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="34" height="34" viewBox="0 0 1920 1920"><path d="M0 1694.235h1920V226H0v1468.235ZM112.941 376.664V338.94H1807.06v37.723L960 1111.233l-847.059-734.57ZM1807.06 526.198v950.513l-351.134-438.89-88.32 70.475 378.353 472.998H174.042l378.353-472.998-88.32-70.475-351.134 438.89V526.198L960 1260.768l847.059-734.57Z" fill-rule="evenodd"/></svg>';
 
-export { FACEBOOK, TWITTER, LINKEDIN, EMAIL };
+const SEARCH = `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="37" viewBox="0 0 36 37" fill="none">
+  <path d="M31.5 32.0005L22.5 23.0005M25.5 15.5005C25.5 21.2995 20.799 26.0005 15 26.0005C9.20101 26.0005 4.5 21.2995 4.5 15.5005C4.5 9.7015 9.20101 5.00049 15 5.00049C20.799 5.00049 25.5 9.7015 25.5 15.5005Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+export { FACEBOOK, TWITTER, LINKEDIN, EMAIL, SEARCH };
