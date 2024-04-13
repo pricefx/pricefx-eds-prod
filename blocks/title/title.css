@@ -1,3 +1,12 @@
+.title h1,
+.title h2,
+.title h3,
+.title h4,
+.title h5,
+.title h6 {
+    margin-bottom: 40px;
+}
+
 .title.title-dark-blue-gradient h1,
 .title.title-dark-blue-gradient h2,
 .title.title-dark-blue-gradient h3,

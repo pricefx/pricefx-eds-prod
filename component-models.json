@@ -58,6 +58,31 @@
             "value": "title-dark-blue-gradient"
           }
         ]
+      },
+      {
+        "component": "select",
+        "name": "padding",
+        "value": "",
+        "label": "Padding",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Remove Top Padding",
+            "value": "title-no-top-padding"
+          },
+          {
+            "name": "Remove Bottom Padding",
+            "value": "title-no-bottom-padding"
+          },
+          {
+            "name": "Top Bottom 64px Padding",
+            "value": "title-64px-padding"
+          }
+        ]
       }
     ]
   },
