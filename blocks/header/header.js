@@ -36,9 +36,11 @@ const resetAllMobileNavAccordion = (navToggle) => {
  * @param {Element} mobileNav The container holding the mobile navigation
  */
 const toggleHamburgerNav = (hamburger, mobileNav) => {
+  const bodyEl = document.querySelector('body');
   const hamburgerAriaExpanded = hamburger.attributes[4].value;
   const setHamburgerAriaExpanded = hamburgerAriaExpanded === 'false' ? 'true' : 'false';
   hamburger.setAttribute('aria-expanded', setHamburgerAriaExpanded);
+  bodyEl.classList.toggle('scroll-lock');
 
   if (hamburgerAriaExpanded === 'false') {
     mobileNav.focus();
@@ -62,7 +64,7 @@ const toggleHamburgerNav = (hamburger, mobileNav) => {
 const closeOnEscape = (e) => {
   if (e.code === 'Escape') {
     const navToggle = document.getElementById('hamburger-nav');
-    const mobileNav = document.getElementById('mobile-nav');
+    const mobileNav = document.getElementById('mobile-nav-wrapper');
     toggleHamburgerNav(navToggle, mobileNav);
   }
 };
@@ -292,18 +294,22 @@ export default async function decorate(block) {
   mobileNavControlWrapper.append(hamburger);
 
   // Render Mobile Navigation
+  const navMobileWrapper = document.createElement('div');
+  navMobileWrapper.classList.add('mobile-nav-wrapper');
+  navMobileWrapper.id = 'mobile-nav-wrapper';
   const navMobile = document.createElement('nav');
   navMobile.classList.add('mobile-nav');
   navMobile.id = 'mobile-nav';
-  navMobile.setAttribute('aria-labelledby', 'hamburger-nav');
-  navMobile.setAttribute('aria-hidden', 'true');
-  mobileHeader.append(navMobile);
+  navMobileWrapper.setAttribute('aria-labelledby', 'hamburger-nav');
+  navMobileWrapper.setAttribute('aria-hidden', 'true');
+  mobileHeader.append(navMobileWrapper);
+  navMobileWrapper.append(navMobile);
 
   const navMobileLevelOne = document.createElement('ul');
   navMobileLevelOne.classList.add('nav-mobile-list-level-1');
 
   hamburger.addEventListener('click', () => {
-    toggleHamburgerNav(hamburger, navMobile);
+    toggleHamburgerNav(hamburger, navMobileWrapper);
   });
 
   // Render Level 3 Navigation
@@ -407,7 +413,7 @@ export default async function decorate(block) {
   mobileExpertCta.href = '/pricing-software-demo';
   mobileExpertCta.textContent = 'Talk to an Expert';
   mobileExpertCta.setAttribute('target', '_blank');
-  navMobile.append(mobileExpertCta);
+  navMobileWrapper.append(mobileExpertCta);
 
   const backdrop = document.createElement('div');
   backdrop.classList.add('backdrop');
