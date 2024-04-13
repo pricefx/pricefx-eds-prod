@@ -60,6 +60,20 @@
         "name": "alt",
         "value": "Default alt",
         "label": "Alt Text"
+      },
+      {
+        "component": "text",
+        "name": "imageLink",
+        "label": "Image Link",
+        "valueType": "string",
+        "description": "If you add link then it will make image clickable"
+      },
+      {
+        "component": "boolean",
+        "label": "Target Blank",
+        "name": "targetBlank",
+        "valueType": "boolean",
+        "description": "If you selected the link will open in new window"
       }
     ]
   },
@@ -332,16 +346,16 @@
       {
         "component": "select",
         "name": "maxWidth",
-        "value": "",
+        "value": "section-site-width",
         "label": "Max Width",
         "valueType": "string",
         "options": [
           {
-            "name": "Default",
+            "name": "Full Bleed",
             "value": ""
           },
           {
-            "name": "Maximum 1188px",
+            "name": "Maximum 1188px - Default",
             "value": "section-site-width"
           },
           {
@@ -614,8 +628,8 @@
         "name": "hideBreadcrumb"
       },
       {
-        "component": "aem-content",
-        "valueType": "string",
+        "component": "text-input",
+        "valueType": "number",
         "label": "Navigation Start Level",
         "name": "navigationStartLevel",
         "value": ""
@@ -625,12 +639,6 @@
         "valueType": "boolean",
         "label": "Hide Current Page",
         "name": "hideCurrentPage"
-      },
-      {
-        "component": "boolean",
-        "valueType": "boolean",
-        "label": "Show Hidden Navigation Items",
-        "name": "showHiddenNavigationItems"
       }
     ]
   },
@@ -638,16 +646,63 @@
     "id": "socialshare",
     "fields": [
       {
+        "component": "select",
+        "label": "Social Type",
+        "name": "socialType",
+        "valueType": "string",
+        "required": true,
+        "maxSize": 1,
+        "options": [
+          { "name": "Share Buttons", "value": "share-buttons" },
+          { "name": "Follow Buttons", "value": "follow-buttons" }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "Facebook",
+        "label": "Facebook",
+        "valueType": "string",
+        "placeholder": "Enter Facebook Page URL"
+      },
+      {
+        "component": "text",
+        "name": "twitter",
+        "label": "X (Formerly Twitter)",
+        "valueType": "string",
+        "placeholder": "Enter Twitter Page URL"
+      },
+      {
+        "component": "text",
+        "name": "linkedin",
+        "label": "Linkedin",
+        "valueType": "string",
+        "placeholder": "Enter Linkedin Page URL"
+      },
+      {
+        "component": "text",
+        "name": "youtube",
+        "label": "Youtube",
+        "valueType": "string",
+        "placeholder": "Enter Youtube Page URL"
+      },
+      {
         "component": "multiselect",
         "name": "socialshare",
-        "label": "Social Share",
+        "label": "Social Share (Applicable for Share Buttons)",
         "valueType": "string",
+        "description": "Select the Share Button(s).",
         "options": [
           { "name": "Facebook", "value": "facebook" },
           { "name": "X (Formerly Twitter)", "value": "twitter" },
           { "name": "Linkedin", "value": "linkedin" },
-          { "name": "Instagram", "value": "instagram" }
+          { "name": "Email", "value": "email" }
         ]
+      },
+      {
+        "component": "boolean",
+        "label": "Light Theme",
+        "name": "light",
+        "valueType": "boolean"
       }
     ]
   }
