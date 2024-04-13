@@ -135,17 +135,18 @@
         "value": ""
       },
       {
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "Target Blank",
+        "name": "targetBlank",
+        "description": "When selected, the link will open in a new window"
+      },
+      {
         "component": "text-input",
         "valueType": "string",
         "name": "text",
         "label": "Button Label",
         "value": ""
-      },
-      {
-        "component": "boolean",
-        "valueType": "boolean",
-        "label": "Open Link in New Tab",
-        "name": "targetBlank"
       },
       {
         "component": "select",
