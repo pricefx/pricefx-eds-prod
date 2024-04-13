@@ -17,3 +17,16 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+.title.title-64px-margin {
+    margin-top: 64px;
+    margin-bottom: 64px;
+}
+
+.title.title-no-top-margin {
+    margin-top: 0;
+}
+
+.title.title-no-bottom-margin {
+    margin-bottom: 0;
+}

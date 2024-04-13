@@ -61,9 +61,9 @@
       },
       {
         "component": "select",
-        "name": "padding",
+        "name": "classes",
         "value": "",
-        "label": "Padding",
+        "label": "Margin",
         "valueType": "string",
         "options": [
           {
@@ -71,16 +71,16 @@
             "value": ""
           },
           {
-            "name": "Remove Top Padding",
-            "value": "title-no-top-padding"
+            "name": "Remove Top Margin",
+            "value": "title-no-top-margin"
           },
           {
-            "name": "Remove Bottom Padding",
-            "value": "title-no-bottom-padding"
+            "name": "Remove Bottom Margin",
+            "value": "title-no-bottom-margin"
           },
           {
-            "name": "Top Bottom 64px Padding",
-            "value": "title-64px-padding"
+            "name": "Top Bottom 64px Margin",
+            "value": "title-64px-margin"
           }
         ]
       }
