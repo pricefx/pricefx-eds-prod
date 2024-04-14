@@ -1,6 +1,6 @@
 [
   {
-    "id": "titles",
+    "id": "title",
     "fields": [
       {
         "component": "text-input",
