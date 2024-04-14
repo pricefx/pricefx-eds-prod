@@ -44,7 +44,7 @@
       },
       {
         "component": "select",
-        "name": "colorData",
+        "name": "fontColor",
         "value": "",
         "label": "Color",
         "valueType": "string",
@@ -61,7 +61,7 @@
       },
       {
         "component": "select",
-        "name": "marginData",
+        "name": "margin",
         "value": "",
         "label": "Margin",
         "valueType": "string",
