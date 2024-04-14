@@ -63,7 +63,7 @@
         "component": "select",
         "name": "margin",
         "value": "",
-        "label": "Margin",
+        "label": "MarginData",
         "valueType": "string",
         "options": [
           {
