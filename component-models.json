@@ -60,9 +60,9 @@
         ]
       },
       {
-        "component": "select",
+        "component": "multiselect",
         "name": "margin",
-        "value": "",
+        "placeholder": "Select Spacing",
         "label": "Margin",
         "valueType": "string",
         "options": [
