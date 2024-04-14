@@ -5,11 +5,10 @@ export default async function decorate(block) {
   const titleMargin = block.querySelector("div[data-aue-prop='margin']")?.textContent.trim() || '';
   block.innerHTML = '';
   if (titleData) {
-    const titleTypeElement = document.createElement(titleType);
-    titleTypeElement.classList.add(titleType);
-    titleTypeElement.classList.add(titleColor);
-    titleTypeElement.classList.add(titleMargin);
-    titleTypeElement.innerHTML = titleData;
-    block.append(titleTypeElement);
+    const titleElement = document.createElement(titleType);
+    block.classList.add(titleColor);
+    block.classList.add(titleMargin);
+    titleElement.innerHTML = titleData;
+    block.append(titleElement);
   }
 }
