@@ -5,7 +5,9 @@ export default async function decorate(block) {
   block.innerHTML = '';
   if (titleData) {
     const titleElement = document.createElement(titleType);
-    block.classList.add(titleColor);
+    if (titleColor !== '') {
+      block.classList.add(titleColor);
+    }
     titleElement.innerHTML = titleData;
     block.append(titleElement);
   }
