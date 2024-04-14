@@ -44,7 +44,7 @@
       },
       {
         "component": "select",
-        "name": "classes",
+        "name": "colorData",
         "value": "",
         "label": "Color",
         "valueType": "string",
