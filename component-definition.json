@@ -92,22 +92,19 @@
           }
         },
         {
-          "title": "Titles",
+          "title": "Title",
           "id": "titles",
-          "components": [
-            {
-              "title": "Title",
-              "id": "title",
-              "plugins": {
-                "xwalk": {
-                  "page": {
-                    "resourceType": "core/franklin/components/section/v1/section",
-                    "template": {}
-                  }
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/titles/v1/titles",
+                "template": {
+                  "name": "Title",
+                  "model": "titles"
                 }
               }
             }
-          ]
+          }
         },
         {
           "title": "Hero",
