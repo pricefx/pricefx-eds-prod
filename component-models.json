@@ -61,7 +61,7 @@
       },
       {
         "component": "multiselect",
-        "name": "margin",
+        "name": "classes",
         "placeholder": "Select Spacing",
         "label": "Margin",
         "valueType": "string",
