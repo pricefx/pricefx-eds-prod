@@ -19,7 +19,7 @@
     margin-bottom: var(--spacing-xsmall);
 }
 
-.title.title-space-large {
+.title.title-spacer-large {
     margin-top: var(--spacing-small);
     margin-bottom: var(--spacing-small);
 }
@@ -27,14 +27,6 @@
 .title.title-spacer-extra-large {
     margin-top: var(--spacing-medium);
     margin-bottom: var(--spacing-medium);
-}
-
-.title.title-no-top-margin {
-    margin-top: 0;
-}
-
-.title.title-no-bottom-margin {
-    margin-bottom: 0;
 }
 
 @media (width >= 768px) {
@@ -48,7 +40,7 @@
         margin-bottom: var(--spacing-medium);
     }
     
-    .title.title-space-large {
+    .title.title-spacer-large {
         margin-top: var(--spacing-large);
         margin-bottom: var(--spacing-large);
     }
@@ -57,4 +49,12 @@
         margin-top: var(--spacing-xlarge);
         margin-bottom: var(--spacing-xlarge);
     }
+}
+
+.title.title-no-top-margin {
+    margin-top: 0;
+}
+
+.title.title-no-bottom-margin {
+    margin-bottom: 0;
 }
