@@ -1,6 +1,8 @@
 import ffetch from '../../scripts/ffetch.js';
 import { SEARCH } from '../../scripts/constants.js';
 
+const isDesktop = window.matchMedia('(min-width: 986px)');
+
 // Fetch Header content from JSON endpoint
 const headerData = await ffetch('/header.json').all();
 
@@ -40,11 +42,13 @@ const toggleHamburgerNav = (hamburger, mobileNav) => {
   const hamburgerAriaExpanded = hamburger.attributes[4].value;
   const setHamburgerAriaExpanded = hamburgerAriaExpanded === 'false' ? 'true' : 'false';
   hamburger.setAttribute('aria-expanded', setHamburgerAriaExpanded);
-  bodyEl.classList.toggle('scroll-lock');
 
   if (hamburgerAriaExpanded === 'false') {
     mobileNav.focus();
     hamburger.setAttribute('aria-label', 'Close Mobile Navigation');
+    if (!isDesktop.matches) {
+      bodyEl.classList.add('scroll-lock');
+    }
   } else {
     mobileNav.blur();
     hamburger.setAttribute('aria-label', 'Open Mobile Navigation');
@@ -52,6 +56,9 @@ const toggleHamburgerNav = (hamburger, mobileNav) => {
     mobileNavAccordions.forEach((accordion) => {
       resetAllMobileNavAccordion(accordion);
     });
+    if (!isDesktop.matches) {
+      bodyEl.classList.remove('scroll-lock');
+    }
   }
 
   const navMobileAriaHidden = mobileNav.attributes[3].value;
@@ -61,14 +68,22 @@ const toggleHamburgerNav = (hamburger, mobileNav) => {
 };
 
 // Close Mobile Navigation on ESC Key
-const closeOnEscape = (e) => {
+const closeMobileNavOnEscape = (e) => {
   if (e.code === 'Escape') {
     const navToggle = document.getElementById('hamburger-nav');
     const mobileNav = document.getElementById('mobile-nav-wrapper');
     toggleHamburgerNav(navToggle, mobileNav);
   }
 };
-window.addEventListener('keydown', closeOnEscape);
+window.addEventListener('keydown', closeMobileNavOnEscape);
+
+const closeDesktopNavOnEscape = (e) => {
+  if (e.code === 'Escape' && isDesktop.matches) {
+    const allMegamenu = document.querySelectorAll('.desktop-header .megamenu-wrapper');
+    allMegamenu.forEach((megamenu) => megamenu.classList.remove('megamenu-wrapper--active'));
+  }
+};
+window.addEventListener('keydown', closeDesktopNavOnEscape);
 
 /**
  * Toggle Mobile Navigation Accordions
@@ -144,7 +159,7 @@ export default async function decorate(block) {
         const linkInfoArray = level3Label.split('|');
         markup += `
           <li class="nav-list-level-3-item">
-            <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length === 3 ? linkInfoArray[2].trim() : '_self'}">${linkInfoArray[0].trim()}</a>
+            <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length === 3 ? linkInfoArray[2].trim() : '_self'}" tabindex="0">${linkInfoArray[0].trim()}</a>
           </li>
         `;
       }
@@ -170,7 +185,7 @@ export default async function decorate(block) {
         const linkInfoArray = level2Label.split('|');
         markup += `
           <li class="nav-list-level-2-item">
-            <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length >= 2 ? linkInfoArray[2].trim() : '_self'}" ${linkInfoArray.length >= 2 ? "class='level-2-item-link'" : ''}>${linkInfoArray[0].trim()}</a>
+            <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length >= 2 ? linkInfoArray[2].trim() : '_self'}" ${linkInfoArray.length >= 2 ? "class='level-2-item-link'" : ''} tabindex="0">${linkInfoArray[0].trim()}</a>
           </li>
         `;
       } else if (!level2Label.includes('|') && level2Label !== '') {
@@ -189,7 +204,7 @@ export default async function decorate(block) {
             const linkInfoArray = level3Label.split('|');
             childMarkup += `
               <li class="nav-list-level-2-item no-category">
-                <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length === 3 ? linkInfoArray[2].trim() : '_self'}">${linkInfoArray[0].trim()}</a>
+                <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length === 3 ? linkInfoArray[2].trim() : '_self'}" tabindex="0">${linkInfoArray[0].trim()}</a>
               </li>
             `;
           }
@@ -215,7 +230,7 @@ export default async function decorate(block) {
     let markup = '';
     navLabels.forEach((navLabel) => {
       markup += `
-        <li class="nav-list-level-1-item">
+        <li class="nav-list-level-1-item" tabindex="0" role="button" aria-haspopup="menu">
           <span class="nav-list-level-1-item-name">${navLabel}</span>
           <div class="megamenu-wrapper">
             <ul class="nav-list-level-2 nav-list-level-2-${navLabels.indexOf(navLabel) + 1}">
@@ -253,6 +268,32 @@ export default async function decorate(block) {
   expertCta.textContent = 'Talk to an Expert';
   expertCta.setAttribute('target', '_blank');
   desktopHeader.insertAdjacentElement('beforeend', expertCta);
+
+  // Desktop Keyboard Navigation
+  const allNavListLevelOne = document.querySelectorAll('.nav-list-level-1-item');
+  const allMegamenu = document.querySelectorAll('.desktop-header .megamenu-wrapper');
+  const allMegamenuLinks = document.querySelectorAll('.desktop-header .megamenu-wrapper a');
+  const searchToggle = searchWrapperDesktop.querySelector('.header-search-cta');
+  allNavListLevelOne.forEach((navListLevelOne) => {
+    navListLevelOne.addEventListener('focus', () => {
+      allMegamenu.forEach((megamenu) => megamenu.classList.remove('megamenu-wrapper--active'));
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'Escape' && isDesktop.matches) {
+          navListLevelOne.blur();
+        }
+      });
+    });
+  });
+  allMegamenuLinks.forEach((link) => {
+    link.addEventListener('focus', () => {
+      allMegamenu.forEach((megamenu) => megamenu.classList.remove('megamenu-wrapper--active'));
+      const activeMegamenu = link.closest('.megamenu-wrapper');
+      activeMegamenu.classList.add('megamenu-wrapper--active');
+    });
+  });
+  searchToggle.addEventListener('focus', () => {
+    allMegamenu.forEach((megamenu) => megamenu.classList.remove('megamenu-wrapper--active'));
+  });
 
   // ----------------------------
   // FOR MOBILE HEADER & MEGAMENU

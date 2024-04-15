@@ -195,8 +195,9 @@ header nav {
 }
 
 .nav-list-level-1-item:hover .megamenu-wrapper,
-.nav-list-level-1-item:focus .megamenu-wrapper {
-  max-height: 500px;
+.nav-list-level-1-item:focus .megamenu-wrapper,
+.megamenu-wrapper--active {
+  max-height: 600px;
   opacity: 1;
   visibility: visible;
 }
