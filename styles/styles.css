@@ -225,7 +225,6 @@ ul,
 pre,
 blockquote,
 figure {
-  list-style-type: none;
   margin: 0;
   padding: 0;
 }
@@ -241,6 +240,13 @@ p:last-child {
 img {
   height: auto;
   max-width: 100%;
+}
+
+ul {
+  li {
+    list-style-position: inside;
+    margin-bottom: 5px;
+  }
 }
 
 /*
