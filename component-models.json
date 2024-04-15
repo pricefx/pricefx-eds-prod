@@ -206,7 +206,7 @@
         "component": "select",
         "name": "classes",
         "value": "primary",
-        "label": "Variant",
+        "label": "Button Variant",
         "valueType": "string",
         "options": [
           {
@@ -256,6 +256,23 @@
           {
             "name": "Tertiary Light Underline",
             "value": "tertiary-lt-underline"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "right-arrow",
+        "label": "Tertiary Arrow Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Right Arrow",
+            "value": "right-arrow"
+          },
+          {
+            "name": "Left Arrow",
+            "value": "left-arrow"
           }
         ]
       }
