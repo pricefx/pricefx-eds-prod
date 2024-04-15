@@ -650,19 +650,19 @@
           },
           {
             "name": "Extra Small",
-            "value": "spacer—extra-small"
+            "value": "spacer-extra-small"
           },
           {
             "name": "Small",
-            "value": "spacer—small"
+            "value": "spacer-small"
           },
           {
             "name": "Medium",
-            "value": "spacer—medium"
+            "value": ""
           },
           {
             "name": "Large",
-            "value": "spacer—large"
+            "value": "spacer-large"
           },
           {
             "name": "Extra Large",
