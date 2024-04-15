@@ -215,6 +215,9 @@ a:hover,
 a:visited {
   color: var(--c-mega-menu-link);
   line-height: var(--base-line-height);
+}
+
+a:hover {
   text-decoration: underline;
 }
 
@@ -230,7 +233,7 @@ figure {
 }
 
 p {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 p:last-child {
@@ -246,6 +249,7 @@ ul {
   li {
     list-style-position: inside;
     margin-bottom: 5px;
+    margin-left: 15px;
   }
 }
 
@@ -314,6 +318,10 @@ h6 {
 
 
 @media (width >= 768px) {
+  p {
+    margin-bottom: 40px;
+  }
+  
   h1 {
     line-height: 1.075;
   }
