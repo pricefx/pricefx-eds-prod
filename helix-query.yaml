@@ -22,18 +22,7 @@ indices:
         select: none
         value: |
           parseTimestamp(headers['last-modified'], 'ddd, DD MMM YYYY hh:mm:ss GMT')
-          
-  site-fr:
-    <<: *base-site
-    include:
-      - '/fr/**'
-    target: /fr/configuration/query-index.json
 
-  site-de:
-    <<: *base-site
-    include:
-      - '/de/**'
-    target: /de/configuration/query-index.json
   articles:
     include:
       - /en/index/learning-center/**
