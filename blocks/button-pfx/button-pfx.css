@@ -225,7 +225,7 @@ button:disabled:hover {
   content: var(--icon-chevron-down);
   font-family: var(--ff-pricefx-icons);
   font-size: calc((14 / 16) * 1rem);
-  font-weight: var(--fw-bold);
+  font-weight: var(--fw-lt-bold);
   position: absolute;
   top: 16px;
   right: 32px;
