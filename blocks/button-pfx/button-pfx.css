@@ -113,7 +113,7 @@ a.button:focus,
 a.button:hover,
 button:focus,
 button:hover {
-    background-position: right;
+  background-position: right;
 }
 
 a.button:focus,
