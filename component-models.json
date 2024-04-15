@@ -63,7 +63,7 @@
         "component": "multiselect",
         "name": "classes",
         "placeholder": "Select Spacing",
-        "label": "Margin",
+        "label": "Spacing",
         "valueType": "string",
         "options": [
           {
@@ -71,16 +71,28 @@
             "value": ""
           },
           {
-            "name": "Remove Top Margin",
+            "name": "Small",
+            "value": "title-spacer-small"
+          },
+          {
+            "name": "Medium",
+            "value": "title-spacer-medium"
+          },
+          {
+            "name": "Large",
+            "value": "title-spacer-large"
+          },
+          {
+            "name": "Extra Large",
+            "value": "title-spacer-extra-large"
+          },
+          {
+            "name": "Remove Top Spacer",
             "value": "title-no-top-margin"
           },
           {
-            "name": "Remove Bottom Margin",
+            "name": "Remove Bottom Spacer",
             "value": "title-no-bottom-margin"
-          },
-          {
-            "name": "Top Bottom 64px Margin",
-            "value": "title-64px-margin"
           }
         ]
       }
