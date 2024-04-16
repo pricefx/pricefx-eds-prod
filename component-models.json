@@ -261,11 +261,16 @@
       },
       {
         "component": "select",
-        "name": "classes",
-        "value": "right-arrow",
+        "name": "type",
+        "value": "",
         "label": "Tertiary Arrow Variant",
         "valueType": "string",
+        "description": "Choose arrow option for Tertiary button variant",
         "options": [
+          {
+            "name": "No Arrow",
+            "value": ""
+          },
           {
             "name": "Right Arrow",
             "value": "right-arrow"
