@@ -794,7 +794,7 @@
     ]
   },
   {
-    "id": "relatedArticle",
+    "id": "relatedArticles",
     "fields": [
       {
         "component": "text",

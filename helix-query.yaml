@@ -26,7 +26,7 @@ indices:
   articles:
     include:
       - /en/index/learning-center/**
-    target: /en/index/learning-center/article-index.json
+    target: /en/index/learning-center/articles-index.json
     properties:
       lastModified:
         select: none
