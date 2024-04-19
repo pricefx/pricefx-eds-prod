@@ -436,3 +436,14 @@ main .section.highlight {
 .section[data-roundedcorner="rounded-corner-20px"] iframe {
   border-radius: 20px;
 }
+
+/* Hidden class, makes content visible only for screen readers */
+.sr-only:not(:focus, :active) {
+  clip: rect(0 0 0 0); 
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap; 
+  width: 1px;
+}
