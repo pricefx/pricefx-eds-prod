@@ -9,7 +9,7 @@
     "/content/pricefx/en/configuration/header:/header.json",
     "/content/pricefx/en/configuration/footer:/footer.json",
     "/content/pricefx.resource/fragments/:/fragments/",
-    "/en/index/learning-center/articles-index.json"
+    "/en/index/learning-center/article-index.json"
   ],
   "includes": ["/content/pricefx/"]
 }
