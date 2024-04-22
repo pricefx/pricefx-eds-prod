@@ -320,13 +320,6 @@
         "label": "Title"
       },
       {
-        "component": "text-input",
-        "valueType": "string",
-        "name": "subTitle",
-        "value": "",
-        "label": "Sub Title"
-      },
-      {
         "component": "select",
         "name": "type",
         "value": "h2",
@@ -358,6 +351,13 @@
             "value": "h6"
           }
         ]
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "subTitle",
+        "value": "",
+        "label": "Sub Title"
       },
       {
         "component": "text-area",
