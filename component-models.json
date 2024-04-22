@@ -332,6 +332,12 @@
         "name": "buttonLabel",
         "value": "",
         "label": "Button Label"
+      },
+      {
+        "component": "boolean",
+        "label": "Target Blank",
+        "name": "isTargetBlank",
+        "valueType": "boolean"
       }
     ]
   },
