@@ -29,3 +29,6 @@ indices:
       type:
         select: head > meta[name="template"]
         value: attribute(el, "content")
+      cq-tags:
+        select: head > meta[name="cq-tags"]
+        value: attribute(el, "content")
