@@ -107,6 +107,7 @@
   --c-gray: #dfe1e6;
   --c-gray-lt: #ebecee;
   --c-gray-med: #b5bac4;
+  --c-gray-med-2: #939393;
   --c-gray-med-alt: #bababa;
   --c-gray-drk: #6e7178;
   --c-gray-border: #d3d3d3;
@@ -126,6 +127,7 @@
   --c-link: #466cb9;
   --c-link-lt: #5fbbe8;
   --c-mega-menu-link: #2d9bd2;
+  --c-card-subtitle: #c9559e;
 
   /* Alerts */
   --c-disabled-border: var(--c-gray-border);
