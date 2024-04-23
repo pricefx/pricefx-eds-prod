@@ -998,15 +998,13 @@
         "value": 0
       },
       {
-        "component": "select",
-        "label": "Layout",
-        "name": "sectionLayout",
+        "component": "radio-group",
+        "label": "Sort By",
+        "name": "sortBy",
         "valueType": "string",
         "options": [
-          { "name": "2 Column", "value": "two-column" },
-          { "name": "3 Column", "value": "three-column" },
-          { "name": "4 Column", "value": "four-column" },
-          { "name": "5 Column", "value": "five-column" }
+          { "name": "Asc", "value": "Ascending" },
+          { "name": "Desc", "value": "Descending" }
         ]
       },
       {
@@ -1027,6 +1025,36 @@
         "value": "",
         "label": "Base Path",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "page-metadata",
+    "fields": [
+      {
+        "component": "date-time",
+        "name": "articlePublishedDate",
+        "label": "Article Published Date"
+      },
+      {
+        "component": "aem-tag",
+        "name": "authors",
+        "label": "Authors"
+      },
+      {
+        "component": "aem-tag",
+        "name": "Catagory",
+        "label": "Catagory"
+      },
+      {
+        "component": "aem-tag",
+        "name": "topics",
+        "label": "Topics"
+      },
+      {
+        "component": "number",
+        "name": "timeToRead",
+        "label": "Time to Read"
       }
     ]
   }
