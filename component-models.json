@@ -1058,25 +1058,6 @@
           { "name": "Asc", "value": "Ascending" },
           { "name": "Desc", "value": "Descending" }
         ]
-      },
-      {
-        "component": "aem-tag",
-        "label": "Article Category Tag",
-        "name": "cq:categorytags",
-        "valueType": "string"
-      },
-      {
-        "component": "aem-tag",
-        "label": "Article Tags",
-        "name": "cq:tags",
-        "valueType": "string"
-      },
-      {
-        "component": "aem-content",
-        "name": "basePath",
-        "value": "",
-        "label": "Base Path",
-        "valueType": "string"
       }
     ]
   }
