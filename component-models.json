@@ -991,6 +991,58 @@
         "valueType": "string"
       },
       {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "filterOneTitle",
+        "value": "",
+        "label": "Filter 1 Title"
+      },
+      {
+        "component": "aem-tag",
+        "label": "Filter 1 Options",
+        "name": "cq:filterOneTags",
+        "valueType": "string"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "filterTwoTitle",
+        "value": "",
+        "label": "Filter 2 Title"
+      },
+      {
+        "component": "aem-tag",
+        "label": "Filter 2 Options",
+        "name": "cq:filterTwoTags",
+        "valueType": "string"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "filterThreeTitle",
+        "value": "",
+        "label": "Filter 3 Title"
+      },
+      {
+        "component": "aem-tag",
+        "label": "Filter 3 Options",
+        "name": "cq:filterThreeTags",
+        "valueType": "string"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "filterFourTitle",
+        "value": "",
+        "label": "Filter 4 Title"
+      },
+      {
+        "component": "aem-tag",
+        "label": "Filter 4 Options",
+        "name": "cq:filterFourTags",
+        "valueType": "string"
+      },
+      {
         "component": "number",
         "name": "numberOfArticles",
         "label": "Number Of Articles Display",
