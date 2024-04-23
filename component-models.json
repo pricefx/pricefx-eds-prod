@@ -510,20 +510,13 @@
     "id": "hero",
     "fields": [
       {
-        "component": "select",
-        "name": "classes",
-        "value": "hero-primary",
-        "label": "Hero Style Option",
+        "component": "radio-group",
+        "label": "Variation",
+        "name": "variation",
         "valueType": "string",
         "options": [
-          {
-            "name": "Primary",
-            "value": "hero-primary"
-          },
-          {
-            "name": "Secondary",
-            "value": "hero-secondary"
-          }
+          { "name": "Image", "value": "imageVariation" },
+          { "name": "Video", "value": "videoVariation" }
         ]
       },
       {
@@ -543,16 +536,17 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "backgroundImage",
-        "label": "Background Image",
+        "name": "embedVideo",
+        "label": "Embed Video",
+        "description": "ⓘ Video placeholder for video hero variation",
         "multi": false
       },
       {
-        "component": "text-input",
-        "valueType": "string",
-        "name": "backgroundImageAlt",
-        "label": "Background Image Alt Text",
-        "value": ""
+        "component": "boolean",
+        "label": "Enable PopUp Modal",
+        "name": "popUpModal",
+        "valueType": "boolean",
+        "description": "ⓘ When selected, the Video will open in a Popup Modal"
       },
       {
         "component": "richtext",
@@ -560,7 +554,111 @@
         "name": "heroContent",
         "label": "Hero Content",
         "value": "",
-        "description": "Heading (H1) and CTA"
+        "description": "ⓘ Heading (H1) and CTA"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "overlayContent",
+        "label": "Overlay Content",
+        "value": ""
+      },
+      {
+        "component": "radio-group",
+        "label": "Button 1 Style",
+        "name": "buttonOneStyle",
+        "valueType": "string",
+        "options": [
+          { "name": "Primary", "value": "hero-primary-button" },
+          { "name": "Secondary", "value": "hero-secondary-button" }
+        ]
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "buttonOneLink",
+        "value": "",
+        "label": "Button Link"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "buttonOneLabel",
+        "value": "",
+        "label": "Button Label"
+      },
+      {
+        "component": "boolean",
+        "label": "Target Blank",
+        "name": "isTargetBlankOne",
+        "valueType": "boolean"
+      },
+      {
+        "component": "radio-group",
+        "label": "Button 2 Style",
+        "name": "buttonTwoStyle",
+        "valueType": "string",
+        "options": [
+          { "name": "Primary", "value": "hero-primary-button" },
+          { "name": "Secondary", "value": "hero-secondary-button" }
+        ]
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "buttonTwoLink",
+        "value": "",
+        "label": "Button Link"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "buttonTwoLabel",
+        "value": "",
+        "label": "Button Label"
+      },
+      {
+        "component": "boolean",
+        "label": "Target Blank",
+        "name": "isTargetBlankTwo",
+        "valueType": "boolean"
+      },
+      {
+        "component": "radio-group",
+        "label": "Button 3 Style",
+        "name": "buttonThreeStyle",
+        "valueType": "string",
+        "options": [
+          { "name": "Primary", "value": "hero-primary-button" },
+          { "name": "Secondary", "value": "hero-secondary-button" }
+        ]
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "buttonThreeLink",
+        "value": "",
+        "label": "Button Link"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "buttonThreeLabel",
+        "value": "",
+        "label": "Button Label"
+      },
+      {
+        "component": "boolean",
+        "label": "Target Blank",
+        "name": "isTargetBlankThree",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text-input",
+        "name": "url",
+        "label": "URL",
+        "valueType": "string",
+        "value": ""
       }
     ]
   },
