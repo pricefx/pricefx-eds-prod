@@ -967,5 +967,67 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "learningCenter",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "featuredArticle",
+        "value": "",
+        "label": "Featured Article",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "searchPath",
+        "label": "Search Path",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "searchPlaceholderText",
+        "label": "Search Placeholder Text",
+        "valueType": "string"
+      },
+      {
+        "component": "number",
+        "name": "numberOfArticles",
+        "label": "Number Of Articles Display",
+        "valueType": "number",
+        "value": 0
+      },
+      {
+        "component": "select",
+        "label": "Layout",
+        "name": "sectionLayout",
+        "valueType": "string",
+        "options": [
+          { "name": "2 Column", "value": "two-column" },
+          { "name": "3 Column", "value": "three-column" },
+          { "name": "4 Column", "value": "four-column" },
+          { "name": "5 Column", "value": "five-column" }
+        ]
+      },
+      {
+        "component": "aem-tag",
+        "label": "Article Category Tag",
+        "name": "cq:categorytags",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-tag",
+        "label": "Article Tags",
+        "name": "cq:tags",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "basePath",
+        "value": "",
+        "label": "Base Path",
+        "valueType": "string"
+      }
+    ]
   }
 ]
