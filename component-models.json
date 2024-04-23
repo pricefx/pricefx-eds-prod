@@ -1060,5 +1060,35 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "page-metadata",
+    "fields": [
+      {
+        "component": "date-time",
+        "name": "articlePublishedDate",
+        "label": "Article Published Date"
+      },
+      {
+        "component": "aem-tag",
+        "name": "authors",
+        "label": "Authors"
+      },
+      {
+        "component": "aem-tag",
+        "name": "Catagory",
+        "label": "Catagory"
+      },
+      {
+        "component": "aem-tag",
+        "name": "topics",
+        "label": "Topics"
+      },
+      {
+        "component": "number",
+        "name": "timeToRead",
+        "label": "Time to Read"
+      }
+    ]
   }
 ]
