@@ -1077,6 +1077,13 @@
         "valueType": "string"
       },
       {
+        "component": "text",
+        "name": "authorPath",
+        "label": "Author Directory Path",
+        "valueType": "string",
+        "description": "Please enter the path to the author directory."
+      },
+      {
         "component": "number",
         "name": "numberOfArticles",
         "label": "Number Of Articles Display",
@@ -1084,13 +1091,15 @@
         "value": 0
       },
       {
-        "component": "radio-group",
+        "component": "checkbox-group",
         "label": "Sort By",
         "name": "sortBy",
-        "valueType": "string",
+        "valueType": "string[]",
         "options": [
-          { "name": "Asc", "value": "Ascending" },
-          { "name": "Desc", "value": "Descending" }
+          { "name": "Asc Date", "value": "asc-date" },
+          { "name": "Desc Date", "value": "desc-date" },
+          { "name": "Asc Title", "value": "asc-title" },
+          { "name": "Desc Title", "value": "desc-title" }
         ]
       },
       {
