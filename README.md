@@ -30,6 +30,8 @@ See the links below for the steps needed to develop/contribute to this repo.
 - [Submitting a Pull Request](#submitting-a-pull-request)
 - [Resources](#resources)
 
+
+2. 
 ## Setup
 
 Our repository requires that a forked repo is used for any work before
@@ -64,9 +66,9 @@ listed within the package.json file under the "engines" key.
 
 ## Installing dependencies
 
-1. Install the [helix-bot](https://github.com/apps/helix-bot) app and make sure it has read/write access to your fork repository.
-
+1. Verify the main changes on the repo such as fstab.yaml & paths.json
 2. Install the [Helix CLI](https://github.com/adobe/helix-cli). This CLI allows engineers to create, develop, and deploy digital experiences using Project Helix.
+3. Add the [AEM Code Sync GitHub App](https://github.com/apps/aem-code-sync) to the repository - Only if you are using new/fork repository
 
 ```
 npm install -g @adobe/helix-cli
