@@ -1149,7 +1149,7 @@
         "label": "Article Read Time",
         "placeholder": "Enter time in number format",
         "description": "Please enter article read time in mins."
-      }  
+      }
     ]
   },
   {
@@ -1218,6 +1218,18 @@
           { "name": "Regular", "value": "" },
           { "name": "Large", "value": "large" }
         ]
+      }
+    ]
+  },
+  {
+    "id": "articleMetadata",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "authorsParentPagePath",
+        "value": "",
+        "label": "Authors Parent Page Path",
+        "valueType": "string"
       }
     ]
   }
