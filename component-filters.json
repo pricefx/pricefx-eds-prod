@@ -15,6 +15,7 @@
     "id": "section",
     "components": [
       "accordion",
+      "articleMetadata",
       "button",
       "button-pfx",
       "cards",
@@ -31,6 +32,7 @@
       "spacer",
       "breadcrumb",
       "socialshare",
+      "stats",
       "relatedArticles",
       "learningCenter"
     ]
