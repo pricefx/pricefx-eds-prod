@@ -67,7 +67,7 @@ listed within the package.json file under the "engines" key.
 ## Installing dependencies
 
 1. Verify the main changes on the repo such as fstab.yaml & paths.json
-2. Install the [Helix CLI](https://github.com/adobe/helix-cli). This CLI allows engineers to create, develop, and deploy digital experiences using Project Helix.
+2. Install the [AEM CLI](https://github.com/adobe/helix-cli). ```npm install -g @adobe/aem-cli``` 
 3. Add the [AEM Code Sync GitHub App](https://github.com/apps/aem-code-sync) to the repository - Only if you are using new/fork repository
 
 ```
@@ -82,10 +82,10 @@ command in your terminal:
 npm install
 ```
 
-Run your local Helix Pages Proxy. This opens http://localhost:3000/ and you are ready to make changes.
+Run your local AEM Pages Proxy. This opens http://localhost:3000/ and you are ready to make changes.
 
 ```
-hlx up
+aem up
 ```
 
 You're all set and ready to start developing locally! 
