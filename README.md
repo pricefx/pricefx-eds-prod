@@ -30,8 +30,6 @@ See the links below for the steps needed to develop/contribute to this repo.
 - [Submitting a Pull Request](#submitting-a-pull-request)
 - [Resources](#resources)
 
-
-2. 
 ## Setup
 
 Our repository requires that a forked repo is used for any work before
