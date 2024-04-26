@@ -102,8 +102,7 @@ While working on the project, here are some of the top-level tasks that you migh
 | `npm run lint:js -- --fix` | Fix linting errors in JavaScript files              |
 | `npm run lint:css`         | Run linting checks for CSS files                    |
 | `npm run lint:css -- --fix`| Fix linting errors in CSS files                     |
-| `npm run build`            | Build the project                                   |
-| `npm run deploy`           | Deploy the project                                  |
+
 
 Running `npm run test` executes active tests to ensure the project functionality is intact. The `npm run lint` command checks both CSS and JavaScript for any linting errors. 
 
