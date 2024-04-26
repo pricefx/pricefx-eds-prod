@@ -508,7 +508,7 @@
       {
         "component": "aem-content",
         "valueType": "string",
-        "name": "buttonLinkPath",
+        "name": "buttonLink",
         "value": "",
         "label": "Button Link"
       },
