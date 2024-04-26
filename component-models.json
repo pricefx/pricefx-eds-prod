@@ -5,6 +5,51 @@
       {
         "component": "text-input",
         "valueType": "string",
+        "name": "jcr:title",
+        "value": "",
+        "label": "Text"
+      },
+      {
+        "component": "select",
+        "name": "type",
+        "value": "h1",
+        "label": "Type",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "h1",
+            "value": "h1"
+          },
+          {
+            "name": "h2",
+            "value": "h2"
+          },
+          {
+            "name": "h3",
+            "value": "h3"
+          },
+          {
+            "name": "h4",
+            "value": "h4"
+          },
+          {
+            "name": "h5",
+            "value": "h5"
+          },
+          {
+            "name": "h6",
+            "value": "h6"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "title-pfx",
+    "fields": [
+      {
+        "component": "text-input",
+        "valueType": "string",
         "name": "title",
         "value": "",
         "label": "Title"
@@ -45,13 +90,13 @@
       {
         "component": "select",
         "name": "fontColor",
-        "value": "",
+        "value": "title-dark-grey",
         "label": "Color",
         "valueType": "string",
         "options": [
           {
             "name": "Grey - Default",
-            "value": ""
+            "value": "title-dark-grey"
           },
           {
             "name": "Dark Blue",
@@ -287,11 +332,26 @@
     "id": "columns",
     "fields": [
       {
-        "component": "text-input",
-        "valueType": "number",
+        "component": "select",
         "name": "columns",
-        "value": "",
-        "label": "Columns"
+        "value": "2",
+        "label": "Column Layout",
+        "valueType": "number",
+        "description": "Choose the Column Layout",
+        "options": [
+          {
+            "name": "2 Columns - Default",
+            "value": "2"
+          },
+          {
+            "name": "3 Columns",
+            "value": "3"
+          },
+          {
+            "name": "4 Columns",
+            "value": "4"
+          }
+        ]
       },
       {
         "component": "text-input",
@@ -299,6 +359,56 @@
         "name": "rows",
         "value": "",
         "label": "Rows"
+      },
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "2 Column Width",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "2 Column 30 X 70",
+            "value": "two-column-3-7"
+          },
+          {
+            "name": "2 Column 40 X 60",
+            "value": "two-column-4-6"
+          },
+          {
+            "name": "2 Column 50 X 50 - Default",
+            "value": ""
+          },
+          {
+            "name": "2 Column 60 X 40",
+            "value": "two-column-6-4"
+          },
+          {
+            "name": "2 Column 70 X 30",
+            "value": "two-column-7-3"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "columnBgColor",
+        "value": "",
+        "label": "Background Color",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Grey",
+            "value": "column-bg-color-grey"
+          },
+          {
+            "name": "White",
+            "value": "column-bg-color-white"
+          }
+        ]
       }
     ]
   },
@@ -359,7 +469,9 @@
           { "name": "Aspect Ratio 16:9", "value": "aspect-ratio-16-9" },
           { "name": "Remove Aspect Ratio", "value": "no-aspect-ratio" },
           { "name": "Icon Variation", "value": "icon-variation" },
-          { "name": "Hide Image", "value": "hide-image" }
+          { "name": "Hide Image", "value": "hide-image" },
+          { "name": "Hide Button Link", "value": "hide-button-link" },
+          { "name": "Card BG Color - Black", "value": "card-bg-black" }
         ]
       }
     ]
@@ -398,7 +510,7 @@
       {
         "component": "aem-content",
         "valueType": "string",
-        "name": "buttonLinkPath",
+        "name": "buttonLink",
         "value": "",
         "label": "Button Link"
       },
