@@ -429,11 +429,11 @@
           },
           {
             "name": "Add Padding Large",
-            "value": "column-padding-64px"
+            "value": "column-padding-large"
           },
           {
             "name": "Add Padding Medium",
-            "value": "column-padding-32px"
+            "value": "column-padding-medium"
           }
         ]
       }
@@ -738,15 +738,15 @@
           },
           {
             "name": "Small",
-            "value": "rounded-corner-8px"
+            "value": "rounded-corner-small"
           },
           {
             "name": "Medium",
-            "value": "rounded-corner-16px"
+            "value": "rounded-corner-medium"
           },
           {
             "name": "Large",
-            "value": "rounded-corner-20px"
+            "value": "rounded-corner-large"
           }
         ]
       },

@@ -348,6 +348,12 @@ button {
   transition: var(--base-transition);
 }
 
+a.button:focus,
+button:focus {
+  outline: 2px solid var(--c-outline-drk);
+  outline-offset: 2px;
+}
+
 a.button.primary:focus,
 a.button.primary:hover {
   background-position: right;
@@ -494,18 +500,18 @@ main .section.highlight {
 }
 
 /* section image & iframe video styles */
-.section[data-roundedcorner="rounded-corner-8px"] img,
-.section[data-roundedcorner="rounded-corner-8px"] iframe {
+.section[data-roundedcorner="rounded-corner-small"] img,
+.section[data-roundedcorner="rounded-corner-small"] iframe {
   border-radius: 8px;
 }
 
-.section[data-roundedcorner="rounded-corner-16px"] img,
-.section[data-roundedcorner="rounded-corner-16px"] iframe {
+.section[data-roundedcorner="rounded-corner-medium"] img,
+.section[data-roundedcorner="rounded-corner-medium"] iframe {
   border-radius: var(--spacing-xsmall);
 }
 
-.section[data-roundedcorner="rounded-corner-20px"] img,
-.section[data-roundedcorner="rounded-corner-20px"] iframe {
+.section[data-roundedcorner="rounded-corner-large"] img,
+.section[data-roundedcorner="rounded-corner-large"] iframe {
   border-radius: 20px;
 }
 
