@@ -1,9 +1,8 @@
 import ffetch from '../../scripts/ffetch.js';
+import environmentMode from '../../scripts/global-functions.js';
+import { BASE_CONTENT_PATH } from '../../scripts/url-constants.js';
 
 const isDesktop = window.matchMedia('(min-width: 986px)');
-
-// Fetch Header content from JSON endpoint
-const articleData = await ffetch('/article-index.json').all();
 
 /**
  * Reset Filter Accordions to Default State
@@ -53,12 +52,14 @@ const toggleFilterAccordion = (toggle) => {
  * @param {Element} filterMenuToggle The CTA that show/hide the Filter Menu
  * @param {Element} filterMenu The element container for the Filter
  */
-const toggleFilterMenu = (filterMenuToggle, filterMenu) => {
+const toggleFilterMenu = (filterMenuToggle, filterMenu, contentWrapper) => {
   const filterMenuToggleAriaExpanded = filterMenuToggle.attributes[3].value;
   const setfilterMenuToggleAriaExpanded = filterMenuToggleAriaExpanded === 'false' ? 'true' : 'false';
   filterMenuToggle.setAttribute('aria-expanded', setfilterMenuToggleAriaExpanded);
 
   if (filterMenuToggleAriaExpanded === 'false') {
+    filterMenu.classList.toggle('hidden', false);
+    contentWrapper.classList.toggle('learning-center-content--full-width', false);
     filterMenu.focus();
     filterMenuToggle.innerHTML = `<span class="filter-icon"></span><span class="toggle-label">Hide Filter</span>`;
   } else {
@@ -68,11 +69,21 @@ const toggleFilterMenu = (filterMenuToggle, filterMenu) => {
     filterAccordions.forEach((accordion) => {
       resetFilterAccordions(accordion);
     });
+    setTimeout(() => {
+      filterMenu.classList.toggle('hidden', true);
+    }, '300');
+    contentWrapper.classList.toggle('learning-center-content--full-width', true);
   }
 
   const filterMenuAriaHidden = filterMenu.attributes[3].value;
   const setFilterMenuAriaHidden = filterMenuAriaHidden === 'false' ? 'true' : 'false';
   filterMenu.setAttribute('aria-hidden', setFilterMenuAriaHidden);
+};
+
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const options = { month: 'long', day: 'numeric', year: 'numeric' };
+  return date.toLocaleDateString('en-US', options);
 };
 
 /**
@@ -84,6 +95,7 @@ export default async function decorate(block) {
     featuredArticle,
     searchPath,
     searchPlaceholder,
+    authorDirectoryPath,
     numOfArticles,
     defaultSort,
     filterOne,
@@ -96,7 +108,16 @@ export default async function decorate(block) {
     filterFourOptions,
   ] = block.children;
   block.innerHTML = '';
-  console.log(defaultSort);
+
+  // Fetch Header content from JSON endpoint
+  const articleData = await ffetch(searchPath.textContent.trim()).all();
+
+  // TODO: Placeholder for Featured Article path until authoring is fixed
+  featuredArticle.textContent = '/learning-center/10-cool-things-your-business-can-do-with-dynamic-pricing';
+  const noFeaturedArticleData = articleData.filter((data) => data.path !== featuredArticle.textContent.trim());
+  const defaultSortedArticle = noFeaturedArticleData.sort(
+    (a, b) => new Date(b.articlePublishDate) - new Date(a.articlePublishDate),
+  );
 
   // Creates a div container to hold the Filter Menu Toggle and Sort by dropdown
   const filterControls = document.createElement('div');
@@ -124,33 +145,50 @@ export default async function decorate(block) {
   // Markup for filterControls
   filterControls.innerHTML = `
     <button class="filter-menu-toggle" id="filter-menu-toggle" aria-controls="filter-menu" aria-expanded="true"><span class="filter-icon"></span><span class="toggle-label">Hide Filter</span></button>
-    <div class="sort-content-wrapper">
-      <label for="sort-content" class="sr-only">Short by</label>
-      <select name="sort-content" id="sort-content">
-        <option value="" selected disabled>Sort by</option>
-        <optgroup label="Date">
-          <option value="date-desc">Date (New → Old)</option>
-          <option value="date-asc">Date (Old → New)</option>
-        </optgroup>
-        <optgroup label="Title">
-          <option value="title-desc">Title (A → Z)</option>
-          <option value="title-asc">Title (Z → A)</option>
-        </optgroup>
-      </select>
-    </div>
+    ${
+      defaultSort.textContent !== ''
+        ? `<div class="sort-content-wrapper">
+        <label for="sort-content" class="sr-only">Short by</label>
+        <select name="sort-content" id="sort-content">
+          <option value="" selected disabled>Sort by</option>
+          ${
+            defaultSort.textContent.includes('date')
+              ? `<optgroup label="Date">
+              ${defaultSort.textContent.includes('desc-date') ? `<option value="desc-date">Date (New → Old)</option>` : ''}
+              ${defaultSort.textContent.includes('asc-date') ? `<option value="asc-date">Date (Old → New)</option>` : ''}
+            </optgroup>`
+              : ''
+          }
+          ${
+            defaultSort.textContent.includes('title')
+              ? `<optgroup label="Title">
+              ${defaultSort.textContent.includes('asc-title') ? `<option value="asc-title">Title (A → Z)</option>` : ''}
+              ${defaultSort.textContent.includes('desc-title') ? `<option value="desc-title">Title (Z → A)</option>` : ''}
+            </optgroup>`
+              : ''
+          }
+        </select>
+      </div>`
+        : ''
+    }
   `;
 
   // Click event for Filter Menu Toggle
   const filterMenuToggle = document.querySelector('.filter-menu-toggle');
   filterMenuToggle.addEventListener('click', () => {
-    toggleFilterMenu(filterMenuToggle, filter);
+    toggleFilterMenu(filterMenuToggle, filter, learningCenterContent);
   });
 
   // Watch for screen size change and switch between Desktop and Mobile Filter
-  if (!isDesktop.matches && filterMenuToggle.getAttribute('aria-expanded') === 'true') {
-    filterMenuToggle.setAttribute('aria-expanded', 'false');
-    filter.setAttribute('aria-hidden', 'true');
-  }
+  window.addEventListener('resize', () => {
+    if (!isDesktop.matches && filterMenuToggle.getAttribute('aria-expanded') === 'true') {
+      filterMenuToggle.setAttribute('aria-expanded', 'false');
+      filter.setAttribute('aria-hidden', 'true');
+    } else if (isDesktop.matches && filterMenuToggle.getAttribute('aria-expanded') === 'false') {
+      filterMenuToggle.setAttribute('aria-expanded', 'true');
+      filter.setAttribute('aria-hidden', 'false');
+    }
+  });
 
   // Render Filter Categories
   const renderFilterCategory = (filterNum, filterCategoryName, filterCategoryOptions, filterAllId, filterRadioName) => {
@@ -161,7 +199,7 @@ export default async function decorate(block) {
       if (optionSplit === 'e-books' || optionSplit === 'c-suite') {
         filterOptionsMarkup += `
           <li class="filter-category-item">
-            <input type="radio" id="filter-${optionSplit}" name="${filterRadioName}" value="filter-${optionSplit}" />
+            <input type="radio" id="filter-${optionSplit}" name="${filterRadioName}" value="${optionSplit}" />
             <label for="filter-${optionSplit}">${optionSplit}</label>
           </li>
         `;
@@ -169,7 +207,7 @@ export default async function decorate(block) {
         const optionReplace = optionSplit.replaceAll('-', ' ');
         filterOptionsMarkup += `
           <li class="filter-category-item">
-            <input type="radio" id="filter-${optionSplit}" name="${filterRadioName}" value="filter-${optionSplit}" />
+            <input type="radio" id="filter-${optionSplit}" name="${filterRadioName}" value="${optionSplit}" />
             <label for="filter-${optionSplit}">${optionReplace}</label>
           </li>
         `;
@@ -181,7 +219,7 @@ export default async function decorate(block) {
         <button class="filter-category-toggle" id="filter-category-${filterNum}-toggle" aria-controls="filter-category-${filterNum}-content" aria-expanded="true">${filterCategoryName.textContent.trim()}<span class="accordion-icon"></span></button>
         <ul class="filter-category-content" id="filter-category-${filterNum}-content" aria-labelledby="filter-category-${filterNum}-toggle" aria-hidden="false">
           <li class="filter-category-item">
-            <input type="radio" id="${filterAllId}" name="${filterRadioName}" value="${filterAllId}" />
+            <input type="radio" id="${filterAllId}" name="${filterRadioName}" value="${filterAllId}" checked />
             <label for="${filterAllId}">All</label>
           </li>
             ${filterOptionsMarkup}
@@ -192,7 +230,7 @@ export default async function decorate(block) {
   };
 
   filter.innerHTML = `
-    <form class="filter-search-wrapper" action=${searchPath.textContent.trim()} method="get">
+    <form class="filter-search-wrapper">
       <label for="filter-search" class="sr-only">Search</label>
       <input type="text" name="filter-search" id="filter-search" placeholder=${searchPlaceholder.textContent.trim()} />
       <button type="submit" aria-label="Submit search"></button>
@@ -218,9 +256,6 @@ export default async function decorate(block) {
     });
   });
 
-  // TODO: This is using a placeholder featuredArticle until the authoring experience is fixed
-  featuredArticle.textContent = '/learning-center/g2-report-pricing-software';
-
   // Clean-up and Render Article Category
   const renderArticleCategory = (articles) => {
     const categoriesArray = articles.category.split(',');
@@ -234,7 +269,7 @@ export default async function decorate(block) {
 
       const removePrefixCategory = category.split('/')[1];
       const removeHyphenCategory =
-        removePrefixCategory !== 'e-books' || removePrefixCategory !== 'c-suite'
+        removePrefixCategory !== 'e-books' && removePrefixCategory !== 'c-suite'
           ? removePrefixCategory.replaceAll('-', ' ')
           : removePrefixCategory;
 
@@ -245,10 +280,26 @@ export default async function decorate(block) {
   };
 
   // Clean-up and Render Article Authors
-  const renderArticleAuthors = (articles) => {
-    const authorsArray = articles.authors.split(',');
+  const renderArticleAuthors = (article) => {
+    const authorsArray = article.authors.split(',');
+    const postDate = formatDate(article.articlePublishDate);
     let markup = '';
     let innerMarkup = '';
+
+    // Formatting authorsParentPagePath
+    let authorsParentPagePathFormatted = authorDirectoryPath.textContent.trim();
+    const isPublishEnvironment = environmentMode() === 'publish';
+
+    if (!isPublishEnvironment) {
+      // In the author environment, ensure the URL does not end with a slash
+      // Append a slash only if the URL doesn't already end with it
+      if (!authorsParentPagePathFormatted.endsWith('/')) {
+        authorsParentPagePathFormatted += '/';
+      }
+    } else {
+      // In the publish environment, remove the base path if present
+      authorsParentPagePathFormatted = authorsParentPagePathFormatted.replace(BASE_CONTENT_PATH, '');
+    }
 
     authorsArray.forEach((author) => {
       if (author === '') {
@@ -257,23 +308,30 @@ export default async function decorate(block) {
 
       const removePrefixAuthor = author.split('/')[1];
       const removeHyphenAuthor = removePrefixAuthor.replaceAll('-', ' ');
+      let authorPageLink = '';
+
+      if (!isPublishEnvironment) {
+        authorPageLink = `${authorsParentPagePathFormatted}${removePrefixAuthor}.html`;
+      } else {
+        authorPageLink = `/authors/${removePrefixAuthor}`;
+      }
 
       innerMarkup +=
         authorsArray.indexOf(author) + 1 === authorsArray.length
-          ? `<a class="article-author-link" href="/learning-center/writer/${removePrefixAuthor}">${removeHyphenAuthor}</a>`
-          : `<a class="article-author-link" href="/learning-center/writer/${removePrefixAuthor}">${removeHyphenAuthor}</a> & `;
+          ? `<a class="article-author-link" href="${authorPageLink}">${removeHyphenAuthor}</a>`
+          : `<a class="article-author-link" href="${authorPageLink}">${removeHyphenAuthor}</a> & `;
     });
-    markup = `<p class="article-info">${articles.author !== '' ? `By ${innerMarkup}` : ''} ${articles.articlePublishDate !== '' ? `${articles.author !== '' ? 'on' : ''} ${articles.articlePublishDate}</p>` : ''}`;
+    markup = `<p class="article-info">${article.author !== '' ? `By ${innerMarkup}` : ''} ${article.articlePublishDate !== '' ? `${article.author !== '' ? 'on' : ''} ${postDate}</p>` : ''}`;
     return markup;
   };
 
   // Render Featured Article
   const renderFeaturedArticle = () => {
-    const featuredArticleData = articleData.find((data) => data.path === featuredArticle.textContent);
+    const featuredArticleData = articleData.find((data) => data.path === featuredArticle.textContent.trim());
     let markup = '';
     markup = `
       <div class="featured-article">
-        <div class="article-image"><img src="${featuredArticleData.image}" alt="${featuredArticleData.title}"></div>
+        <div class="article-image"><img src="${featuredArticleData.image}" alt="${featuredArticleData.imageAlt || featuredArticleData.title}"></div>
         <div class="article-content">
           ${
             featuredArticleData.category !== '' ||
@@ -298,16 +356,21 @@ export default async function decorate(block) {
   };
 
   // Render Learning Center Article Card
-  const renderArticleCard = () => {
-    const noFeaturedArticleData = articleData.filter((data) => data.path !== featuredArticle.textContent);
-    const initialArticleData = noFeaturedArticleData.slice(noFeaturedArticleData, numOfArticles.textContent.trim());
+  const renderArticleCard = (articleDataList) => {
+    let initialArticleData = articleDataList;
+    const initialArticleCount = initialArticleData.length;
+    if (
+      Number(numOfArticles.textContent.trim()) !== '' &&
+      initialArticleCount > Number(numOfArticles.textContent.trim())
+    ) {
+      initialArticleData = articleDataList.slice(noFeaturedArticleData, numOfArticles.textContent.trim());
+    }
     let markup = '';
-    console.log(initialArticleData);
     initialArticleData.forEach((article) => {
       renderArticleAuthors(article);
       markup += `
-        <div class="article-card">
-          <div class="article-image"><img src="${article.image}" alt="${article.title}"></div>
+        <li class="article-card">
+          <div class="article-image"><img src="${article.image}" alt="${article.imageAlt || article.title}"></div>
           <div class="article-content">
             ${
               article.category !== '' ||
@@ -326,7 +389,7 @@ export default async function decorate(block) {
               ${article.readingTime !== '' ? `<p class="article-readtime">${article.readingTime} min read</p>` : ''}
             </div>
           </div>
-        </div>
+        </li>
       `;
     });
     return markup;
@@ -334,8 +397,244 @@ export default async function decorate(block) {
 
   learningCenterContent.innerHTML = `
     ${renderFeaturedArticle()}
-    <div class="articles-container">
-      ${renderArticleCard()}
-    </div>
+    <ul class="articles-container"></ul>
   `;
+  const articlesContainer = document.querySelector('.articles-container');
+  const appendLearningCenterArticles = (articleJsonData) => {
+    articlesContainer.innerHTML = renderArticleCard(articleJsonData);
+  };
+  appendLearningCenterArticles(defaultSortedArticle);
+
+  // Defining some variables for filter, sort and search logic
+  const sortByEl = document.getElementById('sort-content');
+  const searchInput = document.getElementById('filter-search');
+  let currentFilteredArticles;
+  let currentSearchedArticles;
+  let currentSortedArticles;
+  let currentFilteredAndSortedArticles;
+  let currentSearchedAndFilteredArticles;
+  let currentSearchAndSortedArticles;
+  const selectedFiltersArray = [];
+  const selectedFilters = {
+    'filter-type': [],
+    'filter-industry': [],
+    'filter-role': [],
+    'filter-pfx': [],
+  };
+
+  // Learning Center Sort By logic
+  const handleSortArticles = (sortBy, articleDataList) => {
+    let articleJson = articleDataList;
+    console.log('datalist that is being sorted', articleJson);
+    sortByEl.style.width = 'auto';
+    if (sortBy === 'desc-date') {
+      articleJson = articleJson.sort((a, b) => new Date(b.articlePublishDate) - new Date(a.articlePublishDate));
+      appendLearningCenterArticles(articleJson);
+    } else if (sortBy === 'asc-date') {
+      articleJson = articleJson.sort((a, b) => new Date(a.articlePublishDate) - new Date(b.articlePublishDate));
+      appendLearningCenterArticles(articleJson);
+    } else if (sortBy === 'asc-title') {
+      sortByEl.style.width = '140px';
+      articleJson = articleJson.sort((a, b) => a.title.localeCompare(b.title));
+      appendLearningCenterArticles(articleJson);
+    } else {
+      sortByEl.style.width = '140px';
+      articleJson = articleJson.sort((a, b) => b.title.localeCompare(a.title));
+      appendLearningCenterArticles(articleJson);
+    }
+
+    currentSortedArticles = articleJson;
+
+    if (articleJson.length === 0) {
+      articlesContainer.innerHTML = `
+        <h4 class="no-articles">Sorry, there are no results based on these choices. Please update and try again.</h4>
+      `;
+    }
+
+    if (searchInput.value !== '') {
+      currentSearchAndSortedArticles = articleJson;
+    } else if (selectedFiltersArray.length > 0) {
+      currentFilteredAndSortedArticles = articleJson;
+    }
+  };
+
+  sortByEl.addEventListener('change', (e) => {
+    let sortedArticles = [...defaultSortedArticle];
+    const selectedFiltersValues = Object.values(selectedFilters);
+    selectedFiltersValues.forEach((filterValue) => {
+      if (filterValue[0] !== undefined) {
+        selectedFiltersArray.push(filterValue[0]);
+      }
+    });
+
+    if (searchInput.value !== '' && selectedFiltersArray.length > 0) {
+      console.log('sorting searched and filtered articles', currentSearchedAndFilteredArticles);
+      sortedArticles = currentSearchedAndFilteredArticles;
+      handleSortArticles(e.target.value, currentSearchedAndFilteredArticles);
+    } else if (searchInput.value !== '' && selectedFiltersArray.length <= 0) {
+      console.log('sorting searched articles', currentSearchedArticles);
+      sortedArticles = currentSearchedArticles;
+      handleSortArticles(e.target.value, currentSearchedArticles);
+    } else if (selectedFiltersArray.length > 0) {
+      console.log('sorting filtered articles', currentFilteredArticles);
+      sortedArticles = currentFilteredArticles;
+      handleSortArticles(e.target.value, currentFilteredArticles);
+    } else {
+      handleSortArticles(e.target.value, sortedArticles);
+    }
+  });
+
+  // Learning Center Search logic
+  const handleSearch = (query, articleList) => {
+    let articleJson = articleList;
+    articleJson = articleJson.filter(
+      (result) =>
+        result.category.includes(query) ||
+        result.title.toLowerCase().includes(query) ||
+        result.description.toLowerCase().includes(query) ||
+        result['cq-tags'].includes(query),
+    );
+
+    currentSearchedArticles = articleJson;
+
+    if (sortByEl.value !== '') {
+      currentSearchAndSortedArticles = articleJson;
+    } else if (selectedFiltersArray.length > 0) {
+      currentSearchedAndFilteredArticles = articleJson;
+    }
+
+    if (articleJson.length === 0) {
+      articlesContainer.innerHTML = `
+        <h4 class="no-articles">Sorry, there are no results based on these choices. Please update and try again.</h4>
+      `;
+    } else {
+      appendLearningCenterArticles(articleJson);
+    }
+  };
+
+  const searchForm = document.querySelector('.filter-search-wrapper');
+  searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let searchedArticles = [...defaultSortedArticle];
+    const formData = new FormData(e.target);
+    const value = Object.fromEntries(formData)['filter-search'];
+
+    // Implement search through filtered articles
+    const selectedFiltersValues = Object.values(selectedFilters);
+    selectedFiltersValues.forEach((filterValue) => {
+      if (filterValue[0] !== undefined) {
+        selectedFiltersArray.push(filterValue[0]);
+      }
+    });
+
+    if (sortByEl.value !== '' && selectedFiltersArray.length > 0) {
+      console.log('search through sort and filtered', currentFilteredAndSortedArticles);
+      searchedArticles = currentFilteredAndSortedArticles;
+      handleSearch(value, currentFilteredAndSortedArticles);
+    } else if (sortByEl.value !== '' && selectedFiltersArray.length <= 0) {
+      console.log('search through sorted', currentSortedArticles);
+      searchedArticles = currentSortedArticles;
+      handleSearch(value, currentSortedArticles);
+    } else if (selectedFiltersArray.length > 0) {
+      console.log('search through filtered', currentFilteredArticles);
+      searchedArticles = currentFilteredArticles;
+      handleSearch(value, searchedArticles);
+    } else {
+      handleSearch(value, searchedArticles);
+    }
+  });
+
+  // Learning Center Filter logic
+  const updateSelectedFilters = (state, key, value) => {
+    if (state === true && value.includes('all')) {
+      selectedFilters[key].pop();
+    } else if (state === true) {
+      selectedFilters[key].pop();
+      selectedFilters[key].push(value);
+    }
+    return selectedFilters;
+  };
+
+  const handleFilterArticles = (filters, articleList) => {
+    let articleJson = articleList;
+    if (filters['filter-type'].length > 0) {
+      articleJson = articleJson.filter(
+        (article) =>
+          article.category.includes(filters['filter-type']) ||
+          article.topics.includes(filters['filter-type']) ||
+          article.type.includes(filters['filter-type']) ||
+          article['cq-tags'].includes(filters['filter-type']),
+      );
+    }
+
+    if (filters['filter-industry'].length > 0) {
+      articleJson = articleJson.filter(
+        (article) =>
+          article.category.includes(filters['filter-industry']) ||
+          article.topics.includes(filters['filter-industry']) ||
+          article.type.includes(filters['filter-industry']) ||
+          article['cq-tags'].includes(filters['filter-industry']),
+      );
+    }
+
+    if (filters['filter-role'].length > 0) {
+      articleJson = articleJson.filter(
+        (article) =>
+          article.category.includes(filters['filter-role']) ||
+          article.topics.includes(filters['filter-role']) ||
+          article.type.includes(filters['filter-role']) ||
+          article['cq-tags'].includes(filters['filter-role']),
+      );
+    }
+
+    if (filters['filter-pfx'].length > 0) {
+      articleJson = articleJson.filter(
+        (article) =>
+          article.category.includes(filters['filter-pfx']) ||
+          article.topics.includes(filters['filter-pfx']) ||
+          article.type.includes(filters['filter-pfx']) ||
+          article['cq-tags'].includes(filters['filter-pfx']),
+      );
+    }
+
+    currentFilteredArticles = articleJson;
+    console.log(currentFilteredArticles);
+
+    if (articleJson.length === 0) {
+      articlesContainer.innerHTML = `
+        <h4 class="no-articles">Sorry, there are no results based on these choices. Please update and try again.</h4>
+      `;
+    } else {
+      appendLearningCenterArticles(articleJson);
+    }
+
+    if (searchInput.value !== '') {
+      currentSearchedAndFilteredArticles = articleJson;
+    } else if (sortByEl.value !== '') {
+      currentFilteredAndSortedArticles = articleJson;
+    }
+  };
+
+  const allFilterOptions = document.querySelectorAll('.filter-category-item input[type="radio"]');
+  allFilterOptions.forEach((filterOption) => {
+    filterOption.addEventListener('click', () => {
+      updateSelectedFilters(filterOption.checked, filterOption.name, filterOption.value);
+      let filteredArticles = [...defaultSortedArticle];
+
+      if (sortByEl.value !== '' && searchInput.value !== '') {
+        console.log('filter through search and sorted', currentSearchAndSortedArticles);
+        handleFilterArticles(selectedFilters, currentSearchAndSortedArticles);
+      } else if (sortByEl.value !== '' && searchInput.value === '') {
+        console.log('filter through sorted', currentSortedArticles);
+        filteredArticles = currentSortedArticles;
+        handleFilterArticles(selectedFilters, currentSortedArticles);
+      } else if (searchInput.value !== '' && sortByEl.value === '') {
+        console.log('filter through searched', currentSearchedArticles);
+        filteredArticles = currentSearchedArticles;
+        handleFilterArticles(selectedFilters, currentSearchedArticles);
+      } else {
+        handleFilterArticles(selectedFilters, filteredArticles);
+      }
+    });
+  });
 }
