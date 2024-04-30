@@ -113,11 +113,13 @@ export default async function decorate(block) {
   const articleData = await ffetch(searchPath.textContent.trim()).all();
 
   // TODO: Placeholder for Featured Article path until authoring is fixed
-  featuredArticle.textContent = '/learning-center/10-cool-things-your-business-can-do-with-dynamic-pricing';
+  featuredArticle.textContent = '/learning-center/article-4';
+  const featuredArticleData = articleData.find((data) => data.path === featuredArticle.textContent.trim());
   const noFeaturedArticleData = articleData.filter((data) => data.path !== featuredArticle.textContent.trim());
   const defaultSortedArticle = noFeaturedArticleData.sort(
     (a, b) => new Date(b.articlePublishDate) - new Date(a.articlePublishDate),
   );
+  let currentArticleData = [...defaultSortedArticle];
 
   // Creates a div container to hold the Filter Menu Toggle and Sort by dropdown
   const filterControls = document.createElement('div');
@@ -140,7 +142,18 @@ export default async function decorate(block) {
   // Creates a div container to hold Learning Center articles
   const learningCenterContent = document.createElement('div');
   learningCenterContent.classList.add('learning-center-content');
+  const articlesContainer = document.createElement('div');
+  articlesContainer.classList.add('articles-container');
+  const featuredArticleContainer = document.createElement('div');
+  featuredArticleContainer.classList.add('featured-article');
   flexContainer.append(learningCenterContent);
+  learningCenterContent.append(featuredArticleContainer);
+  learningCenterContent.append(articlesContainer);
+
+  // Creates a div container to hold pagination
+  const paginationContainer = document.createElement('div');
+  paginationContainer.classList.add('pagination-wrapper');
+  learningCenterContent.append(paginationContainer);
 
   // Markup for filterControls
   filterControls.innerHTML = `
@@ -259,24 +272,18 @@ export default async function decorate(block) {
   // Clean-up and Render Article Category
   const renderArticleCategory = (articles) => {
     const categoriesArray = articles.category.split(',');
-    let markup = '';
-    let innerMarkup = '';
-
-    categoriesArray.forEach((category) => {
-      if (category === '') {
-        return;
-      }
-
-      const removePrefixCategory = category.split('/')[1];
+    if (categoriesArray.length !== 0) {
+      const firstCategory = categoriesArray[0];
+      let markup = '';
+      const removePrefixCategory = firstCategory.split('/')[1];
       const removeHyphenCategory =
         removePrefixCategory !== 'e-books' && removePrefixCategory !== 'c-suite'
           ? removePrefixCategory.replaceAll('-', ' ')
           : removePrefixCategory;
-
-      innerMarkup += `<span>${removeHyphenCategory}${categoriesArray.indexOf(category) + 1 >= 1 && categoriesArray.indexOf(category) + 1 !== categoriesArray.length ? `${categoriesArray.indexOf(category) + 1 === categoriesArray.length - 1 ? ' & ' : ', '}` : ''}</span>`;
-    });
-    markup = `<p class="article-subtitle">${innerMarkup}</p>`;
-    return markup;
+      markup = `<p class="article-subtitle">${removeHyphenCategory}</p>`;
+      return markup;
+    }
+    return null;
   };
 
   // Clean-up and Render Article Authors
@@ -326,34 +333,27 @@ export default async function decorate(block) {
   };
 
   // Render Featured Article
-  const renderFeaturedArticle = () => {
-    const featuredArticleData = articleData.find((data) => data.path === featuredArticle.textContent.trim());
-    let markup = '';
-    markup = `
-      <div class="featured-article">
-        <div class="article-image"><img src="${featuredArticleData.image}" alt="${featuredArticleData.imageAlt || featuredArticleData.title}"></div>
-        <div class="article-content">
-          ${
-            featuredArticleData.category !== '' ||
-            featuredArticleData.title !== '' ||
-            featuredArticleData.authors !== '' ||
-            featuredArticleData.articlePublishDate !== ''
-              ? `<div class="article-details">
-              ${featuredArticleData.category !== '' ? renderArticleCategory(featuredArticleData) : ''}
-              ${featuredArticleData.title !== '' ? `<h3 class="article-title">${featuredArticleData.title}</h3>` : ''}
-              ${featuredArticleData.authors !== '' || featuredArticleData.articlePublishDate !== '' ? renderArticleAuthors(featuredArticleData) : ''}
-            </div>`
-              : ''
-          }
-          <div class="article-cta-container">
-            <a class="article-link" href="${featuredArticleData.path}">Read Now</a>
-            ${featuredArticleData.readingTime !== '' ? `<p class="article-readtime">${featuredArticleData.readingTime} min read</p>` : ''}
-          </div>
-        </div>
+  featuredArticleContainer.innerHTML = `
+    <div class="article-image"><img src="${featuredArticleData.image}" alt="${featuredArticleData.imageAlt || featuredArticleData.title}"></div>
+    <div class="article-content">
+      ${
+        featuredArticleData.category !== '' ||
+        featuredArticleData.title !== '' ||
+        featuredArticleData.authors !== '' ||
+        featuredArticleData.articlePublishDate !== ''
+          ? `<div class="article-details">
+          ${featuredArticleData.category !== '' ? renderArticleCategory(featuredArticleData) : ''}
+          ${featuredArticleData.title !== '' ? `<h3 class="article-title">${featuredArticleData.title}</h3>` : ''}
+          ${featuredArticleData.authors !== '' || featuredArticleData.articlePublishDate !== '' ? renderArticleAuthors(featuredArticleData) : ''}
+        </div>`
+          : ''
+      }
+      <div class="article-cta-container">
+        <a class="article-link" href="${featuredArticleData.path}">Read Now</a>
+        ${featuredArticleData.readingTime !== '' ? `<p class="article-readtime">${featuredArticleData.readingTime} min read</p>` : ''}
       </div>
-    `;
-    return markup;
-  };
+    </div>
+  `;
 
   // Render Learning Center Article Card
   const renderArticleCard = (articleDataList) => {
@@ -395,15 +395,76 @@ export default async function decorate(block) {
     return markup;
   };
 
-  learningCenterContent.innerHTML = `
-    ${renderFeaturedArticle()}
-    <ul class="articles-container"></ul>
-  `;
-  const articlesContainer = document.querySelector('.articles-container');
   const appendLearningCenterArticles = (articleJsonData) => {
     articlesContainer.innerHTML = renderArticleCard(articleJsonData);
   };
   appendLearningCenterArticles(defaultSortedArticle);
+
+  // Render pagination pages
+  const renderPages = (articlePerPage, articleList, currentPage) => {
+    const totalArticles = articleList.length;
+    const totalPageNumber = Math.ceil(totalArticles / articlePerPage);
+    const firstPageMarkup = `<li class="pagination-page active-page" id="page-1"><button>1</button></li>`;
+    const lastPageMarkup = `<li class="pagination-page" id="page-${totalPageNumber}"><button>${totalPageNumber}</button></li>`;
+    let paginationMarkup = '';
+    let middlePageMarkup = '';
+
+    if (totalPageNumber <= 1) {
+      return firstPageMarkup;
+    }
+    const center = [currentPage - 2, currentPage - 1, currentPage, currentPage + 1, currentPage + 2];
+    const filteredCenter = center.filter((p) => p > 1 && p < totalPageNumber);
+    const includeThreeLeft = currentPage === 5;
+    const includeThreeRight = currentPage === totalPageNumber - 4;
+    const includeLeftDots = currentPage > 5;
+    const includeRightDots = currentPage < totalPageNumber - 4;
+
+    if (includeThreeLeft) {
+      filteredCenter.unshift(2);
+    }
+    if (includeThreeRight) {
+      filteredCenter.push(totalPageNumber - 1);
+    }
+
+    if (includeLeftDots) {
+      filteredCenter.unshift('...');
+    }
+    if (includeRightDots) {
+      filteredCenter.push('...');
+    }
+
+    filteredCenter.forEach((centerPage) => {
+      if (centerPage === '...') {
+        middlePageMarkup += `
+          <li class="pagination-ellipses"><span>${centerPage}</span></li>
+        `;
+      } else {
+        middlePageMarkup += `
+          <li class="pagination-page" id="page-${centerPage}"><button>${centerPage}</button></li>
+        `;
+      }
+    });
+    paginationMarkup = firstPageMarkup + middlePageMarkup + lastPageMarkup;
+    return paginationMarkup;
+  };
+
+  paginationContainer.innerHTML = `
+    ${Number(numOfArticles.textContent.trim()) > defaultSortedArticle.length ? '' : '<button class="pagination-prev hidden">Previous</button>'}
+    <ul class="pagination-pages-list">
+      ${renderPages(numOfArticles.textContent.trim(), defaultSortedArticle, 1)}
+    </ul>
+    ${Number(numOfArticles.textContent.trim()) > defaultSortedArticle.length ? '' : '<button class="pagination-next">Next</button>'}
+  `;
+
+  const paginationPageList = document.querySelector('.pagination-pages-list');
+  const prevPageButton = document.querySelector('.pagination-prev');
+  const nextPageButton = document.querySelector('.pagination-next');
+
+  const queryString = window.location.search;
+  if (queryString === '') {
+    const firstPage = document.getElementById('page-1');
+    firstPage.classList.add('active-page');
+  }
 
   // Defining some variables for filter, sort and search logic
   const sortByEl = document.getElementById('sort-content');
@@ -444,17 +505,30 @@ export default async function decorate(block) {
     }
 
     currentSortedArticles = articleJson;
+    currentArticleData = articleJson;
+    console.log(paginationContainer);
 
     if (articleJson.length === 0) {
       articlesContainer.innerHTML = `
         <h4 class="no-articles">Sorry, there are no results based on these choices. Please update and try again.</h4>
       `;
+      paginationContainer.classList.add('hidden');
+    } else {
+      paginationContainer.classList.remove('hidden');
+      paginationPageList.innerHTML = renderPages(numOfArticles.textContent.trim(), currentSortedArticles, 1);
+      if (paginationPageList.children.length <= 1) {
+        nextPageButton.classList.add('hidden');
+      } else {
+        nextPageButton.classList.remove('hidden');
+      }
     }
 
     if (searchInput.value !== '') {
       currentSearchAndSortedArticles = articleJson;
+      currentArticleData = articleJson;
     } else if (selectedFiltersArray.length > 0) {
       currentFilteredAndSortedArticles = articleJson;
+      currentArticleData = articleJson;
     }
   };
 
@@ -468,16 +542,19 @@ export default async function decorate(block) {
     });
 
     if (searchInput.value !== '' && selectedFiltersArray.length > 0) {
-      console.log('sorting searched and filtered articles', currentSearchedAndFilteredArticles);
+      console.log('sorting searched and filtered articles', currentSearchedAndFilteredArticles, currentArticleData);
       sortedArticles = currentSearchedAndFilteredArticles;
+      currentArticleData = currentSearchedAndFilteredArticles;
       handleSortArticles(e.target.value, currentSearchedAndFilteredArticles);
     } else if (searchInput.value !== '' && selectedFiltersArray.length <= 0) {
-      console.log('sorting searched articles', currentSearchedArticles);
+      console.log('sorting searched articles', currentSearchedArticles, currentArticleData);
       sortedArticles = currentSearchedArticles;
+      currentArticleData = currentSearchedArticles;
       handleSortArticles(e.target.value, currentSearchedArticles);
     } else if (selectedFiltersArray.length > 0) {
-      console.log('sorting filtered articles', currentFilteredArticles);
+      console.log('sorting filtered articles', currentFilteredArticles, currentArticleData);
       sortedArticles = currentFilteredArticles;
+      currentArticleData = currentFilteredArticles;
       handleSortArticles(e.target.value, currentFilteredArticles);
     } else {
       handleSortArticles(e.target.value, sortedArticles);
@@ -496,19 +573,30 @@ export default async function decorate(block) {
     );
 
     currentSearchedArticles = articleJson;
+    currentArticleData = articleJson;
 
     if (sortByEl.value !== '') {
       currentSearchAndSortedArticles = articleJson;
+      currentArticleData = articleJson;
     } else if (selectedFiltersArray.length > 0) {
       currentSearchedAndFilteredArticles = articleJson;
+      currentArticleData = articleJson;
     }
 
     if (articleJson.length === 0) {
       articlesContainer.innerHTML = `
         <h4 class="no-articles">Sorry, there are no results based on these choices. Please update and try again.</h4>
       `;
+      paginationContainer.classList.add('hidden');
     } else {
       appendLearningCenterArticles(articleJson);
+      paginationContainer.classList.remove('hidden');
+      paginationPageList.innerHTML = renderPages(numOfArticles.textContent.trim(), currentSearchedArticles, 1);
+      if (paginationPageList.children.length <= 1) {
+        nextPageButton.classList.add('hidden');
+      } else {
+        nextPageButton.classList.remove('hidden');
+      }
     }
   };
 
@@ -528,16 +616,19 @@ export default async function decorate(block) {
     });
 
     if (sortByEl.value !== '' && selectedFiltersArray.length > 0) {
-      console.log('search through sort and filtered', currentFilteredAndSortedArticles);
+      console.log('search through sort and filtered', currentFilteredAndSortedArticles, currentArticleData);
       searchedArticles = currentFilteredAndSortedArticles;
+      currentArticleData = currentFilteredAndSortedArticles;
       handleSearch(value, currentFilteredAndSortedArticles);
     } else if (sortByEl.value !== '' && selectedFiltersArray.length <= 0) {
-      console.log('search through sorted', currentSortedArticles);
+      console.log('search through sorted', currentSortedArticles, currentArticleData);
       searchedArticles = currentSortedArticles;
+      currentArticleData = currentSortedArticles;
       handleSearch(value, currentSortedArticles);
     } else if (selectedFiltersArray.length > 0) {
-      console.log('search through filtered', currentFilteredArticles);
+      console.log('search through filtered', currentFilteredArticles, currentArticleData);
       searchedArticles = currentFilteredArticles;
+      currentArticleData = currentFilteredArticles;
       handleSearch(value, searchedArticles);
     } else {
       handleSearch(value, searchedArticles);
@@ -558,60 +649,47 @@ export default async function decorate(block) {
   const handleFilterArticles = (filters, articleList) => {
     let articleJson = articleList;
     if (filters['filter-type'].length > 0) {
-      articleJson = articleJson.filter(
-        (article) =>
-          article.category.includes(filters['filter-type']) ||
-          article.topics.includes(filters['filter-type']) ||
-          article.type.includes(filters['filter-type']) ||
-          article['cq-tags'].includes(filters['filter-type']),
-      );
+      articleJson = articleJson.filter((article) => article.category.includes(filters['filter-type']));
     }
 
     if (filters['filter-industry'].length > 0) {
-      articleJson = articleJson.filter(
-        (article) =>
-          article.category.includes(filters['filter-industry']) ||
-          article.topics.includes(filters['filter-industry']) ||
-          article.type.includes(filters['filter-industry']) ||
-          article['cq-tags'].includes(filters['filter-industry']),
-      );
+      articleJson = articleJson.filter((article) => article.topics.includes(filters['filter-industry']));
     }
 
     if (filters['filter-role'].length > 0) {
-      articleJson = articleJson.filter(
-        (article) =>
-          article.category.includes(filters['filter-role']) ||
-          article.topics.includes(filters['filter-role']) ||
-          article.type.includes(filters['filter-role']) ||
-          article['cq-tags'].includes(filters['filter-role']),
-      );
+      articleJson = articleJson.filter((article) => article.topics.includes(filters['filter-role']));
     }
 
     if (filters['filter-pfx'].length > 0) {
-      articleJson = articleJson.filter(
-        (article) =>
-          article.category.includes(filters['filter-pfx']) ||
-          article.topics.includes(filters['filter-pfx']) ||
-          article.type.includes(filters['filter-pfx']) ||
-          article['cq-tags'].includes(filters['filter-pfx']),
-      );
+      articleJson = articleJson.filter((article) => article.topics.includes(filters['filter-pfx']));
     }
 
     currentFilteredArticles = articleJson;
-    console.log(currentFilteredArticles);
+    currentArticleData = articleJson;
+    console.log(currentFilteredArticles, currentArticleData);
 
     if (articleJson.length === 0) {
       articlesContainer.innerHTML = `
         <h4 class="no-articles">Sorry, there are no results based on these choices. Please update and try again.</h4>
       `;
+      paginationContainer.classList.add('hidden');
     } else {
       appendLearningCenterArticles(articleJson);
+      paginationContainer.classList.remove('hidden');
+      paginationPageList.innerHTML = renderPages(numOfArticles.textContent.trim(), currentFilteredArticles, 1);
+      if (paginationPageList.children.length <= 1) {
+        nextPageButton.classList.add('hidden');
+      } else {
+        nextPageButton.classList.remove('hidden');
+      }
     }
 
     if (searchInput.value !== '') {
       currentSearchedAndFilteredArticles = articleJson;
+      currentArticleData = articleJson;
     } else if (sortByEl.value !== '') {
       currentFilteredAndSortedArticles = articleJson;
+      currentArticleData = articleJson;
     }
   };
 
@@ -622,19 +700,121 @@ export default async function decorate(block) {
       let filteredArticles = [...defaultSortedArticle];
 
       if (sortByEl.value !== '' && searchInput.value !== '') {
-        console.log('filter through search and sorted', currentSearchAndSortedArticles);
+        console.log('filter through search and sorted', currentSearchAndSortedArticles, currentArticleData);
         handleFilterArticles(selectedFilters, currentSearchAndSortedArticles);
       } else if (sortByEl.value !== '' && searchInput.value === '') {
-        console.log('filter through sorted', currentSortedArticles);
+        console.log('filter through sorted', currentSortedArticles, currentArticleData);
         filteredArticles = currentSortedArticles;
+        currentArticleData = currentSortedArticles;
         handleFilterArticles(selectedFilters, currentSortedArticles);
       } else if (searchInput.value !== '' && sortByEl.value === '') {
-        console.log('filter through searched', currentSearchedArticles);
+        console.log('filter through searched', currentSearchedArticles, currentArticleData);
         filteredArticles = currentSearchedArticles;
+        currentArticleData = currentSearchedArticles;
         handleFilterArticles(selectedFilters, currentSearchedArticles);
       } else {
         handleFilterArticles(selectedFilters, filteredArticles);
       }
     });
+  });
+
+  // Append articles based on active page
+  const appendNewActiveArticlePage = (startIndex, endIndex, currentPage, articlesJson) => {
+    let newCurrentArticleData;
+    if (Number(currentPage.textContent) * Number(numOfArticles.textContent.trim()) >= articleData.length) {
+      newCurrentArticleData = articlesJson.slice(startIndex);
+      console.log(newCurrentArticleData);
+      appendLearningCenterArticles(newCurrentArticleData);
+    } else {
+      newCurrentArticleData = articlesJson.slice(startIndex, endIndex);
+      console.log(newCurrentArticleData);
+      appendLearningCenterArticles(newCurrentArticleData);
+    }
+  };
+
+  paginationContainer.addEventListener('click', (e) => {
+    if (e.target && e.target.nodeName === 'BUTTON' && e.target.className === '') {
+      const { target } = e;
+      const targetPageContainer = target.parentElement.parentElement;
+      [...targetPageContainer.children].forEach((page) => page.classList.remove('active-page'));
+      target.parentElement.classList.add('active-page');
+
+      paginationPageList.innerHTML = renderPages(
+        numOfArticles.textContent.trim(),
+        currentArticleData,
+        Number(target.textContent),
+      );
+      const newPageList = paginationPageList.querySelectorAll('.pagination-page');
+      newPageList.forEach((newPage) => {
+        newPage.classList.remove('active-page');
+        if (target.textContent === newPage.textContent) {
+          newPage.classList.add('active-page');
+        }
+      });
+
+      if (target.textContent === '1') {
+        prevPageButton.classList.add('hidden');
+      } else {
+        prevPageButton.classList.remove('hidden');
+      }
+
+      if (target.textContent === paginationPageList.lastChild.textContent) {
+        nextPageButton.classList.add('hidden');
+      } else {
+        nextPageButton.classList.remove('hidden');
+      }
+
+      appendNewActiveArticlePage(
+        Number(target.textContent) * Number(numOfArticles.textContent.trim()) - 3,
+        Number(target.textContent) * Number(numOfArticles.textContent.trim()),
+        target,
+        currentArticleData,
+      );
+    }
+  });
+
+  const handlePaginationNav = (paginations) => {
+    const activePage = [...paginations.children].find((page) => page.classList.contains('active-page'));
+    const nextActivePage = activePage.nextElementSibling;
+    [...paginations.children].forEach((page) => page.classList.remove('active-page'));
+    nextActivePage.classList.add('active-page');
+    paginationPageList.innerHTML = renderPages(
+      numOfArticles.textContent.trim(),
+      currentArticleData,
+      Number(nextActivePage.textContent),
+    );
+
+    const newPageList = paginationPageList.querySelectorAll('.pagination-page');
+    newPageList.forEach((newPage) => {
+      newPage.classList.remove('active-page');
+      if (nextActivePage.textContent === newPage.textContent) {
+        newPage.classList.add('active-page');
+      }
+    });
+
+    if (nextActivePage.textContent > '1') {
+      prevPageButton.classList.remove('hidden');
+    }
+
+    if (nextActivePage.textContent === paginationPageList.lastChild.textContent) {
+      nextPageButton.classList.add('hidden');
+    }
+
+    appendNewActiveArticlePage(
+      Number(nextActivePage.textContent) * Number(numOfArticles.textContent.trim()) - 3,
+      Number(nextActivePage.textContent) * Number(numOfArticles.textContent.trim()),
+      nextActivePage,
+      currentArticleData,
+    );
+  };
+
+  nextPageButton.addEventListener('click', () => {
+    const paginationList = nextPageButton.previousElementSibling;
+    handlePaginationNav(paginationList);
+  });
+
+  prevPageButton.addEventListener('click', () => {
+    const paginationList = nextPageButton.nextElementSibling;
+    handlePaginationNav(paginationList);
   });
 }
