@@ -121,6 +121,9 @@ export default async function decorate(block) {
   );
   let currentArticleData = [...defaultSortedArticle];
 
+  const queryStr = 'pageNum=1&sortBy=desc-date';
+  const searchParams = new URLSearchParams(queryStr);
+
   // Creates a div container to hold the Filter Menu Toggle and Sort by dropdown
   const filterControls = document.createElement('div');
   filterControls.classList.add('filter-controls');
@@ -460,12 +463,6 @@ export default async function decorate(block) {
   const prevPageButton = document.querySelector('.pagination-prev');
   const nextPageButton = document.querySelector('.pagination-next');
 
-  const queryString = window.location.search;
-  if (queryString === '') {
-    const firstPage = document.getElementById('page-1');
-    firstPage.classList.add('active-page');
-  }
-
   // Defining some variables for filter, sort and search logic
   const sortByEl = document.getElementById('sort-content');
   const searchInput = document.getElementById('filter-search');
@@ -486,7 +483,6 @@ export default async function decorate(block) {
   // Learning Center Sort By logic
   const handleSortArticles = (sortBy, articleDataList) => {
     let articleJson = articleDataList;
-    console.log('datalist that is being sorted', articleJson);
     sortByEl.style.width = 'auto';
     if (sortBy === 'desc-date') {
       articleJson = articleJson.sort((a, b) => new Date(b.articlePublishDate) - new Date(a.articlePublishDate));
@@ -506,7 +502,6 @@ export default async function decorate(block) {
 
     currentSortedArticles = articleJson;
     currentArticleData = articleJson;
-    console.log(paginationContainer);
 
     if (articleJson.length === 0) {
       articlesContainer.innerHTML = `
@@ -515,7 +510,12 @@ export default async function decorate(block) {
       paginationContainer.classList.add('hidden');
     } else {
       paginationContainer.classList.remove('hidden');
-      paginationPageList.innerHTML = renderPages(numOfArticles.textContent.trim(), currentSortedArticles, 1);
+      const currentPage = [...paginationPageList.children].find((page) => page.classList.contains('active-page'));
+      paginationPageList.innerHTML = renderPages(
+        numOfArticles.textContent.trim(),
+        currentSortedArticles,
+        Number(currentPage.textContent),
+      );
       if (paginationPageList.children.length <= 1) {
         nextPageButton.classList.add('hidden');
       } else {
@@ -542,23 +542,28 @@ export default async function decorate(block) {
     });
 
     if (searchInput.value !== '' && selectedFiltersArray.length > 0) {
-      console.log('sorting searched and filtered articles', currentSearchedAndFilteredArticles, currentArticleData);
       sortedArticles = currentSearchedAndFilteredArticles;
       currentArticleData = currentSearchedAndFilteredArticles;
       handleSortArticles(e.target.value, currentSearchedAndFilteredArticles);
     } else if (searchInput.value !== '' && selectedFiltersArray.length <= 0) {
-      console.log('sorting searched articles', currentSearchedArticles, currentArticleData);
       sortedArticles = currentSearchedArticles;
       currentArticleData = currentSearchedArticles;
       handleSortArticles(e.target.value, currentSearchedArticles);
     } else if (selectedFiltersArray.length > 0) {
-      console.log('sorting filtered articles', currentFilteredArticles, currentArticleData);
       sortedArticles = currentFilteredArticles;
       currentArticleData = currentFilteredArticles;
       handleSortArticles(e.target.value, currentFilteredArticles);
     } else {
       handleSortArticles(e.target.value, sortedArticles);
     }
+
+    if (paginationPageList.children[0].className.includes('active-page')) {
+      prevPageButton.classList.add('hidden');
+      // searchParams.set('pageNum', 1);
+    }
+    searchParams.set('sortBy', e.target.value);
+    const newRelativePathQuery = `${window.location.pathname}?${searchParams.toString()}`;
+    window.history.pushState(null, '', newRelativePathQuery);
   });
 
   // Learning Center Search logic
@@ -591,7 +596,12 @@ export default async function decorate(block) {
     } else {
       appendLearningCenterArticles(articleJson);
       paginationContainer.classList.remove('hidden');
-      paginationPageList.innerHTML = renderPages(numOfArticles.textContent.trim(), currentSearchedArticles, 1);
+      const currentPage = [...paginationPageList.children].find((page) => page.classList.contains('active-page'));
+      paginationPageList.innerHTML = renderPages(
+        numOfArticles.textContent.trim(),
+        currentSearchedArticles,
+        Number(currentPage.textContent),
+      );
       if (paginationPageList.children.length <= 1) {
         nextPageButton.classList.add('hidden');
       } else {
@@ -616,33 +626,46 @@ export default async function decorate(block) {
     });
 
     if (sortByEl.value !== '' && selectedFiltersArray.length > 0) {
-      console.log('search through sort and filtered', currentFilteredAndSortedArticles, currentArticleData);
       searchedArticles = currentFilteredAndSortedArticles;
       currentArticleData = currentFilteredAndSortedArticles;
       handleSearch(value, currentFilteredAndSortedArticles);
     } else if (sortByEl.value !== '' && selectedFiltersArray.length <= 0) {
-      console.log('search through sorted', currentSortedArticles, currentArticleData);
       searchedArticles = currentSortedArticles;
       currentArticleData = currentSortedArticles;
       handleSearch(value, currentSortedArticles);
     } else if (selectedFiltersArray.length > 0) {
-      console.log('search through filtered', currentFilteredArticles, currentArticleData);
       searchedArticles = currentFilteredArticles;
       currentArticleData = currentFilteredArticles;
       handleSearch(value, searchedArticles);
     } else {
       handleSearch(value, searchedArticles);
     }
+
+    if (paginationPageList.children[0].className.includes('active-page')) {
+      prevPageButton.classList.add('hidden');
+      // searchParams.set('pageNum', 1);
+    }
+    if (value !== '') {
+      searchParams.set('search', value);
+    } else {
+      searchParams.delete('search');
+    }
+    const newRelativePathQuery = `${window.location.pathname}?${searchParams.toString()}`;
+    window.history.pushState(null, '', newRelativePathQuery);
   });
 
   // Learning Center Filter logic
   const updateSelectedFilters = (state, key, value) => {
     if (state === true && value.includes('all')) {
       selectedFilters[key].pop();
+      searchParams.delete(key);
     } else if (state === true) {
       selectedFilters[key].pop();
       selectedFilters[key].push(value);
+      searchParams.set(key, value);
     }
+    const newRelativePathQuery = `${window.location.pathname}?${searchParams.toString()}`;
+    window.history.pushState(null, '', newRelativePathQuery);
     return selectedFilters;
   };
 
@@ -666,7 +689,6 @@ export default async function decorate(block) {
 
     currentFilteredArticles = articleJson;
     currentArticleData = articleJson;
-    console.log(currentFilteredArticles, currentArticleData);
 
     if (articleJson.length === 0) {
       articlesContainer.innerHTML = `
@@ -676,7 +698,12 @@ export default async function decorate(block) {
     } else {
       appendLearningCenterArticles(articleJson);
       paginationContainer.classList.remove('hidden');
-      paginationPageList.innerHTML = renderPages(numOfArticles.textContent.trim(), currentFilteredArticles, 1);
+      const currentPage = [...paginationPageList.children].find((page) => page.classList.contains('active-page'));
+      paginationPageList.innerHTML = renderPages(
+        numOfArticles.textContent.trim(),
+        currentFilteredArticles,
+        Number(currentPage.textContent),
+      );
       if (paginationPageList.children.length <= 1) {
         nextPageButton.classList.add('hidden');
       } else {
@@ -700,36 +727,83 @@ export default async function decorate(block) {
       let filteredArticles = [...defaultSortedArticle];
 
       if (sortByEl.value !== '' && searchInput.value !== '') {
-        console.log('filter through search and sorted', currentSearchAndSortedArticles, currentArticleData);
         handleFilterArticles(selectedFilters, currentSearchAndSortedArticles);
       } else if (sortByEl.value !== '' && searchInput.value === '') {
-        console.log('filter through sorted', currentSortedArticles, currentArticleData);
         filteredArticles = currentSortedArticles;
         currentArticleData = currentSortedArticles;
         handleFilterArticles(selectedFilters, currentSortedArticles);
       } else if (searchInput.value !== '' && sortByEl.value === '') {
-        console.log('filter through searched', currentSearchedArticles, currentArticleData);
         filteredArticles = currentSearchedArticles;
         currentArticleData = currentSearchedArticles;
         handleFilterArticles(selectedFilters, currentSearchedArticles);
       } else {
         handleFilterArticles(selectedFilters, filteredArticles);
       }
+
+      if (paginationPageList.children[0].className.includes('active-page')) {
+        prevPageButton.classList.add('hidden');
+        // searchParams.set('pageNum', 1);
+      }
+      const newRelativePathQuery = `${window.location.pathname}?${searchParams.toString()}`;
+      window.history.pushState(null, '', newRelativePathQuery);
     });
   });
 
   // Append articles based on active page
   const appendNewActiveArticlePage = (startIndex, endIndex, currentPage, articlesJson) => {
     let newCurrentArticleData;
-    if (Number(currentPage.textContent) * Number(numOfArticles.textContent.trim()) >= articleData.length) {
+    if (Number(currentPage.textContent) * Number(numOfArticles.textContent.trim()) >= articlesJson.length) {
       newCurrentArticleData = articlesJson.slice(startIndex);
-      console.log(newCurrentArticleData);
-      appendLearningCenterArticles(newCurrentArticleData);
     } else {
       newCurrentArticleData = articlesJson.slice(startIndex, endIndex);
-      console.log(newCurrentArticleData);
-      appendLearningCenterArticles(newCurrentArticleData);
     }
+    appendLearningCenterArticles(newCurrentArticleData);
+  };
+
+  const handlePageClick = (paginations, activePage) => {
+    const newPageList = paginations.querySelectorAll('.pagination-page');
+    newPageList.forEach((newPage) => {
+      newPage.classList.remove('active-page');
+      if (activePage === newPage.textContent) {
+        newPage.classList.add('active-page');
+      }
+    });
+
+    if (activePage > '1') {
+      prevPageButton.classList.remove('hidden');
+    } else {
+      prevPageButton.classList.add('hidden');
+    }
+
+    if (activePage === paginations.lastChild.textContent) {
+      nextPageButton.classList.add('hidden');
+    } else {
+      nextPageButton.classList.remove('hidden');
+    }
+  };
+
+  const handlePaginationNav = (paginations, nextActivePage) => {
+    [...paginations.children].forEach((page) => page.classList.remove('active-page'));
+    nextActivePage.classList.add('active-page');
+    paginationPageList.innerHTML = renderPages(
+      numOfArticles.textContent.trim(),
+      currentArticleData,
+      Number(nextActivePage.textContent),
+    );
+
+    handlePageClick(paginationPageList, nextActivePage.textContent);
+
+    appendNewActiveArticlePage(
+      Number(nextActivePage.textContent) * Number(numOfArticles.textContent.trim()) -
+        Number(numOfArticles.textContent.trim()),
+      Number(nextActivePage.textContent) * Number(numOfArticles.textContent.trim()),
+      nextActivePage,
+      currentArticleData,
+    );
+
+    searchParams.set('pageNum', nextActivePage.textContent);
+    const newRelativePathQuery = `${window.location.pathname}?${searchParams.toString()}`;
+    window.history.pushState(null, '', newRelativePathQuery);
   };
 
   paginationContainer.addEventListener('click', (e) => {
@@ -744,77 +818,107 @@ export default async function decorate(block) {
         currentArticleData,
         Number(target.textContent),
       );
-      const newPageList = paginationPageList.querySelectorAll('.pagination-page');
-      newPageList.forEach((newPage) => {
-        newPage.classList.remove('active-page');
-        if (target.textContent === newPage.textContent) {
-          newPage.classList.add('active-page');
-        }
-      });
 
-      if (target.textContent === '1') {
-        prevPageButton.classList.add('hidden');
-      } else {
-        prevPageButton.classList.remove('hidden');
-      }
-
-      if (target.textContent === paginationPageList.lastChild.textContent) {
-        nextPageButton.classList.add('hidden');
-      } else {
-        nextPageButton.classList.remove('hidden');
-      }
+      handlePageClick(paginationPageList, target.textContent);
 
       appendNewActiveArticlePage(
-        Number(target.textContent) * Number(numOfArticles.textContent.trim()) - 3,
+        Number(target.textContent) * Number(numOfArticles.textContent.trim()) -
+          Number(numOfArticles.textContent.trim()),
         Number(target.textContent) * Number(numOfArticles.textContent.trim()),
         target,
         currentArticleData,
       );
+
+      searchParams.set('pageNum', target.textContent);
+      const newRelativePathQuery = `${window.location.pathname}?${searchParams.toString()}`;
+      window.history.pushState(null, '', newRelativePathQuery);
     }
   });
-
-  const handlePaginationNav = (paginations) => {
-    const activePage = [...paginations.children].find((page) => page.classList.contains('active-page'));
-    const nextActivePage = activePage.nextElementSibling;
-    [...paginations.children].forEach((page) => page.classList.remove('active-page'));
-    nextActivePage.classList.add('active-page');
-    paginationPageList.innerHTML = renderPages(
-      numOfArticles.textContent.trim(),
-      currentArticleData,
-      Number(nextActivePage.textContent),
-    );
-
-    const newPageList = paginationPageList.querySelectorAll('.pagination-page');
-    newPageList.forEach((newPage) => {
-      newPage.classList.remove('active-page');
-      if (nextActivePage.textContent === newPage.textContent) {
-        newPage.classList.add('active-page');
-      }
-    });
-
-    if (nextActivePage.textContent > '1') {
-      prevPageButton.classList.remove('hidden');
-    }
-
-    if (nextActivePage.textContent === paginationPageList.lastChild.textContent) {
-      nextPageButton.classList.add('hidden');
-    }
-
-    appendNewActiveArticlePage(
-      Number(nextActivePage.textContent) * Number(numOfArticles.textContent.trim()) - 3,
-      Number(nextActivePage.textContent) * Number(numOfArticles.textContent.trim()),
-      nextActivePage,
-      currentArticleData,
-    );
-  };
 
   nextPageButton.addEventListener('click', () => {
     const paginationList = nextPageButton.previousElementSibling;
-    handlePaginationNav(paginationList);
+    const activePage = [...paginationList.children].find((page) => page.classList.contains('active-page'));
+    const nextActivePage = activePage.nextElementSibling;
+    handlePaginationNav(paginationList, nextActivePage);
   });
 
   prevPageButton.addEventListener('click', () => {
-    const paginationList = nextPageButton.nextElementSibling;
-    handlePaginationNav(paginationList);
+    const paginationList = prevPageButton.nextElementSibling;
+    const activePage = [...paginationList.children].find((page) => page.classList.contains('active-page'));
+    const nextActivePage = activePage.previousElementSibling;
+    handlePaginationNav(paginationList, nextActivePage);
   });
+
+  const updateStateFromUrlParams = (articleJson) => {
+    const getUrlParams = window.location.search;
+    const loadedSearchParams = new URLSearchParams(getUrlParams);
+    const articlesOnLoad = articleJson;
+    if (getUrlParams === '') {
+      return;
+    }
+
+    if (loadedSearchParams.get('sortBy') !== 'desc-date') {
+      sortByEl.value = loadedSearchParams.get('sortBy');
+      handleSortArticles(loadedSearchParams.get('sortBy'), articlesOnLoad);
+    }
+
+    if (loadedSearchParams.get('search') !== null) {
+      searchInput.setAttribute('value', loadedSearchParams.get('search'));
+      searchInput.value = loadedSearchParams.get('search');
+      handleSearch(loadedSearchParams.get('search'), articlesOnLoad);
+    }
+
+    if (
+      loadedSearchParams.get('filter-type') !== null ||
+      loadedSearchParams.get('filter-industry') !== null ||
+      loadedSearchParams.get('filter-role') !== null ||
+      loadedSearchParams.get('filter-pfx') !== null
+    ) {
+      const loadedFilters = {
+        'filter-type': loadedSearchParams.get('filter-type') !== null ? [loadedSearchParams.get('filter-type')] : [],
+        'filter-industry':
+          loadedSearchParams.get('filter-industry') !== null ? [loadedSearchParams.get('filter-industry')] : [],
+        'filter-role': loadedSearchParams.get('filter-role') !== null ? [loadedSearchParams.get('filter-role')] : [],
+        'filter-pfx': loadedSearchParams.get('filter-pfx') !== null ? [loadedSearchParams.get('filter-pfx')] : [],
+      };
+      const filterValuesArray = [];
+      const loadedFilterValues = Object.values(loadedFilters);
+      loadedFilterValues.forEach((filterValue) => {
+        if (filterValue[0] !== undefined) {
+          filterValuesArray.push(filterValue[0]);
+        }
+      });
+      allFilterOptions.forEach((filterOption) => {
+        if (filterValuesArray.includes(filterOption.value)) {
+          filterOption.checked = true;
+          handleFilterArticles(loadedFilters, articlesOnLoad);
+        }
+      });
+    }
+
+    if (loadedSearchParams.get('pageNum') !== '1') {
+      paginationPageList.innerHTML = renderPages(
+        numOfArticles.textContent.trim(),
+        currentArticleData,
+        Number(loadedSearchParams.get('pageNum')),
+      );
+      const pageList = paginationPageList.querySelectorAll('.pagination-page');
+      if (pageList.length > 1) {
+        pageList.forEach((page) => {
+          page.classList.remove('active-page');
+          if (loadedSearchParams.get('pageNum') === page.textContent) {
+            page.classList.add('active-page');
+          }
+        });
+      }
+      appendNewActiveArticlePage(
+        Number(loadedSearchParams.get('pageNum')) * Number(numOfArticles.textContent.trim()) -
+          Number(numOfArticles.textContent.trim()),
+        Number(loadedSearchParams.get('pageNum')) * Number(numOfArticles.textContent.trim()),
+        Number(loadedSearchParams.get('pageNum')),
+        currentArticleData,
+      );
+    }
+  };
+  updateStateFromUrlParams(defaultSortedArticle);
 }
