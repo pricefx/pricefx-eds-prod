@@ -80,6 +80,19 @@ const toggleFilterMenu = (filterMenuToggle, filterMenu, contentWrapper) => {
   filterMenu.setAttribute('aria-hidden', setFilterMenuAriaHidden);
 };
 
+// Close Mobile Navigation on ESC Key
+const closeMobileFilterOnEscape = (e) => {
+  if (e.code === 'Escape') {
+    const filterMenuToggle = document.getElementById('filter-menu-toggle');
+    const filterMenu = document.getElementById('filter-menu');
+    if (filterMenuToggle.getAttribute('aria-expanded') === 'true') {
+      filterMenuToggle.setAttribute('aria-expanded', 'false');
+      filterMenu.setAttribute('aria-hidden', 'true');
+    }
+  }
+};
+window.addEventListener('keydown', closeMobileFilterOnEscape);
+
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const options = { month: 'long', day: 'numeric', year: 'numeric' };
@@ -205,6 +218,10 @@ export default async function decorate(block) {
       filter.setAttribute('aria-hidden', 'false');
     }
   });
+  if (!isDesktop.matches && filterMenuToggle.getAttribute('aria-expanded') === 'true') {
+    filterMenuToggle.setAttribute('aria-expanded', 'false');
+    filter.setAttribute('aria-hidden', 'true');
+  }
 
   // Render Filter Categories
   const renderFilterCategory = (filterNum, filterCategoryName, filterCategoryOptions, filterAllId, filterRadioName) => {
