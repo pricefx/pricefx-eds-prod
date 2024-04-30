@@ -111,6 +111,7 @@
   --c-gray-med: #b5bac4;
   --c-gray-med-2: #939393;
   --c-gray-med-alt: #bababa;
+  --c-gray-mid: #939393;
   --c-gray-drk: #6e7178;
   --c-gray-drk-alt: #616161;
   --c-gray-border: #d3d3d3;
@@ -325,7 +326,8 @@ h6 {
 }
 
 /* Button Styles */
-a.button.primary {
+a.button,
+button {
   appearance: none;
   background: linear-gradient(123deg, #304f8c 4.85%, #466cb9 43.45%, #304f8c 54.85%, #283f6f 86.9%);
   background-position: left;
@@ -348,6 +350,12 @@ a.button.primary {
   transition: var(--base-transition);
 }
 
+a.button:focus,
+button:focus {
+  outline: 2px solid var(--c-outline-drk);
+  outline-offset: 2px;
+}
+
 a.button.primary:focus,
 a.button.primary:hover {
   background-position: right;
@@ -362,6 +370,11 @@ a.button.secondary {
   padding: 14px 30px;
 }
 
+a.button.secondary:focus,
+a.button.secondary:hover {
+  backdrop-filter: blur(12px);
+  background: rgba(255 255 255 / 70%);
+}
 
 @media (width >= 768px) {
   p {
@@ -403,13 +416,12 @@ a.button.secondary {
 ============================================= */
 /* sections */
 main .section {
-  padding: 64px 24px;
+  padding: var(--spacing-xlarge) var(--spacing-small);
 }
 
-@media (width >= 768px) {
-  main .section {
-   padding: 120px 32px;
-  }
+.section > div {
+  margin: 0 auto;
+  max-width: 1188px;
 }
 
 /* section metadata */
@@ -418,12 +430,23 @@ main .section.highlight {
   background-color: var(--c-gray-lt);
 }
 
-.section[data-backgroundcolor="section-bg-color-grey"] {
-  background-color: var(--c-gray-lt);
+.section[data-sectiontitle="section-title-gray"] h1,
+.section[data-sectiontitle="section-title-gray"] h2,
+.section[data-sectiontitle="section-title-gray"] h3,
+.section[data-sectiontitle="section-title-gray"] h4,
+.section[data-sectiontitle="section-title-gray"] h5,
+.section[data-sectiontitle="section-title-gray"] h6 {
+  background: var(--c-copy);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .section[data-backgroundcolor="section-bg-color-white"] {
   background-color: var(--c-white);
+}
+
+.section[data-backgroundcolor="section-bg-color-gray"] {
+  background-color: var(--c-gray-lt);
 }
 
 .section[data-alignment="section-align-left"] {
@@ -443,9 +466,8 @@ main .section.highlight {
   padding-right: 0;
 }
 
-.section[data-maxwidth="section-site-width"] > div {
-  margin: 0 auto;
-  max-width: 1188px;
+.section[data-maxwidth="section-full-bleed"] > div {
+  max-width: 100%;
 }
 
 .section[data-maxwidth="section-site-width-984px"] > div {
@@ -463,23 +485,35 @@ main .section.highlight {
   max-width: 680px;
 }
 
+.section[data-padding="section-padding-large"] {
+  padding: 50px var(--spacing-small);
+}
+
+.section[data-padding="section-padding-medium"] {
+  padding: var(--spacing-medium) var(--spacing-small);
+}
+
+.section[data-padding="section-padding-small"] {
+  padding: var(--spacing-xsmall) var(--spacing-small);
+}
+
 .section[data-padding="section-no-padding"] {
   padding: 0;
 }
 
 /* section image & iframe video styles */
-.section[data-roundedcorner="rounded-corner-8px"] img,
-.section[data-roundedcorner="rounded-corner-8px"] iframe {
+.section[data-roundedcorner="rounded-corner-small"] img,
+.section[data-roundedcorner="rounded-corner-small"] iframe {
   border-radius: 8px;
 }
 
-.section[data-roundedcorner="rounded-corner-16px"] img,
-.section[data-roundedcorner="rounded-corner-16px"] iframe {
-  border-radius: 16px;
+.section[data-roundedcorner="rounded-corner-medium"] img,
+.section[data-roundedcorner="rounded-corner-medium"] iframe {
+  border-radius: var(--spacing-xsmall);
 }
 
-.section[data-roundedcorner="rounded-corner-20px"] img,
-.section[data-roundedcorner="rounded-corner-20px"] iframe {
+.section[data-roundedcorner="rounded-corner-large"] img,
+.section[data-roundedcorner="rounded-corner-large"] iframe {
   border-radius: 20px;
 }
 
@@ -492,4 +526,22 @@ main .section.highlight {
   position: absolute;
   white-space: nowrap; 
   width: 1px;
+}
+
+@media (width >= 768px) {
+  main .section {
+   padding: 120px var(--spacing-medium);
+  }
+
+  .section[data-padding="section-padding-large"] {
+    padding: 100px var(--spacing-medium);
+  }
+
+  .section[data-padding="section-padding-medium"] {
+    padding: var(--spacing-xlarge) var(--spacing-medium);
+  }
+
+  .section[data-padding="section-padding-small"] {
+    padding: var(--spacing-medium);
+  }
 }
