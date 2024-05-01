@@ -27,7 +27,9 @@
   font-size: var(--body-font-size-l);
   font-weight: var(--fw-med);
   line-height: calc((20 / 16) * 1rem);
-  padding-left: 0;
+  margin: 0;
+  padding: 0;
+  text-transform: none;
 }
 
 .filter-icon {
@@ -146,6 +148,7 @@
   border: none;
   cursor: pointer;
   height: 14px;
+  margin: 0;
   padding: 12px;
   position: absolute;
   right: 24px;

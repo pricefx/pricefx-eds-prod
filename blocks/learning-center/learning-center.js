@@ -61,7 +61,7 @@ const toggleFilterMenu = (filterMenuToggle, filterMenu, contentWrapper) => {
     filterMenu.classList.toggle('hidden', false);
     contentWrapper.classList.toggle('learning-center-content--full-width', false);
     filterMenu.focus();
-    filterMenuToggle.innerHTML = `<span class="filter-icon"></span><span class="toggle-label">Hide Filter</span>`;
+    filterMenuToggle.innerHTML = `<span class="filter-icon"></span><span class="toggle-label">Hide Filters</span>`;
   } else {
     filterMenu.blur();
     filterMenuToggle.innerHTML = `<span class="filter-icon"></span><span class="toggle-label">Show Filter</span>`;
@@ -134,7 +134,7 @@ export default async function decorate(block) {
   );
   let currentArticleData = [...defaultSortedArticle];
 
-  const queryStr = 'pageNum=1&sortBy=desc-date';
+  const queryStr = 'page=1&sortBy=desc-date';
   const searchParams = new URLSearchParams(queryStr);
 
   // Creates a div container to hold the Filter Menu Toggle and Sort by dropdown
@@ -173,7 +173,7 @@ export default async function decorate(block) {
 
   // Markup for filterControls
   filterControls.innerHTML = `
-    <button class="filter-menu-toggle" id="filter-menu-toggle" aria-controls="filter-menu" aria-expanded="true"><span class="filter-icon"></span><span class="toggle-label">Hide Filter</span></button>
+    <button class="filter-menu-toggle" id="filter-menu-toggle" aria-controls="filter-menu" aria-expanded="true"><span class="filter-icon"></span><span class="toggle-label">Hide Filters</span></button>
     ${
       defaultSort.textContent !== ''
         ? `<div class="sort-content-wrapper">
@@ -576,7 +576,6 @@ export default async function decorate(block) {
 
     if (paginationPageList.children[0].className.includes('active-page')) {
       prevPageButton.classList.add('hidden');
-      // searchParams.set('pageNum', 1);
     }
     searchParams.set('sortBy', e.target.value);
     const newRelativePathQuery = `${window.location.pathname}?${searchParams.toString()}`;
@@ -660,7 +659,6 @@ export default async function decorate(block) {
 
     if (paginationPageList.children[0].className.includes('active-page')) {
       prevPageButton.classList.add('hidden');
-      // searchParams.set('pageNum', 1);
     }
     if (value !== '') {
       searchParams.set('search', value);
@@ -759,7 +757,6 @@ export default async function decorate(block) {
 
       if (paginationPageList.children[0].className.includes('active-page')) {
         prevPageButton.classList.add('hidden');
-        // searchParams.set('pageNum', 1);
       }
       const newRelativePathQuery = `${window.location.pathname}?${searchParams.toString()}`;
       window.history.pushState(null, '', newRelativePathQuery);
@@ -818,7 +815,7 @@ export default async function decorate(block) {
       currentArticleData,
     );
 
-    searchParams.set('pageNum', nextActivePage.textContent);
+    searchParams.set('page', nextActivePage.textContent);
     const newRelativePathQuery = `${window.location.pathname}?${searchParams.toString()}`;
     window.history.pushState(null, '', newRelativePathQuery);
   };
@@ -846,7 +843,7 @@ export default async function decorate(block) {
         currentArticleData,
       );
 
-      searchParams.set('pageNum', target.textContent);
+      searchParams.set('page', target.textContent);
       const newRelativePathQuery = `${window.location.pathname}?${searchParams.toString()}`;
       window.history.pushState(null, '', newRelativePathQuery);
     }
@@ -913,26 +910,26 @@ export default async function decorate(block) {
       });
     }
 
-    if (loadedSearchParams.get('pageNum') !== '1') {
+    if (loadedSearchParams.get('page') !== '1') {
       paginationPageList.innerHTML = renderPages(
         numOfArticles.textContent.trim(),
         currentArticleData,
-        Number(loadedSearchParams.get('pageNum')),
+        Number(loadedSearchParams.get('page')),
       );
       const pageList = paginationPageList.querySelectorAll('.pagination-page');
       if (pageList.length > 1) {
         pageList.forEach((page) => {
           page.classList.remove('active-page');
-          if (loadedSearchParams.get('pageNum') === page.textContent) {
+          if (loadedSearchParams.get('page') === page.textContent) {
             page.classList.add('active-page');
           }
         });
       }
       appendNewActiveArticlePage(
-        Number(loadedSearchParams.get('pageNum')) * Number(numOfArticles.textContent.trim()) -
+        Number(loadedSearchParams.get('page')) * Number(numOfArticles.textContent.trim()) -
           Number(numOfArticles.textContent.trim()),
-        Number(loadedSearchParams.get('pageNum')) * Number(numOfArticles.textContent.trim()),
-        Number(loadedSearchParams.get('pageNum')),
+        Number(loadedSearchParams.get('page')) * Number(numOfArticles.textContent.trim()),
+        Number(loadedSearchParams.get('page')),
         currentArticleData,
       );
     }
