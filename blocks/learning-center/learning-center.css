@@ -423,7 +423,9 @@ a.article-link::after {
 .pagination-wrapper .pagination-next {
   font-size: var(--body-font-size-l);
   margin: 0 5px;
+  padding: 0 var(--spacing-micro);
   position: relative;
+  text-transform: none;
 }
 
 .pagination-wrapper .pagination-prev::before,
@@ -432,7 +434,6 @@ a.article-link::after {
   font-size: 10px;
   font-weight: var(--fw-x-bold);
   position: absolute;
-  top: 1px;
 }
 
 .pagination-wrapper .pagination-prev::before {
@@ -459,6 +460,8 @@ a.article-link::after {
 
 .pagination-page button {
   cursor: pointer;
+  margin: 0;
+  padding: 0 var(--spacing-micro);
 }
 
 .active-page button {
