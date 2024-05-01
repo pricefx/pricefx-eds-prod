@@ -294,11 +294,13 @@
   text-transform: capitalize;
 }
 
-h3.article-title,
+h2.article-title,
 .no-articles {
   -webkit-text-fill-color: var(--c-extra-dark);
   background: transparent;
   color: var(--c-extra-dark);
+  font-size: var(--heading-font-size-l);
+  font-weight: var(--fw-med);
   margin: 0 0 5px;
 }
 
@@ -366,6 +368,9 @@ a.article-link::after {
 .article-card .article-image img {
   border-radius: 16px;
   display: block;
+  height: 100%;
+  min-height: 150px;
+  width: 100%;
 }
 
 .article-card .article-content {

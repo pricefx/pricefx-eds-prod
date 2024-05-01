@@ -365,7 +365,7 @@ export default async function decorate(block) {
         featuredArticleData.articlePublishDate !== ''
           ? `<div class="article-details">
           ${featuredArticleData.category !== '' ? renderArticleCategory(featuredArticleData) : ''}
-          ${featuredArticleData.title !== '' ? `<h3 class="article-title">${featuredArticleData.title}</h3>` : ''}
+          ${featuredArticleData.title !== '' ? `<h2 class="article-title">${featuredArticleData.title}</h2>` : ''}
           ${featuredArticleData.authors !== '' || featuredArticleData.articlePublishDate !== '' ? renderArticleAuthors(featuredArticleData) : ''}
         </div>`
           : ''
@@ -401,7 +401,7 @@ export default async function decorate(block) {
               article.articlePublishDate !== ''
                 ? `<div class="article-details">
                 ${article.category !== '' ? renderArticleCategory(article) : ''}
-                ${article.title !== '' ? `<h3 class="article-title">${article.title}</h3>` : ''}
+                ${article.title !== '' ? `<h2 class="article-title">${article.title}</h2>` : ''}
                 ${article.authors !== '' || article.articlePublishDate !== '' ? renderArticleAuthors(article) : ''}
               </div>`
                 : ''
