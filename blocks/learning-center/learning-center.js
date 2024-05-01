@@ -158,7 +158,7 @@ export default async function decorate(block) {
   // Creates a div container to hold Learning Center articles
   const learningCenterContent = document.createElement('div');
   learningCenterContent.classList.add('learning-center-content');
-  const articlesContainer = document.createElement('div');
+  const articlesContainer = document.createElement('ul');
   articlesContainer.classList.add('articles-container');
   const featuredArticleContainer = document.createElement('div');
   featuredArticleContainer.classList.add('featured-article');
@@ -212,6 +212,7 @@ export default async function decorate(block) {
   window.addEventListener('resize', () => {
     if (!isDesktop.matches && filterMenuToggle.getAttribute('aria-expanded') === 'true') {
       filterMenuToggle.setAttribute('aria-expanded', 'false');
+      filterMenuToggle.setAttribute('aria-label', 'Toggle Filter Menu');
       filter.setAttribute('aria-hidden', 'true');
     } else if (isDesktop.matches && filterMenuToggle.getAttribute('aria-expanded') === 'false') {
       filterMenuToggle.setAttribute('aria-expanded', 'true');
@@ -220,6 +221,7 @@ export default async function decorate(block) {
   });
   if (!isDesktop.matches && filterMenuToggle.getAttribute('aria-expanded') === 'true') {
     filterMenuToggle.setAttribute('aria-expanded', 'false');
+    filterMenuToggle.setAttribute('aria-label', 'Toggle Filter Menu');
     filter.setAttribute('aria-hidden', 'true');
   }
 
