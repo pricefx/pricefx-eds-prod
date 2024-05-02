@@ -1050,15 +1050,13 @@
         "component": "reference",
         "valueType": "string",
         "name": "quoteImage",
-        "label": "Quote Image",
-        "multi": false
+        "label": "Quote Image"
       },
       {
         "component": "reference",
         "valueType": "string",
         "name": "quoteLogo",
-        "label": "Quote Logo",
-        "multi": false
+        "label": "Quote Logo"
       }
     ]
   },
