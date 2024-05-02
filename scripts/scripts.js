@@ -102,7 +102,6 @@ async function updateMetadata() {
   document.head.querySelector('meta[name="twitter:title"]').content = document.title;
 }
 
-
 /**
  * Decorates the main element.
  * @param {Element} main The main element
