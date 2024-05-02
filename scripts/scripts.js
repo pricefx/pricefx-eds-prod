@@ -118,6 +118,7 @@ async function loadEager(doc) {
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
+  await updateMetadata();
   if (main) {
     decorateMain(main);
     document.body.classList.add('appear');
