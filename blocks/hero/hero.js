@@ -26,17 +26,20 @@ function decorateButton(heroLeftContainer) {
 
 function decorateRightContainer(heroRightContainer) {
   const heroVariation = heroRightContainer.firstElementChild.textContent;
-  const heroImageContainer = document.createElement('div');
-  heroImageContainer.classList.add('hero-image-container');
+
   if (heroVariation === 'imageVariation') {
+    const heroImageContainer = document.createElement('div');
+    heroImageContainer.classList.add('hero-image-container');
     const heroImage = heroRightContainer.children[1];
     if (window.matchMedia('(min-width:986px)').matches && heroImage.querySelector('img') !== null) {
       heroImageContainer.setAttribute('style', `background-image:url(${heroImage.querySelector('img').src})`);
     }
     heroImageContainer.append(heroImage);
+    heroRightContainer.textContent = '';
+    heroRightContainer.append(heroImageContainer);
+  } else {
+    heroRightContainer.textContent = '';
   }
-  heroRightContainer.textContent = '';
-  heroRightContainer.append(heroImageContainer);
 }
 
 export default async function decorate(block) {
@@ -53,6 +56,11 @@ export default async function decorate(block) {
   [...block.children].forEach((row, index) => {
     if (index < 6) {
       /* Image / Video */
+      if (index === 0) {
+        if (row.firstElementChild?.textContent === 'noVariation') {
+          heroLeftContainerInner.classList.add('hero-no-bg-image');
+        }
+      }
       heroRightContainer.append(row.firstElementChild);
       heroRightContainer.classList.add('hero-right-container');
     } else if (index === 6) {
