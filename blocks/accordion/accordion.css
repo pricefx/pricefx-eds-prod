@@ -39,8 +39,10 @@
 
 .accordion-button {
   background: transparent;
-  border: none;     
-  cursor: pointer;    
+}
+
+.accordion-button:focus{
+  outline: none;
 }
 
 
