@@ -1040,11 +1040,25 @@
         "label": "Quote"
       },
       {
-        "component": "text-input",
+        "component": "text-area",
         "valueType": "string",
         "name": "author",
         "label": "Author",
         "value": "Benjamin Franklin"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "quoteImage",
+        "label": "Quote Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "quoteLogo",
+        "label": "Quote Logo",
+        "multi": false
       }
     ]
   },
