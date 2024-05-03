@@ -1533,5 +1533,42 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "table",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "browseTable",
+        "value": "",
+        "label": "Browse Table",
+        "valueType": "string"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "tableTitle",
+        "value": "",
+        "label": "Table Title"
+      },
+      {
+        "component": "boolean",
+        "label": "Disable Top Row",
+        "name": "disableTopRow",
+        "valueType": "boolean"
+      },
+      {
+        "component": "select",
+        "label": "Select Table Variation",
+        "name": "tableVariation",
+        "valueType": "string",
+        "options": [
+          { "name": "Default", "value": "default" },
+          { "name": "Icon Variation", "value": "icon" },
+          { "name": "Level Variation", "value": "level" },
+          { "name": "Level Variation color", "value": "LevelColor" }
+        ]
+      }
+    ]
   }
 ]
