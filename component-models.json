@@ -1495,8 +1495,10 @@
         "name": "tableVariation",
         "valueType": "string",
         "options": [
-          { "name": "Variation 1", "value": "option1" },
-          { "name": "Variation 2", "value": "option2" }
+          { "name": "Default", "value": "default" },
+          { "name": "Icon Variation", "value": "icon" },
+          { "name": "Level Variation", "value": "level" },
+          { "name": "Level Variation color", "value": "LevelColor" }
         ]
       }
     ]
