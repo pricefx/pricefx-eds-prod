@@ -768,6 +768,12 @@
         "name": "sectionID",
         "label": "ID",
         "value": ""
+      },
+      {
+        "component": "boolean",
+        "label": "Iframe Two Column",
+        "name": "iframeTwoColumn",
+        "valueType": "boolean"
       }
     ]
   },
@@ -1033,6 +1039,12 @@
     "id": "quote",
     "fields": [
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "quoteImage",
+        "label": "Quote Image"
+      },
+      {
         "component": "text-area",
         "valueType": "string",
         "value": "Well done is better than well said.",
@@ -1040,23 +1052,17 @@
         "label": "Quote"
       },
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "quoteLogo",
+        "label": "Quote Logo"
+      },
+      {
         "component": "text-area",
         "valueType": "string",
         "name": "author",
         "label": "Author",
         "value": "Benjamin Franklin"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "quoteImage",
-        "label": "Quote Image"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "quoteLogo",
-        "label": "Quote Logo"
       }
     ]
   },
@@ -1303,6 +1309,12 @@
         "label": "Filter 1 Title"
       },
       {
+        "component": "boolean",
+        "label": "Filter 1 is Multi-Select",
+        "name": "filterOneMultiSelect",
+        "valueType": "boolean"
+      },
+      {
         "component": "aem-tag",
         "label": "Filter 1 Options",
         "name": "filterOneTags",
@@ -1314,6 +1326,12 @@
         "name": "filterTwoTitle",
         "value": "",
         "label": "Filter 2 Title"
+      },
+      {
+        "component": "boolean",
+        "label": "Filter 2 is Multi-Select",
+        "name": "filterTwoMultiSelect",
+        "valueType": "boolean"
       },
       {
         "component": "aem-tag",
@@ -1329,6 +1347,12 @@
         "label": "Filter 3 Title"
       },
       {
+        "component": "boolean",
+        "label": "Filter 3 is Multi-Select",
+        "name": "filterThreeMultiSelect",
+        "valueType": "boolean"
+      },
+      {
         "component": "aem-tag",
         "label": "Filter 3 Options",
         "name": "filterThreeTags",
@@ -1340,6 +1364,12 @@
         "name": "filterFourTitle",
         "value": "",
         "label": "Filter 4 Title"
+      },
+      {
+        "component": "boolean",
+        "label": "Filter 4 is Multi-Select",
+        "name": "filterFourMultiSelect",
+        "valueType": "boolean"
       },
       {
         "component": "aem-tag",
@@ -1462,6 +1492,44 @@
         "name": "authorsParentPagePath",
         "value": "",
         "label": "Authors Parent Page Path",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "iframe",
+    "fields": [
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "href",
+        "value": "",
+        "label": "Link"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "width",
+        "value": "",
+        "label": "Width"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "height",
+        "value": "",
+        "label": "Height"
+      }
+    ]
+  },
+  {
+    "id": "fragment",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "fragmentPath",
+        "value": "",
+        "label": "Fragment Path",
         "valueType": "string"
       }
     ]
