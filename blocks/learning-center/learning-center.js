@@ -112,12 +112,16 @@ export default async function decorate(block) {
     numOfArticles,
     defaultSort,
     filterOne,
+    filterOneIsMultiSelect,
     filterOneOptions,
     filterTwo,
+    filterTwoIsMultiSelect,
     filterTwoOptions,
     filterThree,
+    filterThreeIsMultiSelect,
     filterThreeOptions,
     filterFour,
+    filterFourIsMultiSelect,
     filterFourOptions,
   ] = block.children;
   block.innerHTML = '';
@@ -226,24 +230,31 @@ export default async function decorate(block) {
   }
 
   // Render Filter Categories
-  const renderFilterCategory = (filterNum, filterCategoryName, filterCategoryOptions, filterAllId, filterRadioName) => {
+  const renderFilterCategory = (
+    filterNum,
+    filterCategoryLabel,
+    filterIsMultiSelect,
+    filterCategoryOptions,
+    filterAllId,
+    filterCategoryName,
+  ) => {
     const optionsArray = filterCategoryOptions.textContent.trim().split(',');
     let filterOptionsMarkup = '';
     optionsArray.forEach((option) => {
       const optionSplit = option.split('/')[1];
-      if (optionSplit === 'e-books' || optionSplit === 'c-suite') {
+      const optionReplace = optionSplit.replaceAll('-', ' ');
+      if (filterIsMultiSelect.textContent.trim() === 'false') {
         filterOptionsMarkup += `
           <li class="filter-category-item">
-            <input type="radio" id="filter-${optionSplit}" name="${filterRadioName}" value="${optionSplit}" />
-            <label for="filter-${optionSplit}">${optionSplit}</label>
+            <input type="radio" id="filter-${optionSplit}" name="${filterCategoryName}" value="${optionSplit}" data-filter-category="${filterCategoryName}" />
+            <label for="filter-${optionSplit}">${optionSplit === 'e-books' || optionSplit === 'c-suite' ? optionSplit : optionReplace}</label>
           </li>
         `;
       } else {
-        const optionReplace = optionSplit.replaceAll('-', ' ');
         filterOptionsMarkup += `
           <li class="filter-category-item">
-            <input type="radio" id="filter-${optionSplit}" name="${filterRadioName}" value="${optionSplit}" />
-            <label for="filter-${optionSplit}">${optionReplace}</label>
+            <input type="checkbox" id="filter-${optionSplit}" name="${optionSplit}" value="${optionSplit}" data-filter-category="${filterCategoryName}" />
+            <label for="filter-${optionSplit}">${optionSplit === 'e-books' || optionSplit === 'c-suite' ? optionSplit : optionReplace}</label>
           </li>
         `;
       }
@@ -251,12 +262,16 @@ export default async function decorate(block) {
 
     const markup = `
       <div class="filter-category">
-        <button class="filter-category-toggle" id="filter-category-${filterNum}-toggle" aria-controls="filter-category-${filterNum}-content" aria-expanded="true">${filterCategoryName.textContent.trim()}<span class="accordion-icon"></span></button>
+        <button class="filter-category-toggle" id="filter-category-${filterNum}-toggle" aria-controls="filter-category-${filterNum}-content" aria-expanded="true">${filterCategoryLabel.textContent.trim()}<span class="accordion-icon"></span></button>
         <ul class="filter-category-content" id="filter-category-${filterNum}-content" aria-labelledby="filter-category-${filterNum}-toggle" aria-hidden="false">
-          <li class="filter-category-item">
-            <input type="radio" id="${filterAllId}" name="${filterRadioName}" value="${filterAllId}" checked />
-            <label for="${filterAllId}">All</label>
-          </li>
+          ${
+            filterIsMultiSelect.textContent.trim() === 'false'
+              ? `<li class="filter-category-item">
+              <input type="radio" id="${filterAllId}" name="${filterCategoryName}" value="${filterAllId}" data-filter-category="${filterCategoryName}" checked />
+              <label for="${filterAllId}">All</label>
+            </li>`
+              : ``
+          }
             ${filterOptionsMarkup}
         </ul>
       </div>
@@ -270,10 +285,10 @@ export default async function decorate(block) {
       <input type="text" name="filter-search" id="filter-search" placeholder=${searchPlaceholder.textContent.trim()} />
       <button type="submit" aria-label="Submit search"></button>
     </form>
-    ${renderFilterCategory(1, filterOne, filterOneOptions, 'filter-all-content-type', 'filter-type')}
-    ${renderFilterCategory(2, filterTwo, filterTwoOptions, 'filter-all-industry', 'filter-industry')}
-    ${renderFilterCategory(3, filterThree, filterThreeOptions, 'filter-all-role', 'filter-role')}
-    ${renderFilterCategory(4, filterFour, filterFourOptions, 'filter-all-pfx', 'filter-pfx')}
+    ${renderFilterCategory(1, filterOne, filterOneIsMultiSelect, filterOneOptions, 'filter-all-content-type', 'filter-type')}
+    ${renderFilterCategory(2, filterTwo, filterTwoIsMultiSelect, filterTwoOptions, 'filter-all-industry', 'filter-industry')}
+    ${renderFilterCategory(3, filterThree, filterThreeIsMultiSelect, filterThreeOptions, 'filter-all-role', 'filter-role')}
+    ${renderFilterCategory(4, filterFour, filterFourIsMultiSelect, filterFourOptions, 'filter-all-pfx', 'filter-pfx')}
   `;
 
   // Set initial max-height for Filter Categories to create smooth accordion transition
@@ -482,6 +497,12 @@ export default async function decorate(block) {
   const prevPageButton = document.querySelector('.pagination-prev');
   const nextPageButton = document.querySelector('.pagination-next');
 
+  if (paginationPageList.children.length === 1) {
+    paginationContainer.classList.add('hidden');
+  } else {
+    paginationContainer.classList.remove('hidden');
+  }
+
   // Defining some variables for filter, sort and search logic
   const sortByEl = document.getElementById('sort-content');
   const searchInput = document.getElementById('filter-search');
@@ -536,9 +557,9 @@ export default async function decorate(block) {
         Number(currentPage.textContent),
       );
       if (paginationPageList.children.length <= 1) {
-        nextPageButton.classList.add('hidden');
+        paginationContainer.classList.add('hidden');
       } else {
-        nextPageButton.classList.remove('hidden');
+        paginationContainer.classList.remove('hidden');
       }
     }
 
@@ -621,9 +642,9 @@ export default async function decorate(block) {
         Number(currentPage.textContent),
       );
       if (paginationPageList.children.length <= 1) {
-        nextPageButton.classList.add('hidden');
+        paginationContainer.classList.add('hidden');
       } else {
-        nextPageButton.classList.remove('hidden');
+        paginationContainer.classList.remove('hidden');
       }
     }
   };
@@ -676,10 +697,22 @@ export default async function decorate(block) {
     if (state === true && value.includes('all')) {
       selectedFilters[key].pop();
       searchParams.delete(key);
-    } else if (state === true) {
+    } else if ((state === true && key === 'filter-type') || key === 'filter-pfx') {
       selectedFilters[key].pop();
       selectedFilters[key].push(value);
       searchParams.set(key, value);
+    } else if (state === true && !selectedFilters[key].includes(value)) {
+      selectedFilters[key].push(value);
+      const valuesString = selectedFilters[key].toString();
+      searchParams.set(key, valuesString);
+    } else if (state === false && selectedFilters[key].includes(value)) {
+      selectedFilters[key].splice(selectedFilters[key].indexOf(value), 1);
+      const valuesString = selectedFilters[key].toString();
+      if (selectedFilters[key].length === 0) {
+        searchParams.delete(key);
+      } else {
+        searchParams.set(key, valuesString);
+      }
     }
     const newRelativePathQuery = `${window.location.pathname}?${searchParams.toString()}`;
     window.history.pushState(null, '', newRelativePathQuery);
@@ -693,11 +726,15 @@ export default async function decorate(block) {
     }
 
     if (filters['filter-industry'].length > 0) {
-      articleJson = articleJson.filter((article) => article.topics.includes(filters['filter-industry']));
+      articleJson = articleJson.filter((article) =>
+        filters['filter-industry'].some((filterValue) => article.topics.includes(filterValue)),
+      );
     }
 
     if (filters['filter-role'].length > 0) {
-      articleJson = articleJson.filter((article) => article.topics.includes(filters['filter-role']));
+      articleJson = articleJson.filter((article) =>
+        filters['filter-role'].some((filterValue) => article.topics.includes(filterValue)),
+      );
     }
 
     if (filters['filter-pfx'].length > 0) {
@@ -722,9 +759,9 @@ export default async function decorate(block) {
         Number(currentPage.textContent),
       );
       if (paginationPageList.children.length <= 1) {
-        nextPageButton.classList.add('hidden');
+        paginationContainer.classList.add('hidden');
       } else {
-        nextPageButton.classList.remove('hidden');
+        paginationContainer.classList.remove('hidden');
       }
     }
 
@@ -737,10 +774,10 @@ export default async function decorate(block) {
     }
   };
 
-  const allFilterOptions = document.querySelectorAll('.filter-category-item input[type="radio"]');
+  const allFilterOptions = document.querySelectorAll('.filter-category-item input');
   allFilterOptions.forEach((filterOption) => {
     filterOption.addEventListener('click', () => {
-      updateSelectedFilters(filterOption.checked, filterOption.name, filterOption.value);
+      updateSelectedFilters(filterOption.checked, filterOption.dataset.filterCategory, filterOption.value);
       let filteredArticles = [...defaultSortedArticle];
 
       if (sortByEl.value !== '' && searchInput.value !== '') {
@@ -890,18 +927,39 @@ export default async function decorate(block) {
       loadedSearchParams.get('filter-role') !== null ||
       loadedSearchParams.get('filter-pfx') !== null
     ) {
+      let filterIndustry = [];
+      let filterRole = [];
+      if (loadedSearchParams.get('filter-type') !== null) {
+        selectedFilters['filter-type'].push(loadedSearchParams.get('filter-type'));
+      }
+      if (loadedSearchParams.get('filter-industry') !== null) {
+        filterIndustry = loadedSearchParams.get('filter-industry').includes(',')
+          ? loadedSearchParams.get('filter-industry').split(',')
+          : loadedSearchParams.get('filter-industry');
+        filterIndustry.forEach((industryItem) => selectedFilters['filter-industry'].push(industryItem));
+      }
+      if (loadedSearchParams.get('filter-role') !== null) {
+        filterRole = loadedSearchParams.get('filter-role').includes(',')
+          ? loadedSearchParams.get('filter-role').split(',')
+          : loadedSearchParams.get('filter-role');
+        filterRole.forEach((roleItem) => selectedFilters['filter-role'].push(roleItem));
+      }
+      if (loadedSearchParams.get('filter-pfx') !== null) {
+        selectedFilters['filter-pfx'].push(loadedSearchParams.get('filter-pfx'));
+      }
       const loadedFilters = {
         'filter-type': loadedSearchParams.get('filter-type') !== null ? [loadedSearchParams.get('filter-type')] : [],
-        'filter-industry':
-          loadedSearchParams.get('filter-industry') !== null ? [loadedSearchParams.get('filter-industry')] : [],
-        'filter-role': loadedSearchParams.get('filter-role') !== null ? [loadedSearchParams.get('filter-role')] : [],
+        'filter-industry': filterIndustry,
+        'filter-role': filterRole,
         'filter-pfx': loadedSearchParams.get('filter-pfx') !== null ? [loadedSearchParams.get('filter-pfx')] : [],
       };
       const filterValuesArray = [];
       const loadedFilterValues = Object.values(loadedFilters);
       loadedFilterValues.forEach((filterValue) => {
-        if (filterValue[0] !== undefined) {
+        if (filterValue.length === 1) {
           filterValuesArray.push(filterValue[0]);
+        } else if (filterValue.length > 1) {
+          filterValue.forEach((value) => filterValuesArray.push(value));
         }
       });
       allFilterOptions.forEach((filterOption) => {
