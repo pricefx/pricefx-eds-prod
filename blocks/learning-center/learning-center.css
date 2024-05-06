@@ -538,6 +538,10 @@ a.article-link::after {
 }
 
 @media (width <= 985px) {
+  main:has(.learning-center) {
+    margin-top: 60px;
+  }
+
   .learning-center-content {
     width: 100%;
   }

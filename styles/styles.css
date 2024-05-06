@@ -214,6 +214,16 @@ body.appear {
   display: block;
 }
 
+header {
+  height: 116px;
+}
+
+@media (width > 985px) {
+  header {
+    height: 107px;
+  }
+}
+
 main {
   background-color: var(--c-white);
 }
