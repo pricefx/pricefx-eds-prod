@@ -1596,5 +1596,24 @@
         ]
       }
     ]
+  },
+  {
+    "id": "download",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "fileReference",
+        "label": "DownLoadImage",
+        "multi": false
+      },
+      {
+        "component": "aem-content",
+        "name": "assetLink",
+        "label": "Asset Link",
+        "valueType": "string",
+        "description": "Provide Asset Link"
+      }
+    ]
   }
 ]
