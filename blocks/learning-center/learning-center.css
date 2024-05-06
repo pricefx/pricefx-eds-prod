@@ -288,6 +288,7 @@
 }
 
 .featured-article .article-image img {
+  aspect-ratio: auto 16 / 9;
   display: block;
   height: 100%;
   object-fit: cover;
