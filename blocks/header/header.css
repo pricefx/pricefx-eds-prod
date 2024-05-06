@@ -576,8 +576,9 @@ header a:focus {
     margin: 0 var(--spacing-xsmall) 0 0;
   }
 
-  .brand {
-    max-width: 85px;
+  .brand img {
+    height: 33px;
+    width: 85px;
   }
 
   .expert-cta {

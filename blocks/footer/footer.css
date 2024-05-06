@@ -32,6 +32,11 @@ footer .footer {
   width: 100%;
 }
 
+.footer-logo-wrapper img {
+  height: 56px;
+  width: 169px;
+}
+
 .footer-menu {
   display: flex;
   flex-direction: column;
