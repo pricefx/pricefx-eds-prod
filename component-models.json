@@ -161,7 +161,14 @@
         "label": "Alt Text"
       },
       {
-        "component": "text",
+        "component": "text-input",
+        "valueType": "string",
+        "name": "height",
+        "value": "alt",
+        "label": "Image Link"
+      },
+      {
+        "component": "aem-content",
         "name": "imageLink",
         "label": "Image Link",
         "valueType": "string",
@@ -180,7 +187,7 @@
     "id": "button",
     "fields": [
       {
-        "component": "text-input",
+        "component": "aem-content",
         "valueType": "string",
         "name": "href",
         "value": "",
@@ -227,7 +234,7 @@
     "id": "button-pfx",
     "fields": [
       {
-        "component": "text-input",
+        "component": "aem-content",
         "valueType": "string",
         "name": "href",
         "label": "Link",
@@ -325,6 +332,87 @@
             "value": "left-arrow"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "left-right-boxed",
+    "fields": [
+      {
+        "component": "boolean",
+        "label": "Image / Video to Right",
+        "name": "isImageRight",
+        "valueType": "boolean"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "boxedContent",
+        "label": "Left Right Boxed Content",
+        "value": "",
+        "description": "ⓘ Heading (H2) and Description"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "embedVideo",
+        "label": "Embed Video Placeholder",
+        "description": "ⓘ Video placeholder",
+        "multi": false
+      },
+      {
+        "component": "text-input",
+        "name": "url",
+        "label": "Embed Video URL",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "overlayContent",
+        "label": "Embed Video Overlay Content",
+        "value": ""
+      },
+      {
+        "component": "boolean",
+        "label": "Enable PopUp Modal",
+        "name": "popUpModal",
+        "valueType": "boolean",
+        "description": "ⓘ When selected, the Video will open in a Popup Modal"
+      }
+    ]
+  },
+  {
+    "id": "link-pfx",
+    "fields": [
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "linkHref",
+        "value": "",
+        "label": "Link"
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "Target Blank",
+        "name": "linkTargetBlank",
+        "description": "When selected, the link opens in a new tab"
       }
     ]
   },
@@ -435,6 +523,14 @@
           {
             "name": "Add Padding Medium",
             "value": "column-padding-medium"
+          },
+          {
+            "name": "Paragraph Large font",
+            "value": "column-para-font-large"
+          },
+          {
+            "name": "Entire Columns Top Padding",
+            "value": "columns-top-padding-large"
           }
         ]
       }
@@ -752,14 +848,16 @@
         ]
       },
       {
-        "component": "radio-group",
+        "component": "select",
         "label": "Section Title Color",
-        "name": "sectionTitle",
+        "name": "sectionTitleColor",
         "valueType": "string",
+        "value": "",
         "description": "The entire section's H1 to H6 color will be changed.",
         "options": [
+          { "name": "Default", "value": "" },
           { "name": "Section Title Gray", "value": "section-title-gray" },
-          { "name": "Section Title Blue - Default", "value": "section-title-blue" }
+          { "name": "Section Title Blue", "value": "section-title-blue" }
         ]
       },
       {
@@ -829,7 +927,7 @@
       {
         "component": "text-input",
         "name": "url",
-        "label": "URL",
+        "label": "Embed Video URL",
         "valueType": "string",
         "value": ""
       },
@@ -837,7 +935,7 @@
         "component": "richtext",
         "valueType": "string",
         "name": "overlayContent",
-        "label": "Overlay Content",
+        "label": "Embed Video Overlay Content",
         "value": ""
       },
       {
@@ -852,10 +950,10 @@
         "label": "Hero Height Variation",
         "name": "heroVariation",
         "valueType": "string",
-        "value": "hero-secondary-variation",
+        "value": "hero-primary-height",
         "options": [
-          { "name": "Hero Height 800px", "value": "hero-primary-variation" },
-          { "name": "Hero Height 465px - Default", "value": "hero-secondary-variation" }
+          { "name": "Hero Height 800px", "value": "hero-secondary-height" },
+          { "name": "Hero Height 465px - Default", "value": "hero-primary-height" }
         ]
       },
       {
@@ -1047,7 +1145,7 @@
       {
         "component": "text-area",
         "valueType": "string",
-        "value": "Well done is better than well said.",
+        "value": "",
         "name": "quote",
         "label": "Quote"
       },
@@ -1062,7 +1160,7 @@
         "valueType": "string",
         "name": "author",
         "label": "Author",
-        "value": "Benjamin Franklin"
+        "value": ""
       }
     ]
   },
