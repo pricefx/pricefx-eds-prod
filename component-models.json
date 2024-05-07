@@ -1608,11 +1608,24 @@
         "multi": false
       },
       {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "alt",
+        "value": "Download Alt",
+        "label": "Alt Text"
+      },
+      {
         "component": "aem-content",
         "name": "assetLink",
         "label": "Asset Link",
         "valueType": "string",
         "description": "Provide Asset Link"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "fileName",
+        "label": "File Name"
       }
     ]
   }
