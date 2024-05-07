@@ -1887,8 +1887,8 @@
       },
       {
         "component": "number",
-        "name": "numberOfArticles",
-        "label": "Number Of Articles Display",
+        "name": "numberOfPartners",
+        "label": "Number Of Partners Display",
         "valueType": "number",
         "value": 0
       },
