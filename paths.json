@@ -10,7 +10,8 @@
     "/content/pricefx/en/configuration/footer:/footer.json",
     "/content/pricefx/en/configuration/redirects:/redirects.json",
     "/content/pricefx.resource/query-index.json:/query-index.json",
-    "/content/pricefx.resource/article-index.json:/article-index.json"
+    "/content/pricefx.resource/article-index.json:/article-index.json",
+    "/content/pricefx.resource/partners-index.json:/partners-index.json"
   ],
   "includes": ["/content/pricefx/"]
 }
