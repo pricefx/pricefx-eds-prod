@@ -1911,7 +1911,7 @@
       {
         "component": "number",
         "name": "numberOfPartners",
-        "label": "Number Of Partners Display",
+        "label": "No. Of Partners Display",
         "valueType": "number",
         "value": 0
       },
