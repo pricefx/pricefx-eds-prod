@@ -129,8 +129,9 @@ export default async function decorate(block) {
   // Fetch Header content from JSON endpoint
   const articleData = await ffetch(searchPath.textContent.trim()).all();
 
-  const featuredArticleData = articleData.find((data) => data.path === featuredArticle.textContent.trim());
-  const noFeaturedArticleData = articleData.filter((data) => data.path !== featuredArticle.textContent.trim());
+  const featuredArticlePath = featuredArticle.textContent.trim().split('/en')[1];
+  const featuredArticleData = articleData.find((data) => data.path === featuredArticlePath);
+  const noFeaturedArticleData = articleData.filter((data) => data.path !== featuredArticlePath);
   const defaultSortedArticle = noFeaturedArticleData.sort(
     (a, b) => new Date(b.articlePublishDate) - new Date(a.articlePublishDate),
   );
