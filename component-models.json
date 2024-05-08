@@ -1882,11 +1882,6 @@
     "id": "partner-showcase",
     "fields": [
       {
-        "component": "tab",
-        "label": "Style",
-        "name": "style"
-      },
-      {
         "component": "aem-content",
         "name": "featuredPartner",
         "value": "",
@@ -1941,11 +1936,6 @@
             ]
           }
         ]
-      },
-      {
-        "component": "tab",
-        "label": "Filters Config",
-        "name": "foltersConfig"
       },
       {
         "component": "text-input",
