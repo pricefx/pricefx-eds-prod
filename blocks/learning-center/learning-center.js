@@ -130,8 +130,8 @@ export default async function decorate(block) {
   const articleData = await ffetch(searchPath.textContent.trim()).all();
 
   const featuredArticlePath = featuredArticle.textContent.trim().split('/en')[1];
-  const featuredArticleData = articleData.find((data) => data.path === featuredArticlePath);
-  const noFeaturedArticleData = articleData.filter((data) => data.path !== featuredArticlePath);
+  const featuredArticleData = articleData.find((data) => data.path.includes(featuredArticlePath));
+  const noFeaturedArticleData = articleData.filter((data) => !data.path.includes(featuredArticlePath));
   const defaultSortedArticle = noFeaturedArticleData.sort(
     (a, b) => new Date(b.articlePublishDate) - new Date(a.articlePublishDate),
   );
