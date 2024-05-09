@@ -1493,7 +1493,7 @@
         "valueType": "number",
         "value": 13,
         "validation": {
-          "numberMin": 0
+          "numberMin": 1
         }
       }
     ]
@@ -1534,7 +1534,7 @@
         "label": "Number Of Articles Display",
         "valueType": "number",
         "validation": {
-          "numberMin": 0
+          "numberMin": 1
         }
       },
       {
@@ -2096,7 +2096,7 @@
         "label": "No. Of Partners Display",
         "valueType": "number",
         "validation": {
-          "numberMin": 0
+          "numberMin": 1
         }
       },
       {
@@ -2219,7 +2219,7 @@
         "label": "No. Of Results Per page",
         "valueType": "number",
         "validation": {
-          "numberMin": 0
+          "numberMin": 1
         }
       },
       {
