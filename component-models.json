@@ -1493,7 +1493,7 @@
         "valueType": "number",
         "value": 13,
         "validation": {
-          "numberMin": 1
+          "numberMin": 3
         }
       }
     ]
@@ -1533,8 +1533,9 @@
         "name": "numberOfArticles",
         "label": "Number Of Articles Display",
         "valueType": "number",
+        "value": 6,
         "validation": {
-          "numberMin": 1
+          "numberMin": 3
         }
       },
       {
@@ -2095,8 +2096,9 @@
         "name": "numberOfPartners",
         "label": "No. Of Partners Display",
         "valueType": "number",
+        "value": 6,
         "validation": {
-          "numberMin": 1
+          "numberMin": 3
         }
       },
       {
@@ -2218,8 +2220,9 @@
         "name": "noOfResultsPerPage",
         "label": "No. Of Results Per page",
         "valueType": "number",
+        "value": 10,
         "validation": {
-          "numberMin": 1
+          "numberMin": 3
         }
       },
       {
