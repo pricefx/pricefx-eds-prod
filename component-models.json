@@ -1491,7 +1491,9 @@
         "name": "blogNumberOfArticles",
         "label": "Number Of Articles Display",
         "valueType": "number",
-        "value": 0
+        "validation": {
+          "numberMin": 1
+        }
       }
     ]
   },
@@ -1530,7 +1532,9 @@
         "name": "numberOfArticles",
         "label": "Number Of Articles Display",
         "valueType": "number",
-        "value": 0
+        "validation": {
+          "numberMin": 1
+        }
       },
       {
         "component": "multiselect",
@@ -2090,7 +2094,9 @@
         "name": "numberOfPartners",
         "label": "No. Of Partners Display",
         "valueType": "number",
-        "value": 0
+        "validation": {
+          "numberMin": 1
+        }
       },
       {
         "component": "multiselect",
