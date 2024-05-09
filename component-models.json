@@ -1803,13 +1803,6 @@
     "id": "table",
     "fields": [
       {
-        "component": "aem-content",
-        "name": "browseTable",
-        "value": "",
-        "label": "Browse Table",
-        "valueType": "string"
-      },
-      {
         "component": "text-input",
         "valueType": "string",
         "name": "tableTitle",
@@ -1818,9 +1811,30 @@
       },
       {
         "component": "boolean",
-        "label": "Disable Top Row",
-        "name": "disableTopRow",
-        "valueType": "boolean"
+        "label": "Header Row",
+        "name": "isHeaderRow",
+        "valueType": "boolean",
+        "description": "It will create the first row of the table as the header row."
+      },
+      {
+        "component": "select",
+        "label": "Select No. Columns",
+        "name": "noOfColumns",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "2 Column",
+            "value": "twoCol"
+          },
+          {
+            "name": "3 Column",
+            "value": "threeCol"
+          },
+          {
+            "name": "4 Column",
+            "value": "fourCol"
+          }
+        ]
       },
       {
         "component": "select",
@@ -1845,6 +1859,35 @@
             "value": "LevelColor"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "row",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "colOneDescription",
+        "label": "Column 1 Description",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "colTwoDescription",
+        "label": "Column 2 Description",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "colThreeDescription",
+        "label": "Column 3 Description",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "colFourDescription",
+        "label": "Column 4 Description",
+        "valueType": "string"
       }
     ]
   },
