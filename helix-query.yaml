@@ -97,6 +97,9 @@ indices:
       url:
         select: head > meta[property="og:url"]
         value: attribute(el, "content")
+      topics:
+        select: head > meta[name="topics"]
+        value: attribute(el, "content")
       cq-tags:
         select: head > meta[name="cq-tags"]
         value: attribute(el, "content")
