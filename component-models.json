@@ -2217,6 +2217,7 @@
         "name": "noOfResultsPerPage",
         "label": "No. Of Results Per page",
         "valueType": "number",
+        "value": 13,
         "validation": {
           "numberMin": 1
         }
