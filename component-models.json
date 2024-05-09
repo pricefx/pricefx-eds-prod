@@ -536,6 +536,18 @@
             "value": "column-padding-medium"
           },
           {
+            "name": "Add Padding Small",
+            "value": "column-padding-small"
+          },
+          {
+            "name": "Column Gap Large",
+            "value": "column-gap-large"
+          },
+          {
+            "name": "Column Gap Medium",
+            "value": "column-gap-medium"
+          },
+          {
             "name": "Paragraph Large font",
             "value": "column-para-font-large"
           },
@@ -1491,7 +1503,10 @@
         "name": "blogNumberOfArticles",
         "label": "Number Of Articles Display",
         "valueType": "number",
-        "value": 0
+        "value": 13,
+        "validation": {
+          "numberMin": 3
+        }
       }
     ]
   },
@@ -1530,7 +1545,10 @@
         "name": "numberOfArticles",
         "label": "Number Of Articles Display",
         "valueType": "number",
-        "value": 0
+        "value": 6,
+        "validation": {
+          "numberMin": 3
+        }
       },
       {
         "component": "multiselect",
@@ -1803,13 +1821,6 @@
     "id": "table",
     "fields": [
       {
-        "component": "aem-content",
-        "name": "browseTable",
-        "value": "",
-        "label": "Browse Table",
-        "valueType": "string"
-      },
-      {
         "component": "text-input",
         "valueType": "string",
         "name": "tableTitle",
@@ -1818,9 +1829,30 @@
       },
       {
         "component": "boolean",
-        "label": "Disable Top Row",
-        "name": "disableTopRow",
-        "valueType": "boolean"
+        "label": "Header Row",
+        "name": "isHeaderRow",
+        "valueType": "boolean",
+        "description": "It will create the first row of the table as the header row."
+      },
+      {
+        "component": "select",
+        "label": "Select No. Columns",
+        "name": "noOfColumns",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "2 Column",
+            "value": "twoCol"
+          },
+          {
+            "name": "3 Column",
+            "value": "threeCol"
+          },
+          {
+            "name": "4 Column",
+            "value": "fourCol"
+          }
+        ]
       },
       {
         "component": "select",
@@ -1845,6 +1877,35 @@
             "value": "LevelColor"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "row",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "colOneDescription",
+        "label": "Column 1 Description",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "colTwoDescription",
+        "label": "Column 2 Description",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "colThreeDescription",
+        "label": "Column 3 Description",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "colFourDescription",
+        "label": "Column 4 Description",
+        "valueType": "string"
       }
     ]
   },
@@ -1952,6 +2013,26 @@
         "value": ""
       },
       {
+        "component": "radio-group",
+        "label": "Button Style",
+        "name": "buttonStyle",
+        "valueType": "string",
+        "value": "primary",
+        "options": [
+          {
+            "name": "Primary",
+            "value": "primary"
+          }
+        ]
+      },
+      {
+        "component": "text-area",
+        "valueType": "string",
+        "name": "supportTitle",
+        "label": "Support Title",
+        "value": ""
+      },
+      {
         "component": "text-area",
         "valueType": "string",
         "name": "supportText1",
@@ -1978,6 +2059,12 @@
         "name": "supportText4",
         "label": "Support Text 4",
         "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "support-image",
+        "label": "Support Logo Image"
       }
     ]
   },
@@ -2021,7 +2108,10 @@
         "name": "numberOfPartners",
         "label": "No. Of Partners Display",
         "valueType": "number",
-        "value": 0
+        "value": 6,
+        "validation": {
+          "numberMin": 3
+        }
       },
       {
         "component": "multiselect",
@@ -2142,7 +2232,10 @@
         "name": "noOfResultsPerPage",
         "label": "No. Of Results Per page",
         "valueType": "number",
-        "value": 0
+        "value": 10,
+        "validation": {
+          "numberMin": 3
+        }
       },
       {
         "component": "text-input",
@@ -2159,8 +2252,37 @@
       {
         "component": "text-input",
         "valueType": "string",
-        "name": "totalResultsTitle",
-        "label": "No Results Label"
+        "name": "NoResultsTitle",
+        "label": "No Results Title"
+      }
+    ]
+  },
+  {
+    "id": "marketo-form",
+    "fields": [
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "formTitle",
+        "label": "Form Title"
+      },
+      {
+        "component": "richtext",
+        "name": "formDescription",
+        "label": "Form Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "marketoFormId",
+        "label": "Marketo Form ID"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "marketoSuccessUrl",
+        "label": "Marketo Success URL"
       }
     ]
   }
