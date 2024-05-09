@@ -1814,15 +1814,9 @@
       {
         "component": "boolean",
         "label": "Header Row",
-        "name": "disableHeaderRow",
+        "name": "isHeaderRow",
         "valueType": "boolean",
         "description": "It will create the first row of the table as the header row."
-      },
-      {
-        "component": "boolean",
-        "label": "Disable Top Row",
-        "name": "disableTopRow",
-        "valueType": "boolean"
       },
       {
         "component": "select",
