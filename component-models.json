@@ -318,10 +318,22 @@
     "id": "left-right-boxed",
     "fields": [
       {
+        "component": "radio-group",
+        "label": "Boxed Image / Video Variation",
+        "name": "boxedVariation",
+        "valueType": "string",
+        "value": "imageVariation",
+        "options": [
+          { "name": "Image - Default", "value": "imageVariation" },
+          { "name": "Video", "value": "videoVariation" }
+        ]
+      },
+      {
         "component": "boolean",
-        "label": "Image / Video to Right",
-        "name": "isImageRight",
-        "valueType": "boolean"
+        "label": "Image / Video to Left",
+        "name": "isImageLeft",
+        "valueType": "boolean",
+        "description": "ⓘ Default Content in left and image / video on right."
       },
       {
         "component": "reference",
@@ -338,20 +350,24 @@
         "value": ""
       },
       {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "boxedContent",
-        "label": "Left Right Boxed Content",
-        "value": "",
-        "description": "ⓘ Heading (H2) and Description"
-      },
-      {
         "component": "reference",
         "valueType": "string",
         "name": "embedVideo",
         "label": "Embed Video Placeholder",
         "description": "ⓘ Video placeholder",
         "multi": false
+      },
+      {
+        "component": "select",
+        "label": "Image Position",
+        "name": "classes",
+        "valueType": "string",
+        "value": "image-position-right",
+        "options": [
+          { "name": "Left", "value": "image-position-left" },
+          { "name": "Center", "value": "image-position-center" },
+          { "name": "Right - Default", "value": "image-position-right" }
+        ]
       },
       {
         "component": "text-input",
@@ -373,6 +389,22 @@
         "name": "popUpModal",
         "valueType": "boolean",
         "description": "ⓘ When selected, the Video will open in a Popup Modal"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "boxedEyebrowText",
+        "label": "Eyebrow Text",
+        "value": "",
+        "description": "ⓘ Eyebrow Text"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "boxedContent",
+        "label": "Left Right Boxed Content",
+        "value": "",
+        "description": "ⓘ Heading (H2) and Description"
       }
     ]
   },
@@ -924,19 +956,19 @@
         "label": "Image Position",
         "name": "classes",
         "valueType": "string",
-        "value": "hero-image-right",
+        "value": "image-position-right",
         "options": [
           {
             "name": "Left",
-            "value": "hero-image-left"
+            "value": "image-position-left"
           },
           {
             "name": "Center",
-            "value": "hero-image-center"
+            "value": "image-position-center"
           },
           {
             "name": "Right - Default",
-            "value": "hero-image-right"
+            "value": "image-position-right"
           }
         ]
       },
@@ -971,7 +1003,7 @@
       },
       {
         "component": "radio-group",
-        "label": "Hero Height Variation",
+        "label": "Hero Height",
         "name": "heroVariation",
         "valueType": "string",
         "value": "hero-primary-height",
@@ -1445,6 +1477,21 @@
         "value": "",
         "label": "Base Path",
         "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "blogAuthorPath",
+        "value": "",
+        "label": "Author Directory Path",
+        "valueType": "string",
+        "description": "Please enter the path to the author directory."
+      },
+      {
+        "component": "number",
+        "name": "blogNumberOfArticles",
+        "label": "Number Of Articles Display",
+        "valueType": "number",
+        "value": 0
       }
     ]
   },
@@ -1879,38 +1926,59 @@
     ]
   },
   {
-    "id": "benefits",
+    "id": "imageText",
     "fields": [
       {
         "component": "richtext",
-        "name": "benefitsDescription",
+        "name": "imageTextDescription",
         "label": "Description",
         "valueType": "string"
       },
       {
         "component": "reference",
         "valueType": "string",
-        "name": "benefitsImage",
-        "label": "Benefits Image"
+        "name": "image",
+        "label": "Image"
       },
       {
         "component": "boolean",
-        "label": "Disable Icon",
-        "name": "disableIcon",
+        "label": "Enable Icon",
+        "name": "enableIcon",
         "valueType": "boolean"
       },
       {
         "component": "text-area",
         "valueType": "string",
-        "name": "benefitsText",
-        "label": "Text",
+        "name": "text",
+        "label": "Action Text",
         "value": ""
       },
       {
         "component": "text-area",
         "valueType": "string",
-        "name": "supportText",
-        "label": "Benefits Support Text",
+        "name": "supportText1",
+        "label": "Support Text 1",
+        "value": ""
+      },
+      {
+        "component": "text-area",
+        "valueType": "string",
+        "name": "supportText2",
+        "label": "Support Text 2",
+        "value": ""
+      },
+      {
+        "component": "text-area",
+        "valueType": "string",
+        "name": "supportText3",
+        "label": "Support Text 3",
+        "value": ""
+      },
+      {
+        "component": "text-area",
+        "valueType": "string",
+        "name": "supportText4",
+        "label": "Support Text 4",
         "value": ""
       }
     ]
@@ -1967,7 +2035,7 @@
             "name": "Date",
             "children": [
               { "name": "New-Old", "value": "dateNewOld" },
-              { "name": "Old-New",  "value": "dateOldNew" }
+              { "name": "Old-New", "value": "dateOldNew" }
             ]
           },
           {
