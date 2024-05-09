@@ -1865,7 +1865,7 @@
     ]
   },
   {
-    "id": "table-row",
+    "id": "row",
     "fields": [
       {
         "component": "richtext",
