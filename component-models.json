@@ -1839,35 +1839,6 @@
         ]
       },
       {
-        "id": "table-row",
-        "fields": [
-          {
-            "component": "richtext",
-            "name": "colOneDescription",
-            "label": "Column 1 Description",
-            "valueType": "string"
-          },
-          {
-            "component": "richtext",
-            "name": "colTwoDescription",
-            "label": "Column 2 Description",
-            "valueType": "string"
-          },
-          {
-            "component": "richtext",
-            "name": "colThreeDescription",
-            "label": "Column 3 Description",
-            "valueType": "string"
-          },
-          {
-            "component": "richtext",
-            "name": "colFourDescription",
-            "label": "Column 4 Description",
-            "valueType": "string"
-          }
-        ]
-      },
-      {
         "component": "select",
         "label": "Select Table Variation",
         "name": "tableVariation",
@@ -1890,6 +1861,35 @@
             "value": "LevelColor"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "table-row",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "colOneDescription",
+        "label": "Column 1 Description",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "colTwoDescription",
+        "label": "Column 2 Description",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "colThreeDescription",
+        "label": "Column 3 Description",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "colFourDescription",
+        "label": "Column 4 Description",
+        "valueType": "string"
       }
     ]
   },
