@@ -1491,6 +1491,7 @@
         "name": "blogNumberOfArticles",
         "label": "Number Of Articles Display",
         "valueType": "number",
+        "value": 13,
         "validation": {
           "numberMin": 1
         }
@@ -2217,7 +2218,6 @@
         "name": "noOfResultsPerPage",
         "label": "No. Of Results Per page",
         "valueType": "number",
-        "value": 13,
         "validation": {
           "numberMin": 1
         }
