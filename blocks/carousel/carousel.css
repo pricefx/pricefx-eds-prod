@@ -1,0 +1,13 @@
+.carousel-pagination .carousel-page {
+  background: var(--c-copy);
+  border: none;
+  border-radius: 50%;
+  height: 10px;
+  opacity: 0.5;
+  padding: 0;
+  width: 10px;
+}
+
+.carousel-page.active {
+  opacity: 1;
+}
