@@ -2224,7 +2224,7 @@
             "name": "Title",
             "children": [
               { "name": "A-Z", "value": "titleAZ" },
-              { "name": "Z-A", "value": "titleZa" }
+              { "name": "Z-A", "value": "titleZA" }
             ]
           }
         ]
