@@ -4,7 +4,7 @@ import { LEFTCHEVRON, RIGHTCHEVRON } from '../../scripts/constants.js';
 export default async function decorate(block) {
   const [carouselTitle, carouselDescription, carouselSlideFrag, isAutoSlide] = block.children;
   block.innerHTML = '';
-
+  // TODO: Implementing this later
   console.log(isAutoSlide);
 
   // load Carousel Fragment
@@ -25,40 +25,67 @@ export default async function decorate(block) {
   carouselDetails.append(title);
 
   // Create Descritpion element
-  const description = document.createElement('p');
-  description.classList.add('carousel-descritpion');
-  description.textContent = carouselDescription.textContent.trim();
+  const description = carouselDescription.firstElementChild;
+  description.classList.add('carousel-description');
   carouselDetails.append(description);
 
   // Create container to hold the Carousel
-  const carouselContainer = document.createElement('div');
-  carouselContainer.classList.add('carousel-wrapper');
-  block.append(carouselContainer);
+  const carouselContentContainer = document.createElement('div');
+  carouselContentContainer.classList.add('carousel-content-container');
+  const carouselContent = document.createElement('div');
+  carouselContent.classList.add('carousel-content');
+  carouselContentContainer.append(carouselContent);
+  block.append(carouselContentContainer);
 
   // Create container to hold all the carousel slides from Fragment
-  const carouselPanels = document.createElement('div');
-  carouselPanels.classList.add('carousel-panels-container');
-  carouselContainer.append(carouselPanels);
+  const carouselTrackContainer = document.createElement('div');
+  carouselTrackContainer.classList.add('carousel-track-container');
+  carouselContent.append(carouselTrackContainer);
   while (fragment.firstElementChild) {
-    carouselPanels.append(fragment.firstElementChild);
+    carouselTrackContainer.append(fragment.firstElementChild);
+  }
+  const carouselTrack = carouselTrackContainer.firstChild;
+  carouselTrack.classList.add('carousel-track');
+  const carouselSlides = carouselTrack.children;
+  [...carouselSlides].forEach((slide) => slide.classList.add('carousel-slide'));
+  if (carouselContent.querySelector('.quote')) {
+    block.setAttribute('data-carousel-type', 'carousel-quote');
+  } else {
+    block.setAttribute('data-carousel-type', 'carousel-image');
   }
 
-  // Create container to hold the Carousel navigations (Previous and Next arrows)
-  const carouselNavigation = document.createElement('div');
-  carouselNavigation.classList.add('carousel-nav');
-  carouselContainer.append(carouselNavigation);
-  carouselNavigation.innerHTML = `
-    <button class="carousel-prev hidden" aria-label="Previous Slide">${LEFTCHEVRON}</button>
-    <button class="carousel-next" aria-label="Next Slide">${RIGHTCHEVRON}</button>
-  `;
+  // Create Carousel Prev and Next CTAs
+  const carouselPrevCta = document.createElement('button');
+  carouselPrevCta.classList.add('carousel-prev-cta', 'hidden');
+  carouselPrevCta.setAttribute('aria-label', 'Previous Slide');
+  carouselPrevCta.innerHTML = LEFTCHEVRON;
+  carouselContent.insertAdjacentElement('afterbegin', carouselPrevCta);
 
-  // Create container to hold the Carousel paginations
-  const carouselPagination = document.createElement('div');
-  carouselPagination.classList.add('carousel-pagination');
-  carouselContainer.append(carouselPagination);
-  carouselPagination.innerHTML = `
-    <button class="carousel-page active" id="carousel-page-1"></button>
-    <button class="carousel-page" id="carousel-page-2"></button>
-    <button class="carousel-page" id="carousel-page-3"></button>
-  `;
+  const carouselNextCta = document.createElement('button');
+  carouselNextCta.classList.add('carousel-next-cta');
+  carouselNextCta.setAttribute('aria-label', 'Next Slide');
+  carouselNextCta.innerHTML = RIGHTCHEVRON;
+  carouselContent.insertAdjacentElement('beforeend', carouselNextCta);
+
+  // Create container to hold the Carousel Navigation
+  const carouselNavigation = document.createElement('div');
+  carouselNavigation.classList.add('carousel-navigation');
+  carouselContentContainer.append(carouselNavigation);
+
+  const renderCarouselIndicator = () => {
+    let markup = '';
+    [...carouselSlides].forEach((slide, i) => {
+      if ([...carouselSlides].indexOf(slide) === 0) {
+        markup += `
+          <button class="carousel-indicator active-slide" id="carousel-indicator-${i}"></button>
+        `;
+      } else {
+        markup += `
+          <button class="carousel-indicator" id="carousel-indicator-${i}"></button>
+        `;
+      }
+    });
+    return markup;
+  };
+  carouselNavigation.innerHTML = renderCarouselIndicator();
 }

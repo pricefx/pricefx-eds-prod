@@ -1,13 +1,227 @@
-.carousel-pagination .carousel-page {
+/* stylelint-disable no-descending-specificity */
+/* QUOTE CAROUSEL STYLES */
+.carousel[data-carousel-type='carousel-quote'] {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel[data-carousel-type='carousel-quote'] .carousel-content {
+  height: 407px;
+  margin-bottom: 11px;
+}
+
+.carousel[data-carousel-type='carousel-quote'] .carousel-details {
+  margin-right: var(--spacing-small);
+  max-width: 341px;
+  width: 100%;
+}
+
+.carousel[data-carousel-type='carousel-quote'] .carousel-details *,
+.quote-text,
+.author p {
+  text-align: left !important;
+}
+
+.carousel[data-carousel-type='carousel-quote'] .carousel-details .carousel-title {
+  margin-bottom: 12px;
+}
+
+.carousel[data-carousel-type='carousel-quote'] .carousel-details .carousel-description {
+  line-height: calc((28 / 16) * 1rem);
+}
+
+.carousel[data-carousel-type='carousel-quote'] .carousel-details .carousel-description p:first-child {
+  margin-bottom: var(--spacing-medium);
+}
+
+.carousel[data-carousel-type='carousel-quote'] .carousel-content-container {
+  max-width: 850px;
+  width: 100%;
+}
+
+.carousel[data-carousel-type='carousel-quote'] .carousel-track-container {
+  margin: 0 5px;
+}
+
+.carousel[data-carousel-type='carousel-quote'] .carousel-prev-cta svg,
+.carousel[data-carousel-type='carousel-quote'] .carousel-next-cta svg {
+  height: 20px;
+  width: 20px;
+}
+
+/* RESPONSIVE STYLES */
+@media (width <= 1199px) {
+  .carousel[data-carousel-type='carousel-quote'] {
+    flex-direction: column;
+  }
+
+  .carousel[data-carousel-type='carousel-quote'] .carousel-details {
+    margin: 0 0 var(--spacing-medium);
+    max-width: 800px;
+  }
+
+  .carousel[data-carousel-type='carousel-quote'] .carousel-details *,
+  .quote-text,
+  .author p {
+    text-align: center !important;
+  }
+}
+
+@media (width <= 767px) {
+  .carousel[data-carousel-type='carousel-quote'] .carousel-content {
+    height: 765px;
+  }
+}
+
+/* IMAGE CAROUSEL STYLES */
+.carousel[data-carousel-type='carousel-image'] .carousel-content {
+  height: 120px;
+  margin-bottom: var(--spacing-xsmall);
+}
+
+.carousel[data-carousel-type='carousel-image'] .carousel-details * {
+  text-align: center;
+}
+
+.carousel[data-carousel-type='carousel-image'] .carousel-title {
+  -webkit-text-fill-color: var(--c-extra-dark);
+  background: transparent;
+  color: var(--c-extra-dark);
+  font-size: var(--heading-font-size-l);
+  font-weight: var(--fw-med);
+  line-height: calc((40 / 16) * 1rem);
+  margin-bottom: var(--spacing-xxsmall);
+  text-align: center;
+  width: 100%;
+}
+
+.carousel[data-carousel-type='carousel-image'] .carousel-description p {
+  color: var(--c-extra-dark);
+  font-size: var(--heading-font-size-s);
+  line-height: calc((28 / 16) * 1rem);
+  margin-bottom: 38px;
+}
+
+.carousel[data-carousel-type='carousel-image'] .carousel-track-container {
+  max-width: 984px;
+}
+
+.carousel[data-carousel-type='carousel-image'] .carousel-track {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.carousel[data-carousel-type='carousel-image'] .carousel-slide {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.carousel[data-carousel-type='carousel-image'] .carousel-slide .columns {
+  background: var(--c-white);
+  box-shadow: 0 5px 10px 0 rgba(133 147 153 / 15%);
+  padding: 20px 43px;
+}
+
+.carousel[data-carousel-type='carousel-image'] .carousel-slide .columns .columns-img-col {
+  border-right: 1px solid var(--c-gray-border);
+  margin: 0 60px 0 0;
+  padding: 0 60px 0 0;
+}
+
+.carousel[data-carousel-type='carousel-image'] .carousel-slide .columns .columns-img-col:last-child {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.carousel[data-carousel-type='carousel-image'] .carousel-slide .columns > div {
+  gap: 0;
+}
+
+.carousel[data-carousel-type='carousel-image'] .carousel-slide img {
+  display: block;
+  max-width: 200px;
+  width: 100%;
+}
+
+.carousel[data-carousel-type='carousel-image'] .carousel-prev-cta svg,
+.carousel[data-carousel-type='carousel-image'] .carousel-next-cta svg {
+  height: 15px;
+  width: 15px;
+}
+
+.carousel[data-carousel-type='carousel-image'] .carousel-prev-cta {
+  margin-right: 40px;
+}
+
+.carousel[data-carousel-type='carousel-image'] .carousel-next-cta {
+  margin-left: 40px;
+}
+
+/* GENERAL CAROUSEL STYLES */
+.carousel-wrapper {
+  max-width: none !important;
+}
+
+.carousel {
+  width: 100%;
+}
+
+.carousel-content {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.carousel-track-container {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.carousel .carousel-track {
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-slide {
+  bottom: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.carousel-slide > div {
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-prev-cta,
+.carousel-next-cta {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.carousel-navigation {
+  text-align: center;
+}
+
+.carousel-navigation .carousel-indicator {
   background: var(--c-copy);
   border: none;
   border-radius: 50%;
+  cursor: pointer;
   height: 10px;
   opacity: 0.5;
   padding: 0;
   width: 10px;
 }
 
-.carousel-page.active {
+.carousel-indicator.active-slide {
   opacity: 1;
 }
