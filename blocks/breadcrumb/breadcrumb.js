@@ -2,7 +2,7 @@ import { createElement } from '../../scripts/scripts.js';
 import { HOME, RIGHTARROW } from '../../scripts/constants.js';
 
 const getPageTitle = async (url) => {
-  const resp = fetch(url);
+  const resp = await fetch(url);
   if (resp.ok) {
     const html = document.createElement('div');
     html.innerHTML = await resp.text();
@@ -76,5 +76,5 @@ export default async function decorate(block) {
     }
     breadcrumb.innerHTML = breadcrumbLinks.join(`<span class="breadcrumb-separator">${RIGHTARROW}</span>`);
     block.append(breadcrumb);
-  }, 500);
+  }, 200);
 }
