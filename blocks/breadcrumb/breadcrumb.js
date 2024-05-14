@@ -1,8 +1,9 @@
+import { getMetadata } from '../../scripts/aem.js';
 import { createElement } from '../../scripts/scripts.js';
 import { HOME, RIGHTARROW } from '../../scripts/constants.js';
 
 const getPageTitle = async (url) => {
-  const resp = await fetch(url);
+  const resp = getMetadata(url);
   if (resp.ok) {
     const html = document.createElement('div');
     html.innerHTML = await resp.text();
