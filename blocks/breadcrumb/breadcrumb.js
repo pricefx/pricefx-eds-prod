@@ -77,5 +77,5 @@ export default async function decorate(block) {
     }
     breadcrumb.innerHTML = breadcrumbLinks.join(`<span class="breadcrumb-separator">${RIGHTARROW}</span>`);
     block.append(breadcrumb);
-  }, 200);
+  }, 500);
 }
