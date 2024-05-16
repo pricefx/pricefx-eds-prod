@@ -555,6 +555,10 @@
             "value": "column-padding-small"
           },
           {
+            "name": "Add Padding XSmall",
+            "value": "column-padding-xsmall"
+          },
+          {
             "name": "Column Gap Large",
             "value": "column-gap-large"
           },
@@ -943,6 +947,12 @@
         "name": "sectionID",
         "label": "ID",
         "value": ""
+      },
+      {
+        "component": "boolean",
+        "label": "Section buttons inline",
+        "name": "sectionButtonInline",
+        "valueType": "boolean"
       },
       {
         "component": "boolean",
@@ -1512,7 +1522,7 @@
         "valueType": "string"
       },
       {
-        "component": "aem-content",
+        "component": "text",
         "name": "basePath",
         "value": "",
         "label": "Base Path",
@@ -1535,6 +1545,14 @@
         "validation": {
           "numberMin": 3
         }
+      },
+      {
+        "component": "aem-content",
+        "name": "marketoFragmentPath",
+        "value": "",
+        "label": "Marketo Form Fragment Path",
+        "valueType": "string",
+        "description": "Applicable for Blog Articles"
       }
     ]
   },
@@ -1903,6 +1921,10 @@
           {
             "name": "Level Variation color",
             "value": "LevelColor"
+          },
+          {
+            "name": "Button Row Variation",
+            "value": "buttonRow"
           }
         ]
       }

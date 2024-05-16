@@ -1,7 +1,7 @@
 import ffetch from '../../scripts/ffetch.js';
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { SEARCH_INDEX_PATH } from '../../scripts/url-constants.js';
-import { formatDate } from '../../scripts/global-functions.js';
+import { formatDate, sortByDate } from '../../scripts/global-functions.js';
 
 export default async function decorate(block) {
   // Fetch Search content from JSON endpoint
@@ -223,14 +223,15 @@ export default async function decorate(block) {
   // Search logic
   const handleSearch = (query, loadPage) => {
     let searchJson = searchData;
+    const searchString = query.toLowerCase();
     searchJson = searchJson.filter(
       (result) =>
-        result.topics.includes(query) ||
-        result.title.toLowerCase().includes(query) ||
-        result.description.toLowerCase().includes(query) ||
-        result['cq-tags'].includes(query),
+        result.topics.toLowerCase().includes(searchString) ||
+        result.title.toLowerCase().includes(searchString) ||
+        result.description.toLowerCase().includes(searchString) ||
+        result['cq-tags'].toLowerCase().includes(searchString),
     );
-    currentSearchJSON = searchJson;
+    currentSearchJSON = sortByDate(searchJson, 'lastPublished');
 
     block.querySelector('.search-result-text').classList.remove('hidden');
     const count = block.querySelector('.search-count');
