@@ -226,6 +226,15 @@ export default async function decorate(block) {
     toggleFilterMenu(filterMenuToggle, filter, learningCenterContent);
   });
 
+  // Close Filter Menu when clicking outside of it on Mobile
+  document.addEventListener('click', (e) => {
+    if (!isDesktop.matches && filterMenuToggle.getAttribute('aria-expanded') === 'true') {
+      if (e.target === flexContainer) {
+        filterMenuToggle.click();
+      }
+    }
+  });
+
   // Watch for screen size change and switch between Desktop and Mobile Filter
   window.addEventListener('resize', () => {
     if (!isDesktop.matches && filterMenuToggle.getAttribute('aria-expanded') === 'true') {
@@ -233,8 +242,7 @@ export default async function decorate(block) {
       filterMenuToggle.setAttribute('aria-label', 'Toggle Filter Menu');
       filter.setAttribute('aria-hidden', 'true');
     } else if (isDesktop.matches && filterMenuToggle.getAttribute('aria-expanded') === 'false') {
-      filterMenuToggle.setAttribute('aria-expanded', 'true');
-      filter.setAttribute('aria-hidden', 'false');
+      filterMenuToggle.click();
     }
   });
   if (!isDesktop.matches && filterMenuToggle.getAttribute('aria-expanded') === 'true') {
@@ -296,7 +304,7 @@ export default async function decorate(block) {
   filter.innerHTML = `
     <form class="filter-search-wrapper">
       <label for="filter-search" class="sr-only">Search</label>
-      <input type="text" name="filter-search" id="filter-search" placeholder=${searchPlaceholder.textContent.trim()} />
+      <input type="text" name="filter-search" id="filter-search" placeholder="${searchPlaceholder.textContent.trim()}" />
       <button type="submit" aria-label="Submit search"></button>
     </form>
     ${renderFilterCategory(1, filterOne, filterOneIsMultiSelect, filterOneOptions, 'filter-all-content-type', 'filter-type')}
@@ -323,7 +331,7 @@ export default async function decorate(block) {
   // Clean-up and Render Article Category
   const renderArticleCategory = (article) => {
     const categoriesArray = article.category.split(',');
-    if (categoriesArray.length !== 0) {
+    if (categoriesArray.length >= 1 && categoriesArray[0] !== '') {
       const firstCategory = categoriesArray.find((category) => category.includes('/'));
       let markup = '';
       const removePrefixCategory = firstCategory.split('/')[1];
@@ -382,6 +390,41 @@ export default async function decorate(block) {
     return markup;
   };
 
+  // Dynamically update the card CTA label based on article Content Type
+  const renderArticleCtaLabel = (article) => {
+    const categoriesArray = article.category.includes(',') ? article.category.split(',') : [article.category];
+    let markup = '';
+    if (categoriesArray.length >= 1 && categoriesArray[0] !== '') {
+      const firstCategory = categoriesArray.find((category) => category.includes('/'));
+      const removePrefixCategory = firstCategory.split('/')[1];
+      switch (removePrefixCategory) {
+        case 'articles':
+          markup = `<a class="article-link" href="${article.path}">Read More</a>`;
+          break;
+        case 'videos':
+          markup = `<a class="article-link" href="${article.path}">Watch Now</a>`;
+          break;
+        case 'podcasts':
+          markup = `<a class="article-link" href="${article.path}">Listen Now</a>`;
+          break;
+        case 'case-study':
+          markup = `<a class="article-link" href="${article.path}">Read Now</a>`;
+          break;
+        case 'analyst-reports':
+          markup = `<a class="article-link" href="${article.path}">Read Now</a>`;
+          break;
+        case 'e-books':
+          markup = `<a class="article-link" href="${article.path}">Read Now</a>`;
+          break;
+        default:
+          markup = `<a class="article-link" href="${article.path}">Learn More</a>`;
+      }
+    } else {
+      markup = `<a class="article-link" href="${article.path}">Learn More</a>`;
+    }
+    return markup;
+  };
+
   // Render Featured Article
   if (featuredArticlePath !== '' && featuredArticleData) {
     featuredArticleContainer.innerHTML = `
@@ -404,7 +447,7 @@ export default async function decorate(block) {
             : ''
         }
         <div class="article-cta-container">
-          <a class="article-link" href="${featuredArticleData.path}">Read Now</a>
+          ${renderArticleCtaLabel(featuredArticleData)}
           ${featuredArticleData.readingTime !== '' ? `<p class="article-readtime">${featuredArticleData.readingTime} min read</p>` : ''}
         </div>
       </div>
@@ -455,7 +498,7 @@ export default async function decorate(block) {
                 : ''
             }
             <div class="article-cta-container">
-              <a class="article-link" href="${article.path}">Read Now</a>
+              ${renderArticleCtaLabel(article)}
               ${article.readingTime !== '' ? `<p class="article-readtime">${article.readingTime} min read</p>` : ''}
             </div>
           </div>
@@ -467,16 +510,17 @@ export default async function decorate(block) {
 
   const appendLearningCenterArticles = (articleJsonData) => {
     articlesContainer.innerHTML = renderArticleCard(articleJsonData);
+    articlesContainer
+      .querySelectorAll('img')
+      .forEach((img) =>
+        img
+          .closest('picture')
+          .replaceWith(
+            createOptimizedPicture(img.src, img.alt, false, [{ media: '(min-width: 640px)', width: '594' }]),
+          ),
+      );
   };
   appendLearningCenterArticles(defaultSortedArticle);
-
-  articlesContainer
-    .querySelectorAll('img')
-    .forEach((img) =>
-      img
-        .closest('picture')
-        .replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ media: '(min-width: 640px)', width: '594' }])),
-    );
 
   // Render pagination pages
   const renderPages = (articlePerPage, articleList, currentPage) => {
