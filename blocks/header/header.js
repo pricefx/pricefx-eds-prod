@@ -2,6 +2,7 @@ import ffetch from '../../scripts/ffetch.js';
 import { SEARCH } from '../../scripts/constants.js';
 import { decorateIcons } from '../../scripts/aem.js';
 import { SEARCH_INDEX_PATH } from '../../scripts/url-constants.js';
+import { sortByDate } from '../../scripts/global-functions.js';
 
 const isDesktop = window.matchMedia('(min-width: 986px)');
 
@@ -19,6 +20,17 @@ window.addEventListener('scroll', () => {
     headerEl.classList.remove('header-opacity');
   }
 });
+
+/**
+ * Reset Search CTA ADA
+ * @param {Element} searchToggle
+ */
+const resetSearchCTA = (searchToggle) => {
+  const nextElement = searchToggle.nextElementSibling;
+
+  nextElement.setAttribute('aria-hidden', 'true');
+  searchToggle.setAttribute('aria-expanded', 'false');
+};
 
 /**
  * Reset All Mobile Navigation Accordions
@@ -85,6 +97,9 @@ const closeDesktopNavOnEscape = (e) => {
   if (e.code === 'Escape' && isDesktop.matches) {
     const allMegamenu = document.querySelectorAll('.desktop-header .megamenu-wrapper');
     allMegamenu.forEach((megamenu) => megamenu.classList.remove('megamenu-wrapper--active'));
+
+    // Reset Desktop Search ADA
+    resetSearchCTA(document.querySelector('.desktop-header .header-search-cta'));
   }
 };
 window.addEventListener('keydown', closeDesktopNavOnEscape);
@@ -254,10 +269,10 @@ export default async function decorate(block) {
   const searchWrapperDesktop = document.createElement('div');
   searchWrapperDesktop.classList.add('search-wrapper');
   searchWrapperDesktop.innerHTML = `
-    <button class="header-search-cta" aria-label="Search" aria-haspopup="Search">
+    <button class="header-search-cta" aria-label="Search" aria-expanded="false">
       ${SEARCH}
     </button>
-    <div class="search-input-wrapper megamenu-wrapper">
+    <div class="search-input-wrapper megamenu-wrapper" aria-hidden="true">
       <form action="/search">
         <button type="submit">${SEARCH}</button>
         <input type="text" name="q" aria-label="Search" placeholder="Search pricefx.com" autocomplete="off">
@@ -289,7 +304,15 @@ export default async function decorate(block) {
         }
       });
     });
+
+    navListLevelOne.addEventListener('mouseover', () => {
+      allMegamenu.forEach((megamenu) => megamenu.classList.remove('megamenu-wrapper--active'));
+
+      // Reset Search ADA
+      resetSearchCTA(searchToggle);
+    });
   });
+
   allMegamenuLinks.forEach((link) => {
     link.addEventListener('focus', () => {
       allMegamenu.forEach((megamenu) => megamenu.classList.remove('megamenu-wrapper--active'));
@@ -298,13 +321,23 @@ export default async function decorate(block) {
     });
   });
 
-  searchToggle.addEventListener('focus', () => {
-    allMegamenu.forEach((megamenu) => megamenu.classList.remove('megamenu-wrapper--active'));
-    searchToggle.nextElementSibling.classList.add('megamenu-wrapper--active');
-  });
+  // Search Toggle
+  searchToggle.addEventListener('click', () => {
+    allMegamenu.forEach((megamenu) => {
+      if (!megamenu.classList.contains('search-input-wrapper')) {
+        megamenu.classList.remove('megamenu-wrapper--active');
+      }
+    });
 
-  expertCta.addEventListener('focus', () => {
-    allMegamenu.forEach((megamenu) => megamenu.classList.remove('megamenu-wrapper--active'));
+    searchToggle.nextElementSibling.classList.toggle('megamenu-wrapper--active');
+    if (searchToggle.getAttribute('aria-expanded') === 'false') {
+      searchToggle.setAttribute('aria-expanded', 'true');
+      searchToggle.nextElementSibling.setAttribute('aria-hidden', 'false');
+      setTimeout(() => desktopHeader.querySelector('input').focus(), 50);
+    } else {
+      // Reset Search ADA
+      resetSearchCTA(searchToggle);
+    }
   });
 
   // Click oustide to close mega menu Event Handler
@@ -313,8 +346,14 @@ export default async function decorate(block) {
       return;
     }
     allMegamenu.forEach((megamenu) => megamenu.classList.remove('megamenu-wrapper--active'));
+    // Reset Search ADA
+    resetSearchCTA(searchToggle);
+
     // Mobile Search
     mobileHeader.querySelector('.megamenu-wrapper').classList.remove('megamenu-wrapper--active');
+
+    // Reset Mobile Search ADA
+    resetSearchCTA(mobileHeader.querySelector('.mobile-header .header-search-cta'));
   });
 
   // ----------------------------
@@ -335,13 +374,13 @@ export default async function decorate(block) {
   const searchWrapperMobile = document.createElement('div');
   searchWrapperMobile.classList.add('search-wrapper');
   searchWrapperMobile.innerHTML = `
-    <button class="header-search-cta" aria-label="Search" aria-haspopup="Search">
+    <button class="header-search-cta" aria-label="Search" aria-expanded="false">
       ${SEARCH}
     </button>
-    <div class="search-input-wrapper megamenu-wrapper">
+    <div class="search-input-wrapper megamenu-wrapper" aria-hidden="true">
       <form action="/search">
         <button type="submit">${SEARCH}</button>
-        <input type="text" name="search" aria-label="Search" placeholder="Search pricefx.com" autocomplete="off">
+        <input type="text" name="q" aria-label="Search" placeholder="Search pricefx.com" autocomplete="off">
       </form>
       <div class="search-suggestion"></div>
     </div>
@@ -475,8 +514,17 @@ export default async function decorate(block) {
   // Mobile Search
   const mobileSearchToggle = mobileHeader.querySelector('.header-search-cta');
   mobileSearchToggle.addEventListener('click', () => {
-    // allMegamenu.forEach((megamenu) => megamenu.classList.remove('megamenu-wrapper--active'));
-    mobileSearchToggle.nextElementSibling.classList.add('megamenu-wrapper--active');
+    mobileSearchToggle.nextElementSibling.classList.toggle('megamenu-wrapper--active');
+    if (mobileSearchToggle.getAttribute('aria-expanded') === 'false') {
+      mobileSearchToggle.setAttribute('aria-expanded', 'true');
+      mobileSearchToggle.nextElementSibling.setAttribute('aria-hidden', 'false');
+      setTimeout(() => {
+        mobileSearchToggle.nextElementSibling.querySelector('input').focus();
+      }, 50);
+    } else {
+      // Reset ADA
+      resetSearchCTA(mobileSearchToggle);
+    }
   });
 
   hamburger.addEventListener('focus', () => {
@@ -509,7 +557,10 @@ export default async function decorate(block) {
       }
 
       if (value.length > 2) {
-        suggestionJson = searchJson.filter((item) => item.title.toLowerCase().includes(value));
+        suggestionJson = searchJson.filter((item) => item.title.toLowerCase().includes(value.toLowerCase()));
+
+        // Filter By Last Published Date
+        suggestionJson = sortByDate(suggestionJson, 'lastPublished');
 
         if (suggestionJson.length > 1) {
           let markup = '';

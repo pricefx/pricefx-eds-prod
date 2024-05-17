@@ -4,6 +4,10 @@
         padding: 0;
     }
 
+    .section.left-right-boxed-container > div {
+        max-width: 100%;
+    }
+
     .left-right-boxed .boxed-main-container {
         display: flex;
         align-items: flex-start;
@@ -15,6 +19,7 @@
     .left-right-boxed .boxed-left-container {
         width: 100%;
         padding: var(--spacing-xlarge) var(--spacing-small);
+        text-align: left;
     }
 
     .left-right-boxed .eyebrow-text {

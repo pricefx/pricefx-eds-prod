@@ -63,7 +63,7 @@ text-transform: uppercase;
   }
 
   .tabs .tabs-list {
-    flex-direction: row;
+    flex-flow: row wrap;
     gap: 16px;
     margin: 54px 0 64px;
   }
@@ -85,10 +85,6 @@ text-transform: uppercase;
   .tabs.vertical .tabs-list button:hover::after {
     left: calc(100% - 6px);
     top: calc(50% - 6px);
-  }
-
-  .tabs-container .default-content-wrapper {
-    text-align: center;
   }
 }
 
