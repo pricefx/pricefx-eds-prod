@@ -471,7 +471,13 @@ export default async function decorate(block) {
       .forEach((img) =>
         img
           .closest('picture')
-          .replaceWith(createOptimizedPicture(img.src, img.alt, true, [{ media: '(min-width: 640px)', width: '594' }])),
+          .replaceWith(
+            createOptimizedPicture(img.src, img.alt, true, [
+              { media: '(max-width: 460px)', width: '397' },
+              { media: '(max-width: 640px)', width: '577' },
+              { width: '594' },
+            ]),
+          ),
       );
   } else {
     featuredArticleContainer.innerHTML = '';
@@ -526,7 +532,14 @@ export default async function decorate(block) {
     articlesContainer
       .querySelectorAll('img')
       .forEach((img) =>
-        img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '577' }])),
+        img
+          .closest('picture')
+          .replaceWith(
+            createOptimizedPicture(img.src, img.alt, false, [
+              { media: '(max-width: 460px)', width: '397' },
+              { width: '577' },
+            ]),
+          ),
       );
   };
   appendLearningCenterArticles(defaultSortedArticle);
