@@ -1,6 +1,6 @@
 import ffetch from '../../scripts/ffetch.js';
 import { createOptimizedPicture } from '../../scripts/aem.js';
-import { environmentMode } from '../../scripts/global-functions.js';
+import { environmentMode, replaceBasePath } from '../../scripts/global-functions.js';
 import { BASE_CONTENT_PATH } from '../../scripts/url-constants.js';
 
 const isDesktop = window.matchMedia('(min-width: 986px)');
@@ -112,12 +112,21 @@ const updateBrowserUrl = (searchParams, key, value) => {
  */
 export default async function decorate(block) {
   const [
+    configTab,
     featuredArticle,
     searchPath,
     searchPlaceholder,
     authorDirectoryPath,
     numOfArticles,
     defaultSort,
+    articlesContentCta,
+    ebooksContentCta,
+    podcastsContentCta,
+    caseStudyContentCta,
+    videosContentCta,
+    reportsContentCta,
+    defaultContentCta,
+    filterTab,
     filterOne,
     filterOneIsMultiSelect,
     filterOneOptions,
@@ -131,6 +140,8 @@ export default async function decorate(block) {
     filterFourIsMultiSelect,
     filterFourOptions,
   ] = block.children;
+  configTab.innerHTML = '';
+  filterTab.innerHTML = '';
   block.innerHTML = '';
 
   // Fetch Articles content from JSON endpoint
@@ -366,10 +377,7 @@ export default async function decorate(block) {
       authorsParentPagePathFormatted += '/';
     }
 
-    if (isPublishEnvironment) {
-      // In the publish environment, remove the base path if present
-      authorsParentPagePathFormatted = authorsParentPagePathFormatted.replace(BASE_CONTENT_PATH, '');
-    }
+    replaceBasePath(isPublishEnvironment, authorsParentPagePathFormatted, BASE_CONTENT_PATH);
 
     authorsArray.forEach((author) => {
       if (author === '') {
@@ -404,28 +412,28 @@ export default async function decorate(block) {
       const removePrefixCategory = firstCategory.split('/')[1];
       switch (removePrefixCategory) {
         case 'articles':
-          markup = `<a class="article-link" href="${article.path}">Read More</a>`;
+          markup = `<a class="article-link" href="${article.path}">${articlesContentCta.textContent.trim()}</a>`;
           break;
         case 'videos':
-          markup = `<a class="article-link" href="${article.path}">Watch Now</a>`;
+          markup = `<a class="article-link" href="${article.path}">${videosContentCta.textContent.trim()}</a>`;
           break;
         case 'podcasts':
-          markup = `<a class="article-link" href="${article.path}">Listen Now</a>`;
+          markup = `<a class="article-link" href="${article.path}">${podcastsContentCta.textContent.trim()}</a>`;
           break;
         case 'case-study':
-          markup = `<a class="article-link" href="${article.path}">Read Now</a>`;
+          markup = `<a class="article-link" href="${article.path}">${caseStudyContentCta.textContent.trim()}</a>`;
           break;
         case 'analyst-reports':
-          markup = `<a class="article-link" href="${article.path}">Read Now</a>`;
+          markup = `<a class="article-link" href="${article.path}">${reportsContentCta.textContent.trim()}</a>`;
           break;
         case 'e-books':
-          markup = `<a class="article-link" href="${article.path}">Read Now</a>`;
+          markup = `<a class="article-link" href="${article.path}">${ebooksContentCta.textContent.trim()}</a>`;
           break;
         default:
-          markup = `<a class="article-link" href="${article.path}">Learn More</a>`;
+          markup = `<a class="article-link" href="${article.path}">${defaultContentCta.textContent.trim()}</a>`;
       }
     } else {
-      markup = `<a class="article-link" href="${article.path}">Learn More</a>`;
+      markup = `<a class="article-link" href="${article.path}">${defaultContentCta.textContent.trim()}</a>`;
     }
     return markup;
   };
