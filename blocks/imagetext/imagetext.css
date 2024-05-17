@@ -1,0 +1,228 @@
+.imagetext-wrapper {
+  display: flex;
+}
+
+.imagetext {
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.imagetext .imagetext-text{
+   text-align: center;
+   font-family: var(--ff-secondary);
+   font-size: var(--body-font-size-l);
+   font-style: normal;
+   font-weight: var(--fw-regular);
+   line-height: 28px;
+}
+
+.imagetext .imagetext-main-container {
+  max-width: 1188px;
+  display: flex;
+  justify-content: space-between; 
+  border-radius: 8px;
+  flex-direction: column; 
+  padding-top: 44px;
+  min-height: 753px;;
+}
+
+.imagetext .imagetext-left-container  {
+    width: 100%;
+    border-radius: 8px; 
+    flex: 1;
+}
+
+.imagetext .imagetext-right-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin : 0; 
+    padding-top: 40px;
+}
+
+.imagetext .banner-container  { 
+  height: 100%; 
+}
+
+.imagetext .banner-image { 
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.imagetext .banner-image img { 
+  width: 100%;
+  height: 100%; 
+  object-fit: cover; 
+  border-radius: 8px;
+}
+
+.imagetext .imagetext-action{ 
+   font-family: var(--ff-secondary);
+   font-size: var(--body-font-size-l);
+   font-style: normal;
+   font-weight: var(--fw-regular);
+   line-height: 28px;
+   height: 40%;
+}
+
+.imagetext .supportContainer {
+  height: calc(50% - 1px);
+  }
+
+.imagetext .cross-line {
+    display: block;
+    width: 100%;
+    height: 1px;
+    border-top: 1px solid #ccc;
+    margin: 1rem 0;
+    background: var(--c-primary-lt);
+}
+
+.imagetext .container {
+    display: flex;
+    justify-content: space-between; 
+    padding-top: 20px;
+    align-items: center;
+}
+
+.imagetext .left-container, .right-container {
+    margin: 10px;
+}
+
+.imagetext .imagetext-para {
+    margin-left: 20px;
+}
+
+.imagetext .imagetext-icon {
+    display: flex;
+}
+
+.imagetext .imagetext svg {
+   min-width: 45px;
+   min-height: 37px;
+   flex-shrink: 0;
+}
+
+.imagetext .content {
+  padding: 10px;
+}
+
+.imagetext .content .index-0 div p {
+  display: flex;
+  margin-bottom: 10px; 
+  color: var(--c-copy);
+  font-style: normal;
+  font-family: var(--ff-secondary);
+  font-size: var(--body-font-size-l);
+  font-weight: 500;
+}
+
+.imagetext .index-0 div p:first-child {
+  font-family: var(--ff-primary);
+  font-size: var(--heading-font-size-s);
+  line-height: 28px;
+  font-weight: var(--fw-med);
+}
+
+.imagetext .index-1 img {
+    width: 100px; 
+    height: auto; 
+}
+
+.imagetext .suggestion-title {
+    display: block; 
+    color: var(--c-copy);
+    font-family: var(--ff-primary);
+    font-size: var(--heading-font-size-s);
+    font-style: normal;
+    font-weight: var(--fw-bold);
+    line-height: 27px; 
+}
+
+/* Suggestion Description & Link */
+
+.imagetext .index-2 {
+  color: var(--c-copy);
+  font-family: var(--ff-secondary);
+  font-size: var(--body-font-size-l);
+  font-style: normal;
+  font-weight: var(--fw-regular);
+  line-height: 24px; 
+  width:100%;
+  height: auto;
+  }
+
+#benefits-statement {
+  height: 55px;
+}
+
+
+/* Media Query for Desktop */
+
+@media (width >= 986px) { 
+  .imagetext .imagetext-text{ 
+    width: 984px;
+    height: 56px;
+  }
+
+  .imagetext .imagetext-main-container {
+    flex-direction: row; 
+  }
+ 
+  .imagetext .imagetext-right-container {
+    margin: 0;
+    padding-top: 0;
+    padding-left: 37px;
+  }
+
+  .imagetext .left-container {
+    margin: 0;
+    padding-right: 36px;
+  }
+
+  .imagetext .banner-image { 
+    width: 539px;
+    min-height: 753px;
+    flex-shrink: 0;
+}
+
+  .imagetext .supportContainer{
+    height: 60%;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    overflow: auto;
+  }
+  
+  .imagetext .cross-line {
+    background: linear-gradient(135deg, #DF549D 0%, #41B6E6 51.1%, #F05E25 100%);
+    fill: var(--c-table-level);
+  }
+
+  .imagetext .imagetext-para {
+    max-width: 474px;
+}
+
+  .imagetext .container {
+    padding-top: 0;
+  }
+
+  .imagetext .content p {
+    font-weight: 500;
+  }
+
+  .imagetext .inner-left-container .inner-right-container .content p:first-child {
+    font-family: var(--ff-secondary);
+    font-size: var(--body-font-size-l);
+    font-weight: var(--fw-bold);
+  }
+
+  .imagetext .index-0 div p {
+      font-family: var(--ff-secondary);
+      font-size: var(--body-font-size-l);
+      font-weight: var(--fw-bold);
+      line-height: 28px; 
+  }
+}
