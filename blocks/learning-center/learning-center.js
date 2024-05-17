@@ -473,6 +473,7 @@ export default async function decorate(block) {
           .closest('picture')
           .replaceWith(
             createOptimizedPicture(img.src, img.alt, true, [
+              { media: '(max-width: 412px)', width: '349' },
               { media: '(max-width: 460px)', width: '397' },
               { media: '(max-width: 640px)', width: '577' },
               { width: '594' },
@@ -536,6 +537,7 @@ export default async function decorate(block) {
           .closest('picture')
           .replaceWith(
             createOptimizedPicture(img.src, img.alt, false, [
+              { media: '(max-width: 412px)', width: '349' },
               { media: '(max-width: 460px)', width: '397' },
               { width: '577' },
             ]),
