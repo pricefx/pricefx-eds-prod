@@ -257,8 +257,6 @@
 /* ARTICLE STYLES */
 .learning-center-content {
   display: block;
-
-  /* margin-bottom: var(--spacing-medium); */
   transition: var(--base-transition-2);
   transition-delay: 0.15s;
   width: 80%;
