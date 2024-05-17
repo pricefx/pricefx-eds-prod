@@ -526,11 +526,7 @@ export default async function decorate(block) {
     articlesContainer
       .querySelectorAll('img')
       .forEach((img) =>
-        img
-          .closest('picture')
-          .replaceWith(
-            createOptimizedPicture(img.src, img.alt, false, [{ media: '(min-width: 640px)', width: '594' }]),
-          ),
+        img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '577' }])),
       );
   };
   appendLearningCenterArticles(defaultSortedArticle);
