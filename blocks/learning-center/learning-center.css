@@ -441,7 +441,6 @@ a.article-link::after {
 .pagination-wrapper {
   align-items: center;
   display: flex;
-  height: 20px;
   justify-content: center;
   margin: var(--spacing-medium) auto 0;
   text-align: center;
@@ -496,6 +495,7 @@ a.article-link::after {
   display: flex;
   align-items: center;
   list-style-type: none;
+  height: 20px;
   margin-bottom: var(--spacing-micro);
 }
 
