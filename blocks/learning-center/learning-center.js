@@ -265,18 +265,23 @@ export default async function decorate(block) {
     optionsArray.forEach((option) => {
       const optionSplit = option.split('/')[1];
       const optionReplace = optionSplit.replaceAll('-', ' ');
+      const optionTextTransform =
+        optionReplace.length <= 4 && optionReplace !== 'news' && optionReplace !== 'food'
+          ? optionReplace.toUpperCase()
+          : optionReplace;
+      const optionLabel = optionTextTransform === 'it professionals' ? 'IT Professionals' : optionTextTransform;
       if (filterIsMultiSelect.textContent.trim() === 'false') {
         filterOptionsMarkup += `
           <li class="filter-category-item">
             <input type="radio" id="filter-${optionSplit}" name="${filterCategoryName}" value="${optionSplit}" data-filter-category="${filterCategoryName}" />
-            <label for="filter-${optionSplit}">${optionSplit === 'e-books' || optionSplit === 'c-suite' ? optionSplit : optionReplace}</label>
+            <label for="filter-${optionSplit}">${optionSplit === 'e-books' || optionSplit === 'c-suite' ? optionSplit : optionTextTransform}</label>
           </li>
         `;
       } else {
         filterOptionsMarkup += `
           <li class="filter-category-item">
             <input type="checkbox" id="filter-${optionSplit}" name="${optionSplit}" value="${optionSplit}" data-filter-category="${filterCategoryName}" />
-            <label for="filter-${optionSplit}">${optionSplit === 'e-books' || optionSplit === 'c-suite' ? optionSplit : optionReplace}</label>
+            <label for="filter-${optionSplit}">${optionSplit === 'e-books' || optionSplit === 'c-suite' ? optionSplit : optionLabel}</label>
           </li>
         `;
       }
