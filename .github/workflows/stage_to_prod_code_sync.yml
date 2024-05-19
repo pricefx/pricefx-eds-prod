@@ -1,4 +1,4 @@
-name: Stage to Prod Code Sync
+name: STAGE to PROD Code Sync
 
 on:
   workflow_dispatch:
@@ -14,25 +14,29 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          repository: pricefx/pricefx-eds-prod
+          token: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN  }}
+          ref: main
 
       - name: Configure Git identity
         run: |
           git config user.email "actions@github.com"
           git config user.name "Github Actions"
 
-      - name: Fetch latest changes from pricefx-eds
+      - name: Fetch latest changes from pricefx-eds-stage
         run: |
-          git remote add pricefx-eds https://github.com/pricefx/pricefx-eds
-          git fetch pricefx-eds main
+          git remote add pricefx-eds-stage https://github.com/pricefx/pricefx-eds-stage
+          git fetch pricefx-eds-stage main
 
       - name: Merge changes excluding fstab.yaml
         run: |
           git checkout main
-          git merge --no-ff --no-edit pricefx-eds/main --strategy-option=ours --allow-unrelated-histories
-          git rm --cached fstab.yaml
-          git commit -m "Sync main branch from pricefx-eds, excluding fstab.yaml"
+          git merge --no-ff --no-edit pricefx-eds-stage/main --strategy-option=ours --allow-unrelated-histories
+          git rm --cached fstab.yaml || true
+          git commit -m "Sync main branch from pricefx-eds-stage, excluding fstab.yaml" || true
 
-      - name: Push changes to pricefx-eds-qa-temp
+      - name: Push changes to pricefx-eds-prod
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
