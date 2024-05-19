@@ -20,17 +20,17 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "Github Actions"
 
-      - name: Fetch latest changes from pricefx-eds
+      - name: Fetch latest changes from pricefx-eds-qa
         run: |
-          git remote add pricefx-eds https://github.com/pricefx/pricefx-eds
-          git fetch pricefx-eds main
+          git remote add pricefx-eds-qa https://github.com/pricefx/pricefx-eds-qa
+          git fetch pricefx-eds-qa main
 
       - name: Merge changes excluding fstab.yaml
         run: |
           git checkout main
           git merge --no-ff --no-edit pricefx-eds/main --strategy-option=ours --allow-unrelated-histories
           git rm --cached fstab.yaml
-          git commit -m "Sync main branch from pricefx-eds, excluding fstab.yaml"
+          git commit -m "Sync main branch from pricefx-eds-qa, excluding fstab.yaml"
 
       - name: Push changes to pricefx-eds-stage
         uses: ad-m/github-push-action@master
