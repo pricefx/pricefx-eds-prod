@@ -32,7 +32,7 @@ jobs:
           git rm --cached fstab.yaml
           git commit -m "Sync main branch from pricefx-eds, excluding fstab.yaml"
 
-      - name: Push changes to pricefx-eds-qa-temp
+      - name: Push changes to pricefx-eds-stage
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
