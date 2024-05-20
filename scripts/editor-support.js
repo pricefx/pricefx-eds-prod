@@ -110,7 +110,7 @@ function attachEventListners(main) {
       main?.addEventListener(eventType, async (event) => {
         event.stopPropagation();
         const applied = await applyChanges(event);
-        if (window.location.pathname.includes("/learning-center") && !window.location.pathname.includes("/writer")) {
+        if (window.location.pathname.includes('/learning-center') && !window.location.pathname.includes('/writer')) {
           processArticleReadingTime();
         }
         if (!applied) {
