@@ -2553,5 +2553,24 @@
         "valueType": "boolean"
       }
     ]
+  },
+  {
+    "id": "tabbed-filter",
+    "fields": [
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "spreadsheetPath",
+        "value": "",
+        "label": "Spreadsheet Path"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "showMoreLabel",
+        "label": "Show More Label",
+        "value": "Show More"
+      }
+    ]
   }
 ]
