@@ -2567,9 +2567,79 @@
       {
         "component": "text-input",
         "valueType": "string",
+        "name": "eyebrowText",
+        "label": "Eyebrow Text",
+        "value": ""
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "tittle",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
         "name": "showMoreLabel",
         "label": "Show More Label",
         "value": "Show More"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "filterIndustryAllLabel",
+        "label": "Filter Industry All Label",
+        "value": "Industries",
+        "description": "Label for the default industry filter option. Will serve as an 'all' filter option."
+      },
+      {
+        "component": "multiselect",
+        "name": "filterIndustryOptions",
+        "label": "Filter Industry Options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Automotive",
+            "value": "automotive"
+          },
+          {
+            "name": "Chemicals",
+            "value": "chemicals"
+          },
+          {
+            "name": "Manufacturing",
+            "value": "manufacturing"
+          }
+        ]
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "filterRegionAllLabel",
+        "label": "Filter Region All Label",
+        "value": "All Regions",
+        "description": "Label for the default region filter option. Will serve as an 'all' filter option."
+      },
+      {
+        "component": "multiselect",
+        "name": "filterRegionOptions",
+        "label": "Filter Region Options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "APAC",
+            "value": "apac"
+          },
+          {
+            "name": "EMEA",
+            "value": "emea"
+          },
+          {
+            "name": "Americas",
+            "value": "americas"
+          }
+        ]
       }
     ]
   }
