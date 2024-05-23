@@ -8,7 +8,7 @@ sampleRUM('cwv');
 // add more delayed functionality here
 
 // Load Drift Widget
-function LoadDriftChatWidget() {
+function loadDriftChatWidget() {
   const driftChatWidget = document.createRange().createContextualFragment(`
         <!-- Start of Async Drift Code -->
         <script>
@@ -125,6 +125,6 @@ if (!window.location.hostname.includes('localhost') && environmentMode() === 'pu
   loadGTM();
 
   // Load Drift Chat Widget & Events
-  LoadDriftChatWidget();
+  loadDriftChatWidget();
   dirftChatEventListener();
 }
