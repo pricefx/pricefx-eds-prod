@@ -122,6 +122,10 @@
   padding-left: 0;
 }
 
+.tabbed-filter__content-item:last-child {
+  border-right: none;
+}
+
 .tabbed-filter__content-item-image {
   display: block;
   height: 100%;
@@ -133,6 +137,22 @@
 .tabbed-filter__show-more-cta {
   display: block !important;
   margin: 0 auto !important;
+}
+
+.no-clients {
+  font-size: var(--heading-font-size-m);
+  font-weight: var(--fw-regular);
+  grid-column: span 4;
+  line-height: calc((30 / 16) * 1rem);
+  margin: var(--spacing-large) auto;
+  max-width: 750px;
+  padding: var(--spacing-small);
+  text-align: center;
+  width: 100%;
+}
+
+.hidden {
+  display: none !important;
 }
 
 /* RESPONSIVE STYLES */

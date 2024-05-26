@@ -391,7 +391,7 @@ const renderClientLogos = (clientsDataJson) => {
     return markup;
   }
   markup = `
-      <h3 class="no-clients">Sorry, there are no results based on these choices. Please update and try again.</h3>
+      <p class="no-clients">Sorry, there are no results based on these choices. Please update and try again.</p>
     `;
   return markup;
 };
@@ -413,29 +413,50 @@ const appendClientLogos = (clientsDataJson, clientLogosContainer) => {
 };
 
 // Handle filter logic
-const handleFilter = (clientsDataJson, industriesFilter, regionsFilter, clientLogosContainer) => {
+const handleFilter = (
+  clientsDataJson,
+  industriesFilter,
+  regionsFilter,
+  clientLogosContainer,
+  showMoreCta,
+  showMoreLabel,
+) => {
   let currentFilteredData = [...clientsDataJson];
+  let initialCurrentFilteredData;
   if (industriesFilter.value !== 'all-industries' && regionsFilter.value === 'all-regions') {
     currentFilteredData = currentFilteredData.filter(
       (filteredData) => filteredData.industries.trim().toLowerCase() === industriesFilter.value,
     );
-    appendClientLogos(currentFilteredData, clientLogosContainer);
+    initialCurrentFilteredData = currentFilteredData.slice(currentFilteredData, 12);
+    appendClientLogos(initialCurrentFilteredData, clientLogosContainer);
   } else if (industriesFilter.value === 'all-industries' && regionsFilter.value !== 'all-regions') {
     currentFilteredData = currentFilteredData.filter(
       (filteredData) => filteredData.region.trim().toLowerCase() === regionsFilter.value,
     );
-    appendClientLogos(currentFilteredData, clientLogosContainer);
+    initialCurrentFilteredData = currentFilteredData.slice(currentFilteredData, 12);
+    appendClientLogos(initialCurrentFilteredData, clientLogosContainer);
   } else if (industriesFilter.value !== 'all-industries' && regionsFilter.value !== 'all-regions') {
     currentFilteredData = currentFilteredData.filter(
       (filteredData) =>
         filteredData.industries.trim().toLowerCase() === industriesFilter.value &&
         filteredData.region.trim().toLowerCase() === regionsFilter.value,
     );
-    appendClientLogos(currentFilteredData, clientLogosContainer);
+    initialCurrentFilteredData = currentFilteredData.slice(currentFilteredData, 12);
+    appendClientLogos(initialCurrentFilteredData, clientLogosContainer);
   } else {
     currentFilteredData = clientsDataJson;
-    appendClientLogos(currentFilteredData, clientLogosContainer);
+    initialCurrentFilteredData = currentFilteredData.slice(currentFilteredData, 12);
+    appendClientLogos(initialCurrentFilteredData, clientLogosContainer);
   }
+
+  showMoreCta.setAttribute('aria-expanded', 'false');
+  showMoreCta.textContent = showMoreLabel.textContent.trim();
+  if (currentFilteredData.length <= 12) {
+    showMoreCta.classList.add('hidden');
+  } else {
+    showMoreCta.classList.remove('hidden');
+  }
+
   return currentFilteredData;
 };
 
@@ -443,17 +464,13 @@ const handleFilter = (clientsDataJson, industriesFilter, regionsFilter, clientLo
 const handleCtaClick = (industriesFilter, regionsFilter, initialClientsData, filteredClientsData, contentContainer) => {
   if (industriesFilter.value !== 'all-industries' && regionsFilter.value === 'all-regions') {
     appendClientLogos(filteredClientsData, contentContainer);
-    console.log('Handle filtered INDUSTRIES');
   } else if (industriesFilter.value === 'all-industries' && regionsFilter.value !== 'all-regions') {
     appendClientLogos(filteredClientsData, contentContainer);
-    console.log('Handle filtered REGIONS');
   } else if (industriesFilter.value !== 'all-industries' && regionsFilter.value !== 'all-regions') {
     appendClientLogos(filteredClientsData, contentContainer);
-    console.log('Handle BOTH FILTERED');
   } else {
     // TODO: Replace data with actual data from JSON endpoint
     appendClientLogos(initialClientsData, contentContainer);
-    console.log('HANDLE EVERYTHING!');
   }
 };
 
@@ -552,25 +569,9 @@ export default async function decorate(block) {
   block.append(contentContainer);
   appendClientLogos(initialClientData, contentContainer);
 
-  // Handle filter logics
+  // Create show more CTA
   const industriesFilter = document.getElementById('filter-industries');
   const regionsFilter = document.getElementById('filter-regions');
-
-  industriesFilter.addEventListener('change', () => {
-    // TODO: Replace data with actual data from JSON endpoint
-    handleFilter(data, industriesFilter, regionsFilter, contentContainer);
-    filteredClientsData = handleFilter(data, industriesFilter, regionsFilter, contentContainer);
-    console.log(filteredClientsData);
-  });
-
-  regionsFilter.addEventListener('change', () => {
-    // TODO: Replace data with actual data from JSON endpoint
-    handleFilter(data, industriesFilter, regionsFilter, contentContainer);
-    filteredClientsData = handleFilter(data, industriesFilter, regionsFilter, contentContainer);
-    console.log(filteredClientsData);
-  });
-
-  // Create show more CTA
   if (showMoreLabel.textContent.trim() !== '' && filteredClientsData.length > 12) {
     const showMoreCta = document.createElement('button');
     setAttributes(showMoreCta, {
@@ -595,4 +596,30 @@ export default async function decorate(block) {
       }
     });
   }
+
+  // Handle filter logics
+  const showMoreCta = document.querySelector('.tabbed-filter__show-more-cta');
+  industriesFilter.addEventListener('change', () => {
+    // TODO: Replace data with actual data from JSON endpoint
+    filteredClientsData = handleFilter(
+      data,
+      industriesFilter,
+      regionsFilter,
+      contentContainer,
+      showMoreCta,
+      showMoreLabel,
+    );
+  });
+
+  regionsFilter.addEventListener('change', () => {
+    // TODO: Replace data with actual data from JSON endpoint
+    filteredClientsData = handleFilter(
+      data,
+      industriesFilter,
+      regionsFilter,
+      contentContainer,
+      showMoreCta,
+      showMoreLabel,
+    );
+  });
 }
