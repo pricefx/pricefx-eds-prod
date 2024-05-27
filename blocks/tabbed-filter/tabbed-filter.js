@@ -1,5 +1,4 @@
 import ffetch from '../../scripts/ffetch.js';
-import { createOptimizedPicture } from '../../scripts/aem.js';
 
 /**
  * Helps set multiple attributes to an element at once
@@ -66,9 +65,6 @@ const renderFilterOptions = (filterOptions) => {
 // Append client logos markup
 const appendClientLogos = (clientsDataJson, clientLogosContainer, noResultsText) => {
   clientLogosContainer.innerHTML = renderClientLogos(clientsDataJson, noResultsText);
-  clientLogosContainer.querySelectorAll('img').forEach((img) => {
-    img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '400' }]));
-  });
 };
 
 // Handle filter logic
