@@ -1225,6 +1225,13 @@
         "label": "Target Blank",
         "name": "isTargetBlankThree",
         "valueType": "boolean"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "heroStats",
+        "label": "Stats in Hero",
+        "value": ""
       }
     ]
   },
@@ -2608,6 +2615,20 @@
         "name": "showMoreLabel",
         "label": "Show More Label",
         "value": "Show More"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "showLessLabel",
+        "label": "Show Less Label",
+        "value": "Show Less"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "noResultsText",
+        "label": "No Results Text",
+        "value": "Sorry, there are no results based on these choices. Please update and try again."
       },
       {
         "component": "text-input",
