@@ -37,9 +37,7 @@ const renderClientLogos = (clientsDataJson, noResultsText) => {
         : client['alt text'];
       markup += `
         <li class="tabbed-filter__content-item">
-          <picture>
-            <img class="tabbed-filter__content-item-image" src="${client.logo}" alt="${imageAltText}">
-          </picture>
+          <img class="tabbed-filter__content-item-image" src="${client.logo}" alt="${imageAltText}">
         </li>
       `;
     });
