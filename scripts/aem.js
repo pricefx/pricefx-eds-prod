@@ -387,7 +387,7 @@ function decorateButtons(element) {
           up.childNodes.length === 1 &&
           up.tagName === 'STRONG' &&
           twoup.childNodes.length === 1 &&
-          twoup.tagName === 'P'
+          (twoup.tagName === 'P' || twoup.tagName === 'DIV')
         ) {
           a.className = 'button primary';
           twoup.classList.add('button-container');
@@ -396,7 +396,7 @@ function decorateButtons(element) {
           up.childNodes.length === 1 &&
           up.tagName === 'EM' &&
           twoup.childNodes.length === 1 &&
-          twoup.tagName === 'P'
+          (twoup.tagName === 'P' || twoup.tagName === 'DIV')
         ) {
           a.className = 'button secondary';
           twoup.classList.add('button-container');
@@ -467,13 +467,6 @@ function decorateSections(main) {
         }
       }
       wrappers[wrappers.length - 1].append(e);
-
-      // Setting Target Blank for Links
-      e.querySelectorAll('a[title$="{{_blank}}"]')?.forEach((anchor) => {
-        anchor.target = '_blank';
-        anchor.title = anchor.title.replace('{{_blank}}', '');
-        anchor.textContent = anchor.textContent.replace('{{_blank}}', '');
-      });
     });
     wrappers.forEach((wrapper) => section.append(wrapper));
     section.classList.add('section');
