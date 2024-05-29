@@ -36,8 +36,7 @@
 
 .quote .quote-logo{
   width: 136px;
-  height: calc((40 / 16) * 1rem);
-  margin-bottom: calc((20 / 16) * 1rem);
+  min-height: calc((40 / 16) * 1rem);
 }
 
 .quote .quote-main-container {
@@ -72,7 +71,7 @@
 .quote .quote-right-container {
     display: flex;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
     margin: calc((40 / 16) * 1rem);
 }
 
@@ -98,7 +97,7 @@
     display: flex;
     justify-content: space-between;
     max-width: 780px;
-    max-height: 407px;
+    min-height: 407px;
 }
 
   .quote .quote-text , .quote .quote-text p{
@@ -122,6 +121,8 @@
     max-width: 280px;
     min-height: 475px;
     overflow: hidden;
+    object-fit: cover;
+    height: 100%;
   }
 
   .quote .author{

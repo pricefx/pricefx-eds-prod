@@ -667,6 +667,14 @@
           {
             "name": "Card BG Color - Black",
             "value": "card-bg-black"
+          },
+          {
+            "name": "Card IM Pricing Variation",
+            "value": "card-im-pricing"
+          },
+          {
+            "name": "Card Two Featured Resource",
+            "value": "card-featured-resource"
           }
         ]
       }
@@ -681,6 +689,13 @@
         "name": "image",
         "label": "Image",
         "multi": false
+      },
+      {
+        "component": "text-area",
+        "valueType": "string",
+        "name": "cardTopContent",
+        "value": "",
+        "label": "Card Top Content"
       },
       {
         "component": "text-input",
@@ -891,6 +906,27 @@
           {
             "name": "No Padding",
             "value": "section-no-padding"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "removePadding",
+        "value": "",
+        "label": "Remove Top / Bottom Padding",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Remove Top Padding",
+            "value": "section-remove-top-padding"
+          },
+          {
+            "name": "Remove Bottom Padding",
+            "value": "section-remove-bottom-padding"
           }
         ]
       },
@@ -1193,6 +1229,13 @@
         "label": "Target Blank",
         "name": "isTargetBlankThree",
         "valueType": "boolean"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "heroStats",
+        "label": "Stats in Hero",
+        "value": ""
       }
     ]
   },
@@ -1560,6 +1603,11 @@
     "id": "learningCenter",
     "fields": [
       {
+        "component": "tab",
+        "label": "Configs",
+        "name": "configs"
+      },
+      {
         "component": "aem-content",
         "name": "featuredArticle",
         "value": "",
@@ -1617,6 +1665,54 @@
             ]
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "articlesContentCta",
+        "label": "Articles Cards CTA Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "ebooksContentCta",
+        "label": "E-Books Cards CTA Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "podcastsContentCta",
+        "label": "Podcasts Cards CTA Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "caseStudyContentCta",
+        "label": "Case Study Cards CTA Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "videosContentCta",
+        "label": "Videos Cards CTA Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "reportsContentCta",
+        "label": "Analyst Reports Cards CTA Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "defaultContentCta",
+        "label": "Default Cards CTA Label",
+        "valueType": "string",
+        "description": "This will be used as a fallback label in case an article card is missing a content type indicator or doesn't match the provided content types."
+      },
+      {
+        "component": "tab",
+        "label": "Filters",
+        "name": "filters"
       },
       {
         "component": "text-input",
@@ -1909,6 +2005,10 @@
           {
             "name": "Default",
             "value": "default"
+          },
+          {
+            "name": "Default List Row",
+            "value": "defaultListRow"
           },
           {
             "name": "Icon Variation",
@@ -2404,6 +2504,20 @@
         "valueType": "string",
         "name": "marketoSuccessUrl",
         "label": "Marketo Success URL"
+      },
+      {
+        "component": "boolean",
+        "label": "2-Columns View",
+        "name": "twoColumnsView",
+        "valueType": "boolean",
+        "description": "Moves Title and Description to the left column and the form to the right column."
+      },
+      {
+        "component": "boolean",
+        "label": "Hide Form Labels",
+        "name": "hideFormLabels",
+        "valueType": "boolean",
+        "description": "Hide form labels visually (can still be read by screen readers)."
       }
     ]
   },
@@ -2435,11 +2549,6 @@
         "name": "fileReference2",
         "label": "Image 2",
         "multi": false
-      },
-      {
-        "component": "tab",
-        "label": "Filters",
-        "name": "filters"
       },
       {
         "component": "text-input",
@@ -2477,6 +2586,69 @@
         "label": "Swap Right",
         "name": "swapImage",
         "valueType": "boolean"
+      }
+    ]
+  },
+  {
+    "id": "tabbed-filter",
+    "fields": [
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "spreadsheetPath",
+        "value": "",
+        "label": "Spreadsheet Path"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "eyebrowText",
+        "label": "Eyebrow Text",
+        "value": ""
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "tittle",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "showMoreLabel",
+        "label": "Show More Label",
+        "value": "Show More"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "showLessLabel",
+        "label": "Show Less Label",
+        "value": "Show Less"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "noResultsText",
+        "label": "No Results Text",
+        "value": "Sorry, there are no results based on these choices. Please update and try again."
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "filterIndustryAllLabel",
+        "label": "Filter Industry All Label",
+        "value": "Industries",
+        "description": "Label for the default industry filter option. Will serve as an 'all' filter option."
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "filterRegionAllLabel",
+        "label": "Filter Region All Label",
+        "value": "All Regions",
+        "description": "Label for the default region filter option. Will serve as an 'all' filter option."
       }
     ]
   }

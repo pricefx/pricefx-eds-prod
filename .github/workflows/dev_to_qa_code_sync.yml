@@ -22,18 +22,20 @@ jobs:
 
       - name: Fetch latest changes from pricefx-eds
         run: |
-          git remote add pricefx-eds https://github.com/pricefx/pricefx-eds
-          git fetch pricefx-eds main
+          git remote add pricefx-eds https://github.com/pricefx/pricefx-eds || true
+          git fetch pricefx-eds main:pricefx-eds-main
 
       - name: Merge changes excluding fstab.yaml
         run: |
-          git checkout main
-          git merge --no-ff --no-edit pricefx-eds/main --strategy-option=ours --allow-unrelated-histories
-          git rm --cached fstab.yaml
+          git merge --no-commit --no-ff --allow-unrelated-histories pricefx-eds-main || true
+          git checkout --theirs . || true
+          git reset HEAD fstab.yaml
+          git checkout -- fstab.yaml
+          git add .
           git commit -m "Sync main branch from pricefx-eds, excluding fstab.yaml"
 
       - name: Push changes to pricefx-eds-qa
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
-          branch: main
+        run: |
+          git push https://github.com/pricefx/pricefx-eds-qa HEAD:main
+        env:
+          GIT_PERSONAL_ACCESS_TOKEN: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
