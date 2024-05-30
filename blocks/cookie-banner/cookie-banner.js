@@ -1,6 +1,8 @@
 export default async function decorate(block) {
-  // const [cookieBannerText, rejectCtaLabel, acceptCtaLabel] = block.children;
+  const [cookieBannerText, rejectCtaLabel, acceptCtaLabel] = block.children;
   block.textContent = '';
+
+  console.log(cookieBannerText);
 
   // Create content container element
   // TODO: Add checks for authored Description
@@ -9,14 +11,16 @@ export default async function decorate(block) {
   contentContainer.innerHTML = `We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies. <a href="/">Privacy Policy and Impressum</a>`;
 
   // Create reject CTA element
-  // TODO: Add checks for authored reject CTA label
-  const rejectCtaLabel = document.createElement('button');
-  rejectCtaLabel.classList.add('cookie-banner__reject-cta');
-  rejectCtaLabel.textContent = 'Reject All';
+  if (rejectCtaLabel.textContent.trim() !== '') {
+    const rejectCta = document.createElement('button');
+    rejectCta.classList.add('cookie-banner__reject-cta');
+    rejectCta.textContent = rejectCtaLabel.textContent.trim();
+  }
 
   // Create accept CTA element
-  // TODO: Add checks for authored accept CTA label
-  const acceptCtaLabel = document.createElement('button');
-  acceptCtaLabel.classList.add('cookie-banner__accept-cta');
-  acceptCtaLabel.textContent = 'Accept All';
+  if (acceptCtaLabel.textContent.trim() !== '') {
+    const acceptCta = document.createElement('button');
+    acceptCta.classList.add('cookie-banner__accept-cta');
+    acceptCta.textContent = acceptCtaLabel.textContent.trim();
+  }
 }
