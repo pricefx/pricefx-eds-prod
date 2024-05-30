@@ -2656,16 +2656,9 @@
     "id": "cookie-banner",
     "fields": [
       {
-        "component": "text-input",
-        "valueType": "string",
-        "name": "cookieBannerTitle",
-        "value": "We value your privacy",
-        "label": "Title"
-      },
-      {
         "component": "richtext",
-        "name": "cookieBannerDescription",
-        "label": "Description",
+        "name": "cookieBannerText",
+        "label": "Cookie Banner Text",
         "valueType": "string"
       },
       {
