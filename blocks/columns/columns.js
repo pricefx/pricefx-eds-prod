@@ -1,4 +1,4 @@
-import { environmentMode } from '../../scripts/global-functions.js';
+import { environmentMode, processUrl } from '../../scripts/global-functions.js';
 import { decorateIcons } from '../../scripts/aem.js';
 
 export default function decorate(block) {
@@ -22,6 +22,7 @@ export default function decorate(block) {
           const downloadImg = `<span class="icon icon-download"></span>`;
           download.innerHTML = downloadImg;
           decorateIcons(download, '', 'Pricefx', 'png');
+          processUrl(downloadLink.href);
         }
       });
 
