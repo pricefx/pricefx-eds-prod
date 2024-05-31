@@ -2,10 +2,15 @@
   width: 100%;
 }
 
-.audio-embed {
+.audio-embed-wrapper .audio-embed.block {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.audio-embed.block audio {
   width: 100%;
 }
 
-.audio-embed audio {
-  width: 100%;
+.audio-embed.block audio::-webkit-media-controls-enclosure {
+    border-radius: 0;
 }
