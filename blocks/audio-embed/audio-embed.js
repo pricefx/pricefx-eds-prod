@@ -1,6 +1,9 @@
 import { processUrl } from '../../scripts/global-functions.js';
 
 function hasValidExtension(url) {
+  if (url.startsWith('/content/dam/pricefx')) {
+    return true;
+  }
   try {
     const { pathname } = new URL(url);
     return pathname.endsWith('.mp3') || pathname.endsWith('.ogg');
