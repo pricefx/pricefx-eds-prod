@@ -19,11 +19,11 @@ export default function decorate(block) {
         if (download?.textContent.trim() === 'download') {
           download.classList.add('download-btn');
           download.setAttribute('aria-label', 'download');
+          const processLink = processUrl(download.href);
+          download.href = processLink;
           const downloadImg = `<span class="icon icon-download"></span>`;
           download.innerHTML = downloadImg;
           decorateIcons(download, '', 'Pricefx', 'png');
-          const processLink = processUrl(download.href);
-          download.href = processLink;
         }
       });
 
