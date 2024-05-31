@@ -1,6 +1,7 @@
 import { createOptimizedPicture, getMetadata } from '../../scripts/aem.js';
-import { environmentMode, formatDate, sortByDate } from '../../scripts/global-functions.js';
+import { environmentMode, formatDate, sortByDate, replaceBasePath } from '../../scripts/global-functions.js';
 import { ARTICLE_INDEX_PATH, BASE_CONTENT_PATH } from '../../scripts/url-constants.js';
+import { loadFragment } from '../fragment/fragment.js';
 import ffetch from '../../scripts/ffetch.js';
 
 // Clean-up and Render Article Category
@@ -37,8 +38,11 @@ const renderArticleAuthors = (article, authorDirectoryPath) => {
   }
 
   if (isPublishEnvironment) {
-    // In the publish environment, remove the base path if present
-    authorsParentPagePathFormatted = authorsParentPagePathFormatted.replace(BASE_CONTENT_PATH, '');
+    authorsParentPagePathFormatted = replaceBasePath(
+      isPublishEnvironment,
+      authorsParentPagePathFormatted,
+      BASE_CONTENT_PATH,
+    );
   }
 
   authorsArray.forEach((author) => {
@@ -82,10 +86,10 @@ function generateCardDom(article, authorDirectoryPath) {
             ? `<div class="article-details">
             ${article.category !== '' ? renderArticleCategory(article) : ''}
             ${article.title !== '' ? `<h6 class="article-title">${article.title}</h6>` : ''}
-            ${article.authors !== '' || article.articlePublishDate !== '' ? renderArticleAuthors(article, authorDirectoryPath) : ''}
           </div>`
             : ''
         }
+        ${article.authors !== '' || article.articlePublishDate !== '' ? renderArticleAuthors(article, authorDirectoryPath) : ''}
         <div class='cards-card-cta'>
           <a class="article-link" href="${path}">Read Now</a>
           ${readingTime ? `<div class='cards-card-reading-time'>${readingTime} min read</div>` : ''}
@@ -107,8 +111,8 @@ function decorateTopArticles(topArticles) {
   topArticles.append(column2);
 }
 
-function decorateBlogArticles(articlesJSON, block, props) {
-  const { authorDirectoryPath, numOfArticles } = props;
+async function decorateBlogArticles(articlesJSON, block, props) {
+  const { authorDirectoryPath, marketoFormPath, numOfArticles } = props;
   const queryStr = 'page=1';
   const searchParams = new URLSearchParams(queryStr);
 
@@ -120,11 +124,17 @@ function decorateBlogArticles(articlesJSON, block, props) {
   articleSection2.classList.add('blog-articles-bottom-section');
   const marketoForm = document.createElement('div');
   marketoForm.classList.add('blog-marketo-form');
-  marketoForm.innerHTML = `<h2>Marketo Form Placeholder</h2>`;
   articlesContainer.appendChild(articleSection1);
   articlesContainer.appendChild(marketoForm);
   articlesContainer.appendChild(articleSection2);
   block.append(articlesContainer);
+
+  if (marketoFormPath && marketoFormPath.includes('/fragments/')) {
+    const fragmentBlock = await loadFragment(marketoFormPath.replace('/content/pricefx/en', ''));
+    while (fragmentBlock.firstElementChild) {
+      marketoForm.append(fragmentBlock.firstElementChild);
+    }
+  }
 
   // Creates a div container to hold pagination
   const paginationContainer = document.createElement('div');
@@ -157,10 +167,10 @@ function decorateBlogArticles(articlesJSON, block, props) {
                   ? `<div class="article-details">
                   ${article.category !== '' ? renderArticleCategory(article) : ''}
                   ${article.title !== '' ? `<h2 class="article-title">${article.title}</h2>` : ''}
-                  ${article.authors !== '' || article.articlePublishDate !== '' ? renderArticleAuthors(article, authorDirectoryPath) : ''}
                 </div>`
                   : ''
               }
+              ${article.authors !== '' || article.articlePublishDate !== '' ? renderArticleAuthors(article, authorDirectoryPath) : ''}
               <div class="article-cta-container">
                 <a class="article-link" href="${article.path}">Read Now</a>
                 ${article.readingTime !== '' ? `<p class="article-readtime">${article.readingTime} min read</p>` : ''}
@@ -182,10 +192,10 @@ function decorateBlogArticles(articlesJSON, block, props) {
                 ? `<div class="article-details">
                 ${article.category !== '' ? renderArticleCategory(article) : ''}
                 ${article.title !== '' ? `<h2 class="article-title">${article.title}</h2>` : ''}
-                ${article.authors !== '' || article.articlePublishDate !== '' ? renderArticleAuthors(article, authorDirectoryPath) : ''}
               </div>`
                 : ''
             }
+            ${article.authors !== '' || article.articlePublishDate !== '' ? renderArticleAuthors(article, authorDirectoryPath) : ''}
             <div class="article-cta-container">
               <a class="article-link" href="${article.path}">Read Now</a>
               ${article.readingTime !== '' ? `<p class="article-readtime">${article.readingTime} min read</p>` : ''}
@@ -209,10 +219,10 @@ function decorateBlogArticles(articlesJSON, block, props) {
                 ? `<div class="article-details">
                 ${article.category !== '' ? renderArticleCategory(article) : ''}
                 ${article.title !== '' ? `<h2 class="article-title">${article.title}</h2>` : ''}
-                ${article.authors !== '' || article.articlePublishDate !== '' ? renderArticleAuthors(article, authorDirectoryPath) : ''}
               </div>`
                 : ''
             }
+            ${article.authors !== '' || article.articlePublishDate !== '' ? renderArticleAuthors(article, authorDirectoryPath) : ''}
             <div class="article-cta-container">
               <a class="article-link" href="${article.path}">Read Now</a>
               ${article.readingTime !== '' ? `<p class="article-readtime">${article.readingTime} min read</p>` : ''}
@@ -421,7 +431,7 @@ function decorateBlogArticles(articlesJSON, block, props) {
       return;
     }
 
-    if (loadedSearchParams.get('page') !== '1') {
+    if (loadedSearchParams.get('page') && loadedSearchParams.get('page') !== '1') {
       paginationPageList.innerHTML = renderPages(numOfArticles, articlesJSON, Number(loadedSearchParams.get('page')));
       const pageList = paginationPageList.querySelectorAll('.pagination-page');
       if (pageList.length > 1) {
@@ -478,6 +488,7 @@ export default async function decorate(block) {
   const path = block.children[6]?.textContent.trim();
   const authorPath = block.children[7]?.textContent.trim();
   const numOfArticles = block.children[8]?.textContent.trim() || '13';
+  const marketoFormPath = block.children[9]?.textContent.trim();
 
   const url = path || ARTICLE_INDEX_PATH;
   // Get Data
@@ -505,11 +516,8 @@ export default async function decorate(block) {
   if (type === 'related') {
     block.classList.add(columnLayout, 'cards', 'aspect-ratio-16-9');
     block.innerHTML = titleEle;
-    filteredData?.forEach((article, index) => {
-      if (index > 7) {
-        return;
-      }
-
+    const relatedArticles = filteredData.slice(0, 8);
+    relatedArticles?.forEach((article) => {
       ul.append(generateCardDom(article, authorPath));
       ul.querySelectorAll('img').forEach((img) =>
         img
@@ -523,6 +531,7 @@ export default async function decorate(block) {
   } else {
     block.classList.add('blog-articles');
     const props = {
+      marketoFormPath,
       numOfArticles,
       authorDirectoryPath: authorPath,
     };

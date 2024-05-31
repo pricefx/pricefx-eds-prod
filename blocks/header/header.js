@@ -56,6 +56,7 @@ const toggleHamburgerNav = (hamburger, mobileNav) => {
   const hamburgerAriaExpanded = hamburger.attributes[4].value;
   const setHamburgerAriaExpanded = hamburgerAriaExpanded === 'false' ? 'true' : 'false';
   hamburger.setAttribute('aria-expanded', setHamburgerAriaExpanded);
+  const mobileSearch = document.querySelector('.mobile-header .search-wrapper');
 
   if (hamburgerAriaExpanded === 'false') {
     mobileNav.focus();
@@ -63,6 +64,8 @@ const toggleHamburgerNav = (hamburger, mobileNav) => {
     if (!isDesktop.matches) {
       bodyEl.classList.add('scroll-lock');
     }
+
+    mobileSearch.classList.add('hidden');
   } else {
     mobileNav.blur();
     hamburger.setAttribute('aria-label', 'Open Mobile Navigation');
@@ -73,6 +76,7 @@ const toggleHamburgerNav = (hamburger, mobileNav) => {
     if (!isDesktop.matches) {
       bodyEl.classList.remove('scroll-lock');
     }
+    mobileSearch.classList.remove('hidden');
   }
 
   const navMobileAriaHidden = mobileNav.attributes[3].value;
@@ -204,9 +208,18 @@ export default async function decorate(block) {
       if (level2Label.includes('|')) {
         const linkInfoArray = level2Label.split('|');
         markup += `
-          <li class="nav-list-level-2-item">
-            <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length >= 2 ? linkInfoArray[2].trim() : '_self'}" ${linkInfoArray.length >= 2 ? "class='level-2-item-link'" : ''} tabindex="0">${linkInfoArray[0].trim()}</a>
-          </li>
+          ${
+            linkInfoArray[0].trim().includes('Sign In')
+              ? `<li class="nav-list-level-2-item">
+              <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray[2].trim()}" class="level-2-item-link level-2-item-link--sign-in" tabindex="0">${linkInfoArray[0].trim()}</a>
+            </li>`
+              : `<li class="nav-list-level-2-item category">
+              <a href="${linkInfoArray[1].trim()}" target="${linkInfoArray[2].trim()}" class="nav-list-level-2-item-category">${linkInfoArray[0].trim()}</a>
+              <ul class="nav-list-level-3">
+                ${renderLevelThreeItems(level2Label)}
+              </ul>
+            </li>`
+          }
         `;
       } else if (!level2Label.includes('|') && level2Label !== '') {
         markup += `
@@ -287,7 +300,7 @@ export default async function decorate(block) {
   expertCta.classList.add('expert-cta');
   expertCta.href = '/pricing-software-demo';
   expertCta.textContent = 'Talk to an Expert';
-  expertCta.setAttribute('target', '_blank');
+  expertCta.setAttribute('target', '_self');
   desktopHeader.insertAdjacentElement('beforeend', expertCta);
 
   // Desktop Keyboard Navigation
@@ -306,7 +319,11 @@ export default async function decorate(block) {
     });
 
     navListLevelOne.addEventListener('mouseover', () => {
-      allMegamenu.forEach((megamenu) => megamenu.classList.remove('megamenu-wrapper--active'));
+      navListLevelOne.blur();
+      allMegamenu.forEach((megamenu) => {
+        megamenu.classList.remove('megamenu-wrapper--active');
+        megamenu.addEventListener('mouseout', () => navListLevelOne.blur());
+      });
 
       // Reset Search ADA
       resetSearchCTA(searchToggle);
@@ -380,7 +397,7 @@ export default async function decorate(block) {
     <div class="search-input-wrapper megamenu-wrapper" aria-hidden="true">
       <form action="/search">
         <button type="submit">${SEARCH}</button>
-        <input type="text" name="search" aria-label="Search" placeholder="Search pricefx.com" autocomplete="off">
+        <input type="text" name="q" aria-label="Search" placeholder="Search pricefx.com" autocomplete="off">
       </form>
       <div class="search-suggestion"></div>
     </div>
@@ -453,7 +470,14 @@ export default async function decorate(block) {
       if (level2Label.includes('|')) {
         const linkInfoArray = level2Label.split('|');
         markup += `
-          <a class="nav-mobile-list-level-2-category-link" href="${linkInfoArray[1].trim()}" target="${linkInfoArray.length >= 2 ? linkInfoArray[2].trim() : '_self'}">${linkInfoArray[0].trim()}</a>
+          ${
+            linkInfoArray[0].trim().includes('Sign In')
+              ? `<a class="nav-mobile-list-level-2-category-link" href="${linkInfoArray[1].trim()}" target="${linkInfoArray[2].trim()}">${linkInfoArray[0].trim()}</a>`
+              : `<ul class="nav-mobile-list-level-2-category">
+              <a class="nav-mobile-list-level-2-category-link" href="${linkInfoArray[1].trim()}" target="${linkInfoArray[2].trim()}">${linkInfoArray[0].trim()}</a>
+              ${renderMobileLevelThreeItems(level2Label)}
+            </ul>`
+          }
         `;
       } else if (!level2Label.includes('|') && level2Label !== '') {
         markup += `
@@ -528,7 +552,7 @@ export default async function decorate(block) {
   });
 
   hamburger.addEventListener('focus', () => {
-    mobileHeader.querySelector('.megamenu-wrapper--active').classList.remove('megamenu-wrapper--active');
+    mobileHeader.querySelector('.megamenu-wrapper').classList.remove('megamenu-wrapper--active');
   });
 
   // Render Mobile Talk to an Expert CTA
@@ -536,7 +560,7 @@ export default async function decorate(block) {
   mobileExpertCta.classList.add('expert-cta');
   mobileExpertCta.href = '/pricing-software-demo';
   mobileExpertCta.textContent = 'Talk to an Expert';
-  mobileExpertCta.setAttribute('target', '_blank');
+  mobileExpertCta.setAttribute('target', '_self');
   navMobileWrapper.append(mobileExpertCta);
 
   const backdrop = document.createElement('div');

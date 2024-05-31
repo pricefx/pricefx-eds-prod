@@ -1,5 +1,3 @@
-import { IMAGETEXT } from '../../scripts/constants.js';
-
 function addElementsToContainer(container, elements) {
   const tempContainer = document.createElement('div');
   tempContainer.classList.add('content');
@@ -14,6 +12,8 @@ export default async function decorate(block) {
   let elementsInContainer = [];
 
   let enableIcon = false;
+
+  let buttonDisable = false;
 
   const imagetext = document.createElement('div');
   imagetext.classList.add('imagetext-container');
@@ -55,12 +55,15 @@ export default async function decorate(block) {
       /* Description */
       const imagetextEl = document.createElement('p');
       imagetextEl.classList.add('imagetext-text');
-      imagetextEl.textContent = row.firstElementChild.textContent;
+
+      if (row.firstElementChild.textContent !== '') {
+        imagetextEl.textContent = row.firstElementChild?.textContent;
+      }
 
       imagetext.appendChild(imagetextEl);
     } else if (index === 1) {
       /* Left Container image */
-      const bannerImage = document.querySelector('picture');
+      const bannerImage = row.firstElementChild?.querySelector('picture');
       bannerImage.classList.add('banner-image');
       if (bannerImage) {
         const image = document.createElement('div');
@@ -70,48 +73,61 @@ export default async function decorate(block) {
       }
     } else if (index === 2) {
       /* Enable icon for Action Text */
-      enableIcon = row.firstElementChild.textContent;
+
+      if (row.firstElementChild.textContent !== '') {
+        enableIcon = row.firstElementChild?.textContent;
+      }
     } else if (index === 3) {
       /* Action Text */
 
       const action = row.firstElementChild;
 
-      action.childNodes.forEach((node) => {
-        if (node.nodeType === 1 && node.tagName === 'P') {
-          node.classList.add('icon-text');
+      if (action.childNodes.length > 0) {
+        action.childNodes.forEach((node) => {
+          if (node.nodeType === 1 && node.tagName === 'P') {
+            node.classList.add('icon-text');
 
-          const newParagraph = document.createElement('p');
-          newParagraph.classList.add('imagetext-para');
-          newParagraph.appendChild(node.firstChild);
+            const newParagraph = document.createElement('p');
+            newParagraph.classList.add('imagetext-para');
+            newParagraph.appendChild(node.firstChild);
 
-          if (enableIcon === 'true') {
-            const icon = document.createElement('div');
-            icon.classList.add('imagetext-icon');
-            icon.innerHTML = IMAGETEXT;
-            icon.appendChild(newParagraph);
+            if (enableIcon === 'true') {
+              const icon = document.createElement('div');
+              icon.classList.add('imagetext-icon');
+              icon.appendChild(newParagraph);
 
-            node.insertBefore(icon, node.firstChild);
-          } else {
-            node.insertBefore(newParagraph, node.firstChild);
+              node.insertBefore(icon, node.firstChild);
+            } else {
+              node.insertBefore(newParagraph, node.firstChild);
+            }
           }
-        }
-      });
+        });
+      }
 
       imagetextAction.appendChild(action);
 
       imagetextRightContainer.appendChild(imagetextAction);
     } else if (index === 4) {
       button.classList.add('button');
-      button.classList.add(row.textContent.replace(/\s+/g, ''));
+
+      if (row.textContent.trim() !== '') {
+        button.classList.add(row.textContent.trim());
+      }
     } else if (index === 5) {
-      button.href = row.textContent.replace(/\s+/g, '');
+      button.href = row.textContent?.trim() || '';
     } else if (index === 6) {
-      button.innerHTML = row.textContent.replace(/\s+/g, '');
+      if (row.textContent.trim() !== '') {
+        button.innerHTML = row.textContent.trim();
+      } else {
+        buttonDisable = true;
+      }
     } else if (index === 7) {
-      if (row.textContent.replace(/\s+/g, '') === 'true') {
+      if (row.textContent.trim() === 'true' && buttonDisable === false) {
         button.target = '_blank';
       }
-      imagetextAction.appendChild(button);
+      if (buttonDisable === false) {
+        imagetextAction.appendChild(button);
+      }
     } else if (index === 8) {
       /* Support Title */
       const line = document.createElement('div');

@@ -1,10 +1,11 @@
-.imagetext-wrapper {
-  display: flex;
-}
-
 .imagetext {
   margin: 0.5rem;
   border-radius: 0.5rem;
+}
+
+.imagetext .imagetext-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .imagetext .imagetext-text{
@@ -14,6 +15,7 @@
    font-style: normal;
    font-weight: var(--fw-regular);
    line-height: 28px;
+   display: flex;
 }
 
 .imagetext .imagetext-main-container {
@@ -23,6 +25,7 @@
   border-radius: 8px;
   flex-direction: column; 
   padding-top: 44px;
+  padding-bottom: 89px;
   min-height: 753px;;
 }
 
@@ -58,13 +61,15 @@
   border-radius: 8px;
 }
 
-.imagetext .imagetext-action{ 
+.imagetext .imagetext-action { 
    font-family: var(--ff-secondary);
    font-size: var(--body-font-size-l);
    font-style: normal;
    font-weight: var(--fw-regular);
    line-height: 28px;
    height: 40%;
+   text-align: left;
+   align-items: left;
 }
 
 .imagetext .supportContainer {
@@ -81,19 +86,23 @@
 }
 
 .imagetext .container {
-    display: flex;
     justify-content: space-between; 
     padding-top: 20px;
     align-items: center;
 }
 
-.imagetext .left-container, .right-container {
+.imagetext .left-container, 
+.imagetext .right-container {
     margin: 10px;
 }
 
-.imagetext .imagetext-para {
-    margin-left: 20px;
+.imagetext .inner-left-container, 
+.imagetext .inner-right-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
 }
+
 
 .imagetext .imagetext-icon {
     display: flex;
@@ -107,10 +116,21 @@
 
 .imagetext .content {
   padding: 10px;
+  width: 50%;
+  position: relative;
+}
+
+.imagetext .index-2 .button-container {
+  position: absolute;
+  bottom: 0;
+}
+
+.imagetext .index-2 .button-container .button {
+  margin: 0;
+  padding: 0;
 }
 
 .imagetext .content .index-0 div p {
-  display: flex;
   margin-bottom: 10px; 
   color: var(--c-copy);
   font-style: normal;
@@ -120,15 +140,42 @@
 }
 
 .imagetext .index-0 div p:first-child {
-  font-family: var(--ff-primary);
-  font-size: var(--heading-font-size-s);
+  text-align: left;
+  font-family: var(--ff-secondary);
+  font-size: var(--body-font-size-l);
   line-height: 28px;
-  font-weight: var(--fw-med);
+  font-weight: var(--fw-bold);
+}
+
+
+.imagetext .index-1 {
+ padding-bottom: 10px;
 }
 
 .imagetext .index-1 img {
-    width: 100px; 
-    height: auto; 
+    width: 193px;
+    display: flex;
+    min-height: 74px;
+}
+
+.imagetext .index-1 div p {
+  height: 74px
+}
+
+.imagetext .imagetext-action div li {
+    display: flex;
+    line-height: 28px;
+    margin: 0;
+    padding-bottom: 20px;
+}
+
+.imagetext li::before {
+  content: url("../../icons/image-text.svg");
+  display: inline-block;
+  height: 37px;
+  width: 45px;
+  list-style: none;
+  margin-right: 20px;
 }
 
 .imagetext .suggestion-title {
@@ -139,6 +186,9 @@
     font-style: normal;
     font-weight: var(--fw-bold);
     line-height: 27px; 
+    text-align: left;
+    padding-left: 10px;
+    margin: 10px;
 }
 
 /* Suggestion Description & Link */
@@ -152,12 +202,16 @@
   line-height: 24px; 
   width:100%;
   height: auto;
+  text-align: left;
+  padding: 0 0 16px;
   }
 
 #benefits-statement {
   height: 55px;
+  text-align: center;
+  margin-top: 48px;
+  max-width: 1188px;
 }
-
 
 /* Media Query for Desktop */
 
@@ -165,6 +219,7 @@
   .imagetext .imagetext-text{ 
     width: 984px;
     height: 56px;
+    margin: 0 auto;
   }
 
   .imagetext .imagetext-main-container {
@@ -175,16 +230,15 @@
     margin: 0;
     padding-top: 0;
     padding-left: 37px;
+    display: grid;
   }
 
-  .imagetext .left-container {
-    margin: 0;
-    padding-right: 36px;
-  }
+  .imagetext .banner-container  { 
+    max-width: 539px;
+}
 
   .imagetext .banner-image { 
-    width: 539px;
-    min-height: 753px;
+    height: 753px;
     flex-shrink: 0;
 }
 
@@ -195,15 +249,21 @@
     justify-content: center;
     overflow: auto;
   }
+
+  .imagetext .imagetext-action  {
+    min-height: 376px;
+  }
+
+  .imagetext .imagetext-action div li {
+    max-width: 540px;
+}
   
   .imagetext .cross-line {
     background: linear-gradient(135deg, #DF549D 0%, #41B6E6 51.1%, #F05E25 100%);
     fill: var(--c-table-level);
+    width: 576px;
+    height: 1px;
   }
-
-  .imagetext .imagetext-para {
-    max-width: 474px;
-}
 
   .imagetext .container {
     padding-top: 0;
@@ -217,6 +277,10 @@
     font-family: var(--ff-secondary);
     font-size: var(--body-font-size-l);
     font-weight: var(--fw-bold);
+  }
+
+  .imagetext .index-2 p {
+    min-width: 270px;
   }
 
   .imagetext .index-0 div p {
