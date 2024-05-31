@@ -152,11 +152,6 @@ function replaceDomain(url, env) {
  * @param {string} url - The incoming URL or path.
  * @returns {string} - The processed URL.
  */
-/**
- * Process the incoming URL and prepend the appropriate domain based on the environment.
- * @param {string} url - The incoming URL or path.
- * @returns {string} - The processed URL.
- */
 function processUrl(url) {
   const env = getEnvironment();
   if (environmentMode() === 'publish' && env) {
