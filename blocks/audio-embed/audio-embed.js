@@ -1,3 +1,5 @@
+import { processUrl } from '../../scripts/global-functions.js';
+
 function hasValidExtension(url) {
   try {
     const { pathname } = new URL(url);
@@ -9,7 +11,7 @@ function hasValidExtension(url) {
 
 export default function decorate(block) {
   const [audioPathElement] = block.children;
-  const audioPathTrimmed = audioPathElement.textContent.trim();
+  const audioPathTrimmed = processUrl(audioPathElement.textContent.trim());
 
   block.textContent = '';
 
