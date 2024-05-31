@@ -55,13 +55,13 @@ const replaceBasePath = (isPublishEnvironment, pagePath, baseContentPath) => {
 function getEnvironmentDomain(env) {
   switch (env) {
     case 'pricefx-eds':
-      return 'https://publish-p131512-e1282665.adobeaemcloud.com';
+      return 'publish-p131512-e1282665.adobeaemcloud.com';
     case 'pricefx-eds-qa':
-      return 'https://publish-p131512-e1282669.adobeaemcloud.com';
+      return 'publish-p131512-e1282669.adobeaemcloud.com';
     case 'pricefx-eds-stage':
-      return 'https://publish-p131512-e1282667.adobeaemcloud.com';
+      return 'publish-p131512-e1282667.adobeaemcloud.com';
     case 'pricefx-eds-prod':
-      return 'https://publish-p131512-e1282666.adobeaemcloud.com';
+      return 'publish-p131512-e1282666.adobeaemcloud.com';
     case 'pricefx.com':
     case 'preview.pricefx.com':
       return ''; // Return empty string for relative URL
@@ -93,11 +93,6 @@ function shouldPrependDomain(url) {
  * @returns {string} - The URL with the domain prepended if necessary.
  */
 function prependDomain(url, env) {
-  // Check if the URL starts with "http" and return it if it does.
-  if (url.startsWith('http')) {
-    return url;
-  }
-
   // If environment is live or preview, return relative URL.
   if (env === 'pricefx.com' || env === 'preview.pricefx.com') {
     return url;
@@ -120,12 +115,36 @@ function getEnvironment() {
     'pricefx-eds-stage': 'pricefx-eds-stage',
     'pricefx-eds-prod': 'pricefx-eds-prod',
     'www.pricefx.com': 'pricefx.com',
-    'preview.pricefx.com': 'preview.pricefx.com',
+    'staging.pricefx.com': 'staging.pricefx.com',
   };
 
   const keys = Object.keys(envMap);
   const result = keys.find((key) => hostname.includes(`--${key}--`) || hostname.includes(key));
+
+  // Check if the URL is external
+  if (!result) {
+    return null; // If the environment is not found in the hostname, return null
+  }
+
   return result ? envMap[result] : 'pricefx.com'; // Default to live
+}
+
+/**
+ * Replace the domain of the absolute URL with the appropriate domain based on the environment.
+ * @param {string} url - The absolute URL.
+ * @param {string} env - The environment identifier.
+ * @returns {string} - The URL with the domain replaced if necessary, or null if not applicable.
+ */
+function replaceDomain(url, env) {
+  const domain = getEnvironmentDomain(env);
+  if (!domain) {
+    return null; // Return null if the environment domain is not defined
+  }
+  if (domain && url.startsWith('https://')) {
+    const { hostname } = new URL(url);
+    return url.replace(hostname, domain);
+  }
+  return null; // Return null if the URL doesn't contain the environment domain or is not absolute
 }
 
 /**
@@ -133,13 +152,24 @@ function getEnvironment() {
  * @param {string} url - The incoming URL or path.
  * @returns {string} - The processed URL.
  */
+/**
+ * Process the incoming URL and prepend the appropriate domain based on the environment.
+ * @param {string} url - The incoming URL or path.
+ * @returns {string} - The processed URL.
+ */
 function processUrl(url) {
-  if (environmentMode() === 'publish') {
-    const env = getEnvironment();
-
+  const env = getEnvironment();
+  if (environmentMode() === 'publish' && env) {
     if (shouldPrependDomain(url)) {
       return prependDomain(url, env);
     }
+    if (url.startsWith('/')) {
+      // If the URL is relative, prepend domain
+      return prependDomain(url, env);
+    }
+    // If the URL is absolute, replace domain
+    const processedUrl = replaceDomain(url, env);
+    return processedUrl !== null ? processedUrl : url;
   }
   return url;
 }
