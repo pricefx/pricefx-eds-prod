@@ -140,7 +140,12 @@ function replaceDomain(url, env) {
   if (!domain) {
     return null; // Return null if the environment domain is not defined
   }
-  if (domain && url.startsWith('https://')) {
+  const validExtensions = ['.mp3', '.zip', '.docx'];
+  const hasValidExtension = validExtensions.some((ext) => {
+    const regex = new RegExp(`${ext}(\\?|$)`);
+    return regex.test(url);
+  });
+  if (domain && url.startsWith('https://') && hasValidExtension) {
     const { hostname } = new URL(url);
     return url.replace(hostname, domain);
   }
