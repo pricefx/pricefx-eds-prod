@@ -22,7 +22,8 @@ export default function decorate(block) {
           const downloadImg = `<span class="icon icon-download"></span>`;
           download.innerHTML = downloadImg;
           decorateIcons(download, '', 'Pricefx', 'png');
-          processUrl(downloadLink.href);
+          const processLink = processUrl(download.href);
+          download.href = processLink;
         }
       });
 
