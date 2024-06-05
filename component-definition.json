@@ -400,7 +400,8 @@
                 "template": {
                   "name": "Learning Center",
                   "model": "learningCenter",
-                  "numberOfArticles": "6"
+                  "numberOfArticles": "6",
+                  "key-value": true
                 }
               }
             }
