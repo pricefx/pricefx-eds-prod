@@ -128,6 +128,7 @@
                 "template": {
                   "name": "Hero",
                   "model": "hero"
+                  "key-value": true
                 }
               }
             }
@@ -401,7 +402,7 @@
                   "name": "Learning Center",
                   "model": "learningCenter",
                   "numberOfArticles": "6",
-                  "key-value": true
+                  "key-value": "true"
                 }
               }
             }
