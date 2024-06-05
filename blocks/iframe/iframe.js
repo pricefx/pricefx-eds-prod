@@ -56,14 +56,17 @@ export default function decorate(block) {
 
   // Create badge wrapper element and render individual badges
   if (badgeLinks.textContent.trim() !== '') {
+    const badgeFragment = new DocumentFragment();
     const badgeWrapper = document.createElement('div');
     badgeWrapper.classList.add('badge__wrapper');
-    block.append(badgeWrapper);
     badgeWrapper.innerHTML = renderBadges(badgeItems);
+    badgeFragment.append(badgeWrapper);
+    block.append(badgeFragment);
   }
 
   // Create iFrame wrapper element and render individual iFrames
   if (iframeLinks.textContent.trim() !== '') {
+    const iframeFragment = new DocumentFragment();
     const iframeWrapper = document.createElement('div');
     iframeWrapper.classList.add('iframe__wrapper');
 
@@ -77,7 +80,8 @@ export default function decorate(block) {
       iframeWrapper.classList.add('frame__wrapper--with-badge');
     }
 
-    block.append(iframeWrapper);
     iframeWrapper.innerHTML = renderIframes(iframeItems, height, width);
+    iframeFragment.append(iframeWrapper);
+    block.append(iframeFragment);
   }
 }
