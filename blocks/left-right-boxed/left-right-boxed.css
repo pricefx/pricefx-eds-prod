@@ -27,6 +27,10 @@
         margin-bottom: 25px;
     }
 
+    .left-right-boxed .boxed-content-container {
+        word-break: break-word;
+    }
+
     .left-right-boxed .boxed-content-container h1,
     .left-right-boxed .boxed-content-container h2,
     .left-right-boxed .boxed-content-container h3
