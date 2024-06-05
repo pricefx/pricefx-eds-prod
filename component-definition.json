@@ -393,6 +393,7 @@
         {
           "title": "Learning Center",
           "id": "learningCenter",
+          "key-value": true,
           "plugins": {
             "xwalk": {
               "page": {
@@ -400,8 +401,7 @@
                 "template": {
                   "name": "Learning Center",
                   "model": "learningCenter",
-                  "numberOfArticles": "6",
-                  "key-value": true
+                  "numberOfArticles": "6"
                 }
               }
             }
