@@ -2,9 +2,8 @@ sitemaps:
   example:
     origin: https://www.pricefx.com
     default: en
-    languages:
-      en:
-        source: /query-index.json
-        destination: /sitemap.xml
-        alternate: /{path}
-        hreflang: en
+    lastmod: YYYY-MM-DD
+    source: /query-index.json
+    destination: /sitemap.xml
+    alternate: /{path}
+    hreflang: en
