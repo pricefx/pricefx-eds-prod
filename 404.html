@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>Page not found</title>
@@ -17,12 +17,14 @@
           const { origin, pathname } = new URL(document.referrer);
           if (origin === window.location.origin) {
             const backBtn = document.createElement('a');
-            backBtn.classList.add('button', 'error-button-back');
+            backBtn.classList.add('button', 'secondary');
             backBtn.href = pathname;
             backBtn.textContent = 'Go back';
             backBtn.title = 'Go back';
             const btnContainer = document.querySelector('.button-container');
-            btnContainer.append(backBtn);
+            const btn = document.createElement('strong');
+            btn.append(backBtn);
+            btnContainer.append(btn);
           }
         }
         sampleRUM('404', { source: document.referrer, target: window.location.href });
@@ -32,8 +34,6 @@
     <style>
       main.error {
         min-height: calc(100vh - var(--nav-height));
-        display: flex;
-        align-items: center;
       }
 
       main.error .error-number {
@@ -49,17 +49,31 @@
 
   <body>
     <header></header>
-    <main>
-      <div class="section" data-section-status="loaded" data-alignment="section-align-center" data-sectionbuttoninline="true" style="">
+    <main class="error">
+      <div
+        class="section"
+        data-section-status="loaded"
+        data-alignment="section-align-center"
+        data-sectionbuttoninline="true"
+        style=""
+      >
         <div class="default-content-wrapper">
-          <h1 id="page-not-found">404: Page Not Found</h1>
+          <h1>404: Page Not Found</h1>
           <div class="spacer spacer-small block" data-block-name="spacer"></div>
-          <h3 id="were-sorry-the-page-you-are-looking-for-is-missing"><strong>WE'RE SORRY, THE PAGE YOU ARE LOOKING FOR IS MISSING</strong></h3>
+          <h3><strong>WE'RE SORRY, THE PAGE YOU ARE LOOKING FOR IS MISSING</strong></h3>
           <p><strong>Please use the buttons below to find something similar, or search to find it faster.</strong></p>
-          <div class="spacer spacer-small block" data-block-name="spacer" data-block-status="loaded"></div>
-          <p class="button-container"><strong><a href="/" title="HOME" class="button primary">home</a></strong></p>
-          <p class="button-container"><strong><a href="/learning-center" title="LEARNING CENTER" class="button primary">Learning Center</a></strong></p>
-          <p class="button-container"><strong><a href="/contact-us" title="CONTACT US" class="button primary">Contact Us</a></strong></p>
+          <div class="spacer spacer-small block" data-block-name="spacer"></div>
+          <p class="button-container">
+            <strong><a href="/" title="HOME" class="button primary">home</a></strong>
+          </p>
+          <p class="button-container">
+            <strong
+              ><a href="/learning-center" title="LEARNING CENTER" class="button primary">Learning Center</a></strong
+            >
+          </p>
+          <p class="button-container">
+            <strong><a href="/contact-us" title="CONTACT US" class="button primary">Contact Us</a></strong>
+          </p>
         </div>
       </div>
     </main>
