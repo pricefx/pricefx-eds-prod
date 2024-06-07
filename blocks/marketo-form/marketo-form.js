@@ -18,13 +18,14 @@ const embedMarketoForm = (marketoId, formId, successUrl, isHideLabels, block, fo
       if (successUrl) {
         window.MktoForms2.loadForm('//lp.pricefx.com', marketoId, formId, (form) => {
           // Add hide form labels class if boolean is true
+          const allFormLabels = formElement.querySelectorAll('label');
           if (isHideLabels === 'true') {
             block.classList.add('form-hide-labels');
-            const allFormLabels = formElement.querySelectorAll('label');
             allFormLabels.forEach((label) => {
               const parentEl = label.parentElement;
               const inputTextEl = parentEl.querySelector('input[type="text"]');
               const inputEmailEl = parentEl.querySelector('input[type="email"]');
+              const inputTelEl = parentEl.querySelector('input[type="tel"]');
               const textareaEl = parentEl.querySelector('textarea');
               const selectEl = parentEl.querySelector('select');
               if (inputTextEl) {
@@ -34,6 +35,10 @@ const embedMarketoForm = (marketoId, formId, successUrl, isHideLabels, block, fo
               if (inputEmailEl) {
                 const formattedLabel = formatFormLabel(label);
                 inputEmailEl.setAttribute('placeholder', formattedLabel);
+              }
+              if (inputTelEl) {
+                const formattedLabel = formatFormLabel(label);
+                inputTelEl.setAttribute('placeholder', formattedLabel);
               }
               if (textareaEl) {
                 const formattedLabel = formatFormLabel(label);
@@ -46,6 +51,13 @@ const embedMarketoForm = (marketoId, formId, successUrl, isHideLabels, block, fo
             });
           } else {
             block.classList.remove('form-hide-labels');
+            allFormLabels.forEach((label) => {
+              const parentEl = label.parentElement;
+              if (parentEl.classList.contains('mktoRequiredField')) {
+                const asterix = '<span class="form-asterix">*</span>';
+                label.insertAdjacentHTML('beforeend', asterix);
+              }
+            });
           }
 
           // Add an onSuccess handler

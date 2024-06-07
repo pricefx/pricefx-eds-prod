@@ -17,12 +17,14 @@
           const { origin, pathname } = new URL(document.referrer);
           if (origin === window.location.origin) {
             const backBtn = document.createElement('a');
-            backBtn.classList.add('button', 'error-button-back');
+            const btn = document.createElement('strong');
+            backBtn.classList.add('button', 'secondary');
             backBtn.href = pathname;
             backBtn.textContent = 'Go back';
             backBtn.title = 'Go back';
-            const btnContainer = document.querySelector('.button-container');
-            btnContainer.append(backBtn);
+            const btnContainer = document.querySelector('.back-btn');
+            btn.append(backBtn);
+            btnContainer.append(btn);
           }
         }
         sampleRUM('404', { source: document.referrer, target: window.location.href });
@@ -32,8 +34,6 @@
     <style>
       main.error {
         min-height: calc(100vh - var(--nav-height));
-        display: flex;
-        align-items: center;
       }
 
       main.error .error-number {
@@ -50,14 +50,31 @@
   <body>
     <header></header>
     <main class="error">
-      <div class="section">
-        <svg viewBox="1 0 38 18" class="error-number">
-          <text x="0" y="17">404</text>
-        </svg>
-        <h2 class="error-message">Page Not Found</h2>
-        <p class="button-container">
-          <a href="/" class="button secondary error-button-home">Go home</a>
-        </p>
+      <div
+        class="section"
+        data-section-status="loaded"
+        data-alignment="section-align-center"
+        data-sectionbuttoninline="true"
+      >
+        <div class="default-content-wrapper">
+          <h1>404: Page Not Found</h1>
+          <div class="spacer spacer-small block" data-block-name="spacer"></div>
+          <h3><strong>WE'RE SORRY, THE PAGE YOU ARE LOOKING FOR IS MISSING</strong></h3>
+          <p><strong>Please use the buttons below to find something similar, or use search to find it faster.</strong></p>
+          <div class="spacer spacer-small block" data-block-name="spacer"></div>
+          <p class="button-container back-btn"></p>
+          <p class="button-container">
+            <strong><a href="/" title="HOME" class="button primary">home</a></strong>
+          </p>
+          <p class="button-container">
+            <strong
+              ><a href="/learning-center" title="LEARNING CENTER" class="button primary">Learning Center</a></strong
+            >
+          </p>
+          <p class="button-container">
+            <strong><a href="/contact-us" title="CONTACT US" class="button primary">Contact Us</a></strong>
+          </p>
+        </div>
       </div>
     </main>
     <footer></footer>
