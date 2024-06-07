@@ -42,13 +42,15 @@ export default function decorate(block) {
         const isTarget = linkwrapper?.nextElementSibling;
         if (a && !aInsideStrong && !aInsideEM && !a.classList.contains('download-btn')) {
           a.textContent = '';
+          const processHref = processUrl(a.href);
+          a.href = processHref;
           a.target = isTarget?.textContent.trim() === 'true' ? '_blank' : '';
           a.append(pic);
           picParent.append(a);
 
           if (environmentMode() === 'publish') {
             linkwrapper.remove();
-            if (isTarget) {
+            if (!isTarget.classList.contains('button-container')) {
               isTarget.remove();
             }
           }
