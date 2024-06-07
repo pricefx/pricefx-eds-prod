@@ -23,8 +23,10 @@ const renderBadges = (badges) => {
 
 // Render iframes based on authored field
 const renderIframes = (iframes, height, width) => {
+  const checkForFalseSource = (iframes[0].textContent.trim().match(/https:/g) || []).length;
+  const iframesArray = checkForFalseSource > 1 ? Array.from(iframes).slice(1) : Array.from(iframes);
   const fragment = document.createDocumentFragment();
-  if (iframes.length === 3) {
+  if (iframesArray.length === 3) {
     // Creating left column and children elements
     const leftColumn = document.createElement('div');
     leftColumn.classList.add('iframe__left-column');
@@ -37,7 +39,7 @@ const renderIframes = (iframes, height, width) => {
       iframeContainerOne.setAttribute('style', `max-width:${width + 36}px;`);
     }
     const iframeElOne = document.createElement('iframe');
-    iframeElOne.src = iframes[0].textContent.trim();
+    iframeElOne.src = iframesArray[0].textContent.trim();
     iframeElOne.setAttribute('frameborder', '0');
     if (height) {
       iframeElOne.setAttribute('style', `min-height:${height}px;`);
@@ -50,7 +52,7 @@ const renderIframes = (iframes, height, width) => {
       iframeContainerTwo.setAttribute('style', `max-width:${width + 36}px;`);
     }
     const iframeElTwo = document.createElement('iframe');
-    iframeElTwo.src = iframes[1].textContent.trim();
+    iframeElTwo.src = iframesArray[1].textContent.trim();
     iframeElTwo.setAttribute('frameborder', '0');
     if (height) {
       iframeElTwo.setAttribute('style', `min-height:${height}px;`);
@@ -71,7 +73,7 @@ const renderIframes = (iframes, height, width) => {
       iframeContainerThree.setAttribute('style', `max-width:${width + 36}px;`);
     }
     const iframeElThree = document.createElement('iframe');
-    iframeElThree.src = iframes[2].textContent.trim();
+    iframeElThree.src = iframesArray[2].textContent.trim();
     iframeElThree.setAttribute('frameborder', '0');
     if (height) {
       iframeElThree.setAttribute('style', `min-height:${height * 2 + 36}px;`);
@@ -80,7 +82,7 @@ const renderIframes = (iframes, height, width) => {
     rightColumn.appendChild(iframeContainerThree);
     fragment.appendChild(rightColumn);
   } else {
-    iframes.forEach((iframe) => {
+    iframesArray.forEach((iframe) => {
       const iframeSource = iframe.textContent.trim();
       const iframeContainer = document.createElement('div');
       iframeContainer.classList.add('iframe__container');
