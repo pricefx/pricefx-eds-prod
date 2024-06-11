@@ -672,6 +672,11 @@ main .section.highlight {
   margin-right: 10px;
 }
 
+.section[data-sectionparalargefont="true"] p {
+  font-size: var(--heading-font-size-s);
+  line-height: 28px;
+}
+
 /* Artile Styles */
 body.article {
   .article-metadata {
