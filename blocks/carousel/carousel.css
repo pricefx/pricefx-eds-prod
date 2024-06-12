@@ -159,6 +159,15 @@ main .carousel:has(.carousel[data-carousel-type='carousel-quote']) .carousel > p
   padding: 0 60px 0 0;
 }
 
+.carousel[data-carousel-type='carousel-image'] .carousel-slide .columns .columns-img-col p,
+.carousel[data-carousel-type='carousel-image'] .carousel-slide .columns .columns-img-col a,
+.carousel[data-carousel-type='carousel-image'] .carousel-slide .columns .columns-img-col picture {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
 .carousel[data-carousel-type='carousel-image'] .carousel-slide .columns .columns-img-col:last-child {
   border: none;
   margin: 0;
@@ -171,7 +180,9 @@ main .carousel:has(.carousel[data-carousel-type='carousel-quote']) .carousel > p
 
 .carousel[data-carousel-type='carousel-image'] .carousel-slide img {
   display: block;
+  height: 100%;
   max-width: 200px;
+  object-fit: contain;
   width: 100%;
 }
 
