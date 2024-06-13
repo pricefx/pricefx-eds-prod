@@ -46,6 +46,24 @@
   flex-direction: column;
 }
 
+.marketo-form-wrapper .mktoForm .mktoFieldWrap:has(.mktoCheckboxList) {
+  align-items: center;
+  flex-direction: row;
+}
+
+.marketo-form-wrapper .mktoForm .mktoFieldWrap:has(.mktoCheckboxList) label {
+  order: 2;
+}
+
+.marketo-form-wrapper .mktoForm .mktoFieldWrap:has(.mktoCheckboxList) .mktoGutter {
+  height: 8px;
+  order: 3;
+}
+
+.marketo-form-wrapper .mktoForm .mktoFieldWrap:has(.mktoCheckboxList) label br {
+  display: none;
+}
+
 .marketo-form-wrapper .mktoForm .mktoGutter {
   height: var(--spacing-micro);
 }
@@ -110,10 +128,6 @@
   display: flex;
   padding: 0;
   width: auto !important;
-}
-
-.marketo-form-wrapper .mktoForm .mktoFieldWrap:has(.mktoCheckboxList) .mktoGutter {
-  height: 8px;
 }
 
 .marketo-form-wrapper .mktoForm .mktoCheckboxList input[type='checkbox'] {
@@ -269,6 +283,12 @@
 .marketo-form-wrapper .mktoForm textarea.mktoField::placeholder,
 .marketo-form-wrapper .mktoForm select.mktoField {
   color: rgba(53 53 53 / 80%);
+}
+
+.marketo-form-wrapper .marketo-form h2.form-title {
+  background: var(--c-dark-blue-gradient);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* RESPONSIVE STYLES */
