@@ -50,7 +50,11 @@ export default function decorate(block) {
 
           if (environmentMode() === 'publish') {
             linkwrapper.remove();
-            if (!isTarget.classList.contains('button-container')) {
+            if (isTarget === null) {
+              return;
+            }
+
+            if (!isTarget.querySelector('.download-btn')) {
               isTarget.remove();
             }
           }
