@@ -702,7 +702,7 @@
       {
         "component": "text-input",
         "valueType": "string",
-        "name": "alt",
+        "name": "imageAlt",
         "value": "Default alt",
         "label": "Alt Text"
       },
@@ -1352,7 +1352,7 @@
       {
         "component": "text-input",
         "valueType": "string",
-        "name": "imageAlt",
+        "name": "quoteImageAlt",
         "label": "Image Alt",
         "value": "Default alt"
       },
@@ -1372,7 +1372,7 @@
       {
         "component": "text-input",
         "valueType": "string",
-        "name": "imgAlt",
+        "name": "quoteLogoAlt",
         "label": "Image Alt",
         "value": "Default alt"
       },
