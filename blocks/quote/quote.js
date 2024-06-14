@@ -29,7 +29,7 @@ export default async function decorate(block) {
       quoteIcon.appendChild(quoteEl);
 
       quoteRightContainerInner.appendChild(quoteIcon);
-    } else if (index === 4) {
+    } else if (index === 3) {
       const imageLogo = row.firstElementChild.querySelector('picture img');
       if (imageLogo) {
         const quoteLogo = document.createElement('div');
