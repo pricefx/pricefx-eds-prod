@@ -2574,13 +2574,6 @@
       {
         "component": "text-input",
         "valueType": "string",
-        "name": "alt1",
-        "value": "Default alt",
-        "label": "Alt Text"
-      },
-      {
-        "component": "text-input",
-        "valueType": "string",
         "name": "caseStudyTitle1",
         "label": "Case Study Title 1"
       },
@@ -2600,13 +2593,6 @@
       {
         "component": "text-input",
         "valueType": "string",
-        "name": "alt2",
-        "value": "Default alt",
-        "label": "Alt Text"
-      },
-      {
-        "component": "text-input",
-        "valueType": "string",
         "name": "caseStudyTitle2",
         "label": "Case Study Title 2"
       },
@@ -2615,13 +2601,6 @@
         "name": "caseStudyDescription2",
         "label": "Case Study Description 2",
         "valueType": "string"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "fileReference3",
-        "label": "Image 3",
-        "multi": false
       },
       {
         "component": "text-input",
