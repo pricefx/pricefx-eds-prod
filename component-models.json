@@ -346,7 +346,7 @@
         "component": "text-input",
         "valueType": "string",
         "name": "imageAlt",
-        "label": "Image Alt Text",
+        "label": "Image Alt",
         "value": "Default alt"
       },
       {
@@ -1350,6 +1350,13 @@
         "label": "Quote Image"
       },
       {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt",
+        "value": "Default alt"
+      },
+      {
         "component": "text-area",
         "valueType": "string",
         "value": "",
@@ -1361,6 +1368,13 @@
         "valueType": "string",
         "name": "quoteLogo",
         "label": "Quote Logo"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "quoteLogoAlt",
+        "label": "Image Alt",
+        "value": "Default alt"
       },
       {
         "component": "text-area",
@@ -2607,13 +2621,6 @@
         "valueType": "string",
         "name": "caseStudyTitle3",
         "label": "Case Study Title 3"
-      },
-      {
-        "component": "text-input",
-        "valueType": "string",
-        "name": "alt3",
-        "value": "Default alt",
-        "label": "Alt Text"
       },
       {
         "component": "richtext",
