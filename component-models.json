@@ -700,6 +700,13 @@
         "multi": false
       },
       {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "alt",
+        "value": "Default alt",
+        "label": "Alt Text"
+      },
+      {
         "component": "text-area",
         "valueType": "string",
         "name": "cardTopContent",
