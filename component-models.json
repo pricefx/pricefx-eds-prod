@@ -346,7 +346,7 @@
         "component": "text-input",
         "valueType": "string",
         "name": "imageAlt",
-        "label": "Image Alt",
+        "label": "Image Alt Text",
         "value": "Default alt"
       },
       {
@@ -2615,6 +2615,13 @@
         "name": "caseStudyDescription2",
         "label": "Case Study Description 2",
         "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "fileReference3",
+        "label": "Image 3",
+        "multi": false
       },
       {
         "component": "text-input",
