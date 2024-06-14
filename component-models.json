@@ -1372,7 +1372,7 @@
       {
         "component": "text-input",
         "valueType": "string",
-        "name": "quoteLogoAlt",
+        "name": "imgAlt",
         "label": "Image Alt",
         "value": "Default alt"
       },
