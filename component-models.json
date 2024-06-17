@@ -358,6 +358,13 @@
         "multi": false
       },
       {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "embedVideoAlt",
+        "label": "Image Alt Text",
+        "value": "Default alt"
+      },
+      {
         "component": "select",
         "label": "Image Position",
         "name": "classes",
@@ -1086,6 +1093,13 @@
         "label": "Embed Video Placeholder",
         "description": "ⓘ Video placeholder for video hero variation",
         "multi": false
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "embedVideoeAlt",
+        "label": "Image Alt Text",
+        "value": ""
       },
       {
         "component": "text-input",
