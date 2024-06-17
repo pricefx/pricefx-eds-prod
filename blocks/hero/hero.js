@@ -144,16 +144,13 @@ export default async function decorate(block) {
 
   decorateButton(heroLeftContainer);
   decorateRightContainer(heroRightContainer);
-
   heroRightContainer
     .querySelectorAll('img')
     .forEach((img) =>
       img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])),
     );
-
   heroContainer.append(heroLeftContainer);
   heroContainer.append(heroRightContainer);
-
   block.textContent = '';
   block.append(heroContainer);
 }
