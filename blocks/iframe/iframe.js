@@ -1,3 +1,5 @@
+import { onceIntersecting } from '../../scripts/global-functions.js';
+
 // Render badges based on authored field
 const renderBadges = (badges) => {
   const fragment = document.createDocumentFragment();
@@ -87,16 +89,18 @@ const renderIframes = (iframes, height, width) => {
       const iframeContainer = document.createElement('div');
       iframeContainer.classList.add('iframe__container');
       if (width) {
-        iframeContainer.setAttribute('style', `max-width:${width + 36}px;`);
+        iframeContainer.setAttribute('style', `max-width:${width + 36}px; min-height:${height}px;`);
       }
-      const iframeEl = document.createElement('iframe');
-      iframeEl.src = iframeSource;
-      iframeEl.setAttribute('frameborder', '0');
-      if (height) {
-        iframeEl.setAttribute('style', `min-height:${height}px;`);
-      }
-      iframeContainer.appendChild(iframeEl);
-      fragment.appendChild(iframeContainer);
+      onceIntersecting(iframeContainer, () => {
+        const iframeEl = document.createElement('iframe');
+        iframeEl.src = iframeSource;
+        iframeEl.setAttribute('frameborder', '0');
+        if (height) {
+          iframeEl.setAttribute('style', `min-height:${height}px;`);
+        }
+        iframeContainer.appendChild(iframeEl);
+        fragment.appendChild(iframeContainer);
+      });
     });
   }
   return fragment;
