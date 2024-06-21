@@ -99,8 +99,8 @@ const renderIframes = (iframes, height, width) => {
           iframeEl.setAttribute('style', `min-height:${height}px;`);
         }
         iframeContainer.appendChild(iframeEl);
-        fragment.appendChild(iframeContainer);
       });
+      fragment.appendChild(iframeContainer);
     });
   }
   return fragment;
