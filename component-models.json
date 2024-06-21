@@ -358,6 +358,13 @@
         "multi": false
       },
       {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "embedVideoAlt",
+        "label": "Video Placeholder Alt Text",
+        "value": "Default alt"
+      },
+      {
         "component": "select",
         "label": "Image Position",
         "name": "classes",
@@ -461,6 +468,10 @@
           {
             "name": "4 Columns",
             "value": "4"
+          },
+          {
+            "name": "5 Columns",
+            "value": "5"
           }
         ]
       },
@@ -1076,6 +1087,26 @@
           {
             "name": "Right - Default",
             "value": "image-position-right"
+          },
+          {
+            "name": "Image Position Right 40%",
+            "value": "image-position-right-40"
+          },
+          {
+            "name": "Image Position Right 35%",
+            "value": "image-position-right-35"
+          },
+          {
+            "name": "Image Position Right 30%",
+            "value": "image-position-right-30"
+          },
+          {
+            "name": "Image Position Right 25%",
+            "value": "image-position-right-25"
+          },
+          {
+            "name": "Image Position Right 20%",
+            "value": "image-position-right-20"
           }
         ]
       },
@@ -1086,6 +1117,13 @@
         "label": "Embed Video Placeholder",
         "description": "ⓘ Video placeholder for video hero variation",
         "multi": false
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "embedVideoAlt",
+        "label": "Video Placeholder Alt Text",
+        "value": ""
       },
       {
         "component": "text-input",
@@ -1302,6 +1340,13 @@
         "label": "Placeholder",
         "description": "An image to use as a placeholder",
         "multi": false
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "placeholderAlt",
+        "label": "Placeholder Alt",
+        "value": "Default alt"
       },
       {
         "component": "text",
@@ -2226,6 +2271,13 @@
         "label": "Image"
       },
       {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt",
+        "value": "Default alt"
+      },
+      {
         "component": "boolean",
         "label": "Enable Icon",
         "name": "enableIcon",
@@ -2297,6 +2349,13 @@
         "label": "Support Logo Image 1"
       },
       {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "support-image1Alt",
+        "label": "Image Alt",
+        "value": "Default alt"
+      },
+      {
         "component": "text-area",
         "valueType": "string",
         "name": "supportText1",
@@ -2316,6 +2375,13 @@
         "valueType": "string",
         "name": "support-image2",
         "label": "Support Logo Image 2"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "support-image2Alt",
+        "label": "Image Alt",
+        "value": "Default alt"
       },
       {
         "component": "text-area",
@@ -2339,6 +2405,13 @@
         "label": "Support Logo Image 3"
       },
       {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "support-image3Alt",
+        "label": "Image Alt",
+        "value": "Default alt"
+      },
+      {
         "component": "text-area",
         "valueType": "string",
         "name": "supportText3",
@@ -2358,6 +2431,13 @@
         "valueType": "string",
         "name": "support-image4",
         "label": "Support Logo Image 4"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "support-image4Alt",
+        "label": "Image Alt",
+        "value": "Default alt"
       },
       {
         "component": "text-area",

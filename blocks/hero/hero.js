@@ -2,6 +2,7 @@ import { decorateEmbed } from '../embed/embed.js';
 import { loadFragment } from '../fragment/fragment.js';
 import { environmentMode, replaceBasePath } from '../../scripts/global-functions.js';
 import { BASE_CONTENT_PATH } from '../../scripts/url-constants.js';
+import { createOptimizedPicture } from '../../scripts/aem.js';
 
 function decorateButton(heroLeftContainer) {
   heroLeftContainer.querySelectorAll('div.button-container').forEach((btn) => {
@@ -143,6 +144,11 @@ export default async function decorate(block) {
 
   decorateButton(heroLeftContainer);
   decorateRightContainer(heroRightContainer);
+  heroRightContainer
+    .querySelectorAll('img')
+    .forEach((img) =>
+      img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])),
+    );
   heroContainer.append(heroLeftContainer);
   heroContainer.append(heroRightContainer);
   block.textContent = '';
