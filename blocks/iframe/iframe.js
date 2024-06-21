@@ -89,7 +89,10 @@ const renderIframes = (iframes, height, width) => {
       const iframeContainer = document.createElement('div');
       iframeContainer.classList.add('iframe__container');
       if (width) {
-        iframeContainer.setAttribute('style', `max-width:${width + 36}px; min-height:${height}px;`);
+        iframeContainer.style.maxWidth = `${width + 36}px`;
+      }
+      if (height) {
+        iframeContainer.style.minHeight = `${height}px`;
       }
       onceIntersecting(iframeContainer, () => {
         const iframeEl = document.createElement('iframe');
