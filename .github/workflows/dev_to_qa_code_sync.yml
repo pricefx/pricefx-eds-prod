@@ -1,4 +1,4 @@
-name: DEV to QA Code Sync
+name: Pre-Deployment Cleanup and Sync
 
 on:
   workflow_dispatch:
@@ -8,26 +8,30 @@ on:
         required: false
 
 jobs:
-  sync:
+  cleanup_and_sync:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Clean up before sync
+        run: |
+          # Clean up caches and unnecessary files
+          git clean -ffxd  # Clean untracked files and directories
+          git reset --hard HEAD  # Reset to HEAD to clear any local changes
+
+      - name: Checkout main branch
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Ensure full history is fetched to avoid shallow clone issues
+          ref: main  # Checkout the main branch explicitly
 
       - name: Configure Git identity
         run: |
           git config user.email "actions@github.com"
           git config user.name "Github Actions"
 
-      - name: Fetch and reset
+      - name: Fetch latest changes from pricefx-eds
         run: |
           git remote add pricefx-eds https://github.com/pricefx/pricefx-eds || true
           git fetch pricefx-eds main:pricefx-eds-main
-          git fetch --all  # Ensure all changes are fetched
-          git reset --hard pricefx-eds-main  # Reset to the latest state of pricefx-eds-main
 
       - name: Stash fstab.yaml
         run: |
@@ -35,7 +39,7 @@ jobs:
 
       - name: Merge changes excluding fstab.yaml
         run: |
-          git merge --no-commit --no-ff pricefx-eds-main || true
+          git merge --no-commit --no-ff --allow-unrelated-histories pricefx-eds-main || true
           git rm --cached fstab.yaml || true
           git add -u
           git commit -m "Sync main branch from pricefx-eds, excluding fstab.yaml" || echo "No changes to commit"
