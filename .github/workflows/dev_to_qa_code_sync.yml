@@ -1,4 +1,4 @@
-name: Pre-Deployment Cleanup and Sync
+name: DEV to QA Code Sync
 
 on:
   workflow_dispatch:
@@ -8,26 +8,17 @@ on:
         required: false
 
 jobs:
-  cleanup_and_sync:
+  sync:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # Checkout the repository
+        uses: actions/checkout@v2
 
       - name: Configure Git identity
         run: |
           git config user.email "actions@github.com"
           git config user.name "Github Actions"
-
-      - name: Clean up before sync
-        run: |
-          git clean -ffxd  # Clean untracked files and directories
-          git reset --hard HEAD  # Reset to HEAD to clear any local changes
-
-      - name: Checkout main branch
-        run: |
-          git checkout main  # Ensure we are on the main branch explicitly
 
       - name: Fetch latest changes from pricefx-eds
         run: |
@@ -42,14 +33,15 @@ jobs:
         run: |
           git merge --no-commit --no-ff --allow-unrelated-histories pricefx-eds-main || true
           git rm --cached fstab.yaml || true
-          git add -u
+          git checkout --theirs . || true
+          git reset HEAD fstab.yaml
+          git checkout -- fstab.yaml
+          git add .
           git commit -m "Sync main branch from pricefx-eds, excluding fstab.yaml" || echo "No changes to commit"
-          git log -3  # Display the last 3 commits for debugging
 
       - name: Apply stashed changes
         run: |
           git stash pop || echo "No stashed changes to apply"
-          git status  # Display the status after applying stash for debugging
 
       - name: Push changes to pricefx-eds-qa
         run: |
