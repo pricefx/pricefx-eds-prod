@@ -1,4 +1,4 @@
-name: Pre-Deployment Cleanup and Sync
+name: DEV to QA Code Sync
 
 on:
   workflow_dispatch:
