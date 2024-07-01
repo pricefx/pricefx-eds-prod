@@ -12,21 +12,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clean up before sync
-        run: |
-          # Clean up caches and unnecessary files
-          git clean -ffxd  # Clean untracked files and directories
-          git reset --hard HEAD  # Reset to HEAD to clear any local changes
-
-      - name: Checkout main branch
-        uses: actions/checkout@v2
-        with:
-          ref: main  # Checkout the main branch explicitly
+      - name: Checkout code
+        uses: actions/checkout@v2  # Checkout the repository
 
       - name: Configure Git identity
         run: |
           git config user.email "actions@github.com"
           git config user.name "Github Actions"
+
+      - name: Clean up before sync
+        run: |
+          git clean -ffxd  # Clean untracked files and directories
+          git reset --hard HEAD  # Reset to HEAD to clear any local changes
+
+      - name: Checkout main branch
+        run: |
+          git checkout main  # Ensure we are on the main branch explicitly
 
       - name: Fetch latest changes from pricefx-eds
         run: |
