@@ -32,6 +32,7 @@ jobs:
       - name: Merge changes excluding fstab.yaml
         run: |
           git merge --no-commit --no-ff --allow-unrelated-histories pricefx-eds-main || true
+          git rm --cached fstab.yaml || true
           git checkout --theirs . || true
           git reset HEAD fstab.yaml
           git checkout -- fstab.yaml
