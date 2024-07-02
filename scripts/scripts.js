@@ -111,12 +111,12 @@ function autolinkModals(element) {
 }
 
 function loadCookieConsent(main) {
-  const ccPath = '/fragments/cookie-banner';
-  const blockHTML = `<div>${ccPath}</div>`;
+  const cookieFragmentPath = '/fragments/cookie-banner';
+  const cookieFragment = loadFragment(cookieFragmentPath);
   const section = document.createElement('div');
-  const ccBlock = document.createElement('div');
-  ccBlock.innerHTML = blockHTML;
-  section.append(buildBlock('cookie-consent', ccBlock));
+  const cbBlock = document.createElement('div');
+  cbBlock.innerHTML = cookieFragment;
+  section.append(cbBlock);
   main.append(section);
 }
 
@@ -124,7 +124,7 @@ function loadCookieConsent(main) {
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
-function buildAutoBlocks() {
+function buildAutoBlocks(main) {
   try {
     loadCookieConsent(main);
   } catch (error) {
