@@ -1,4 +1,5 @@
 import ffetch from '../../scripts/ffetch.js';
+import { createOptimizedPicture, getMetadata } from '../../scripts/aem.js';
 
 /**
  * Helps set multiple attributes to an element at once
@@ -52,9 +53,7 @@ const renderClientLogos = (clientsDataJson, noResultsText) => {
         : client['alt text'];
       markup += `
         <li class="tabbed-filter__content-item">
-          <picture>
-            <img class="tabbed-filter__content-item-image" src="${client.logo}" alt="${imageAltText}">
-          </picture>
+          createOptimizedPicture(${client.logo}, ${imageAltText}, false);
         </li>
       `;
     });
