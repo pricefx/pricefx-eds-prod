@@ -110,10 +110,10 @@ function autolinkModals(element) {
   });
 }
 
-async function loadCookieConsent(main) {
+async function loadCookieConsent(footer) {
   const cookieFragmentPath = '/fragments/cookie-banner';
   const cookieFragment = await loadFragment(cookieFragmentPath);
-  main.append(cookieFragment);
+  footer.append(cookieFragment);
 }
 
 
@@ -123,7 +123,7 @@ async function loadCookieConsent(main) {
  */
 function buildAutoBlocks(main) {
   try {
-    loadCookieConsent(main);
+    //add auto blocks here
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -316,6 +316,7 @@ async function loadLazy(doc) {
   
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
+  loadCookieConsent(doc.querySelector('footer'));
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
