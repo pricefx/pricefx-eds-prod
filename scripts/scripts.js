@@ -113,12 +113,7 @@ function autolinkModals(element) {
 async function loadCookieConsent(main) {
   const cookieFragmentPath = '/fragments/cookie-banner';
   const cookieFragment = await loadFragment(cookieFragmentPath);
-  const section = document.createElement('div');
-  const cbBlock = document.createElement('div');
-  // Assuming cookieFragment is an HTMLElement, append it directly
-  cbBlock.append(cookieFragment);
-  section.append(cbBlock);
-  main.append(section);
+  main.append(cookieFragment);
 }
 
 
