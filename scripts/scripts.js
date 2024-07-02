@@ -110,13 +110,23 @@ function autolinkModals(element) {
   });
 }
 
+function loadCookieConsent(main) {
+  const ccPath = '/fragments/cookie-banner';
+  const blockHTML = `<div>${ccPath}</div>`;
+  const section = document.createElement('div');
+  const ccBlock = document.createElement('div');
+  ccBlock.innerHTML = blockHTML;
+  section.append(buildBlock('cookie-consent', ccBlock));
+  main.append(section);
+}
+
 /**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
 function buildAutoBlocks() {
   try {
-    // TODO: add auto block, if needed
+    loadCookieConsent(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -290,11 +300,6 @@ async function loadEager(doc) {
   }
 }
 
-async function loadCookieBanner() {
-  const cookieFragmentPath = '/fragments/cookie-banner';
-  const cookieFragment = await loadFragment(cookieFragmentPath);
-  return cookieFragment;
-}
 
 /**
  * Loads everything that doesn't need to be delayed.
@@ -310,15 +315,6 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) {
     element.scrollIntoView();
-  }
-
-  loadHeader(doc.querySelector('header'));
-  loadFooter(doc.querySelector('footer'));
-
-  const bodyEl = document.querySelector('body');
-  const cookieFrag = await loadCookieBanner();
-  if (cookieFrag) {
-    bodyEl.prepend(cookieFrag.firstElementChild);
   }
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
