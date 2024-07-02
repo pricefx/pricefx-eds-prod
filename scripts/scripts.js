@@ -123,6 +123,7 @@ async function loadCookieConsent(footer) {
  */
 function buildAutoBlocks() {
   try {
+    // TODO: add auto block, if needed
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
