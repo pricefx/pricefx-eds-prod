@@ -43,7 +43,6 @@ export default async function decorate(block) {
 
   let generatedCookieId;
   let cookieExpDate;
-  const bodyEl = document.querySelector('body');
   const blockParent = block.parentElement;
 
   // Create clost CTA element
