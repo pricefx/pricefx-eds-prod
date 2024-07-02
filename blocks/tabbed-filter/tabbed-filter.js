@@ -1,5 +1,5 @@
 import ffetch from '../../scripts/ffetch.js';
-import { createOptimizedPicture, getMetadata } from '../../scripts/aem.js';
+import { createOptimizedPicture } from '../../scripts/aem.js';
 
 /**
  * Helps set multiple attributes to an element at once
