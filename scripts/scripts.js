@@ -115,10 +115,12 @@ async function loadCookieConsent(main) {
   const cookieFragment = await loadFragment(cookieFragmentPath);
   const section = document.createElement('div');
   const cbBlock = document.createElement('div');
-  cbBlock.innerHTML = cookieFragment;
+  // Assuming cookieFragment is an HTMLElement, append it directly
+  cbBlock.append(cookieFragment);
   section.append(cbBlock);
   main.append(section);
 }
+
 
 /**
  * Builds all synthetic blocks in a container element.
