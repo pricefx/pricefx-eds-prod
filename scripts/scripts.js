@@ -121,9 +121,8 @@ async function loadCookieConsent(footer) {
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
-function buildAutoBlocks(main) {
+function buildAutoBlocks() {
   try {
-    //add auto blocks here
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
