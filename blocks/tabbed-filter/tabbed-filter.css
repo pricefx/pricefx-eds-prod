@@ -128,13 +128,13 @@
   border-right: none;
 }
 
-.tabbed-filter__content-item-image {
-  display: block;
-  height: 100%;
-  max-height: 81px;
-  padding: 0 19px;
-  object-fit: contain;
-  width: auto;
+.tabbed-filter__content-item picture img {
+    display: block;
+    height: 100%;
+    max-height: 81px;
+    padding: 0 19px;
+    object-fit: contain;
+    width: auto;
 }
 
 .tabbed-filter__show-more-cta {
@@ -190,7 +190,7 @@
     padding-right: var(--spacing-small);
   }
 
-  .tabbed-filter__content-item-image {
+  .tabbed-filter__content-item picture {
     height: auto;
     max-height: 120px;
     max-width: 200px;
