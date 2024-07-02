@@ -44,15 +44,7 @@ export default async function decorate(block) {
   let generatedCookieId;
   let cookieExpDate;
   const bodyEl = document.querySelector('body');
-  const cookieBannerContainer = document.querySelector('.cookie-banner-container');
   const blockParent = block.parentElement;
-
-  // Move cookie banner to the beginning of <body>
-  setTimeout(() => {
-    if (cookieBannerContainer) {
-      bodyEl.prepend(cookieBannerContainer);
-    }
-  }, 200);
 
   // Create clost CTA element
   const closeCta = document.createElement('button');
