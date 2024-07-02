@@ -53,7 +53,7 @@ const renderClientLogos = (clientsDataJson, noResultsText) => {
         : client['alt text'];
       markup += `
         <li class="tabbed-filter__content-item">
-          createOptimizedPicture(${client.logo}, ${imageAltText}, false);
+          ${createOptimizedPicture(client.logo, imageAltText, false).outerHTML}
         </li>
       `;
     });
