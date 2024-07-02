@@ -110,9 +110,9 @@ function autolinkModals(element) {
   });
 }
 
-function loadCookieConsent(main) {
+async function loadCookieConsent(main) {
   const cookieFragmentPath = '/fragments/cookie-banner';
-  const cookieFragment = loadFragment(cookieFragmentPath);
+  const cookieFragment = await loadFragment(cookieFragmentPath);
   const section = document.createElement('div');
   const cbBlock = document.createElement('div');
   cbBlock.innerHTML = cookieFragment;
