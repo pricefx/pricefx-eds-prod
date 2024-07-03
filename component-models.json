@@ -311,9 +311,9 @@
       },
       {
         "component": "aem-content",
-        "name": "featuredArticle",
+        "name": "featuredEvents",
         "value": "",
-        "label": "Featured Article",
+        "label": "Featured Events",
         "valueType": "string"
       },
       {
@@ -338,8 +338,8 @@
       },
       {
         "component": "number",
-        "name": "numberOfArticles",
-        "label": "Number Of Articles Display",
+        "name": "numberOfEvents",
+        "label": "Number Of Events Display",
         "valueType": "number",
         "value": 6,
         "validation": {
@@ -370,8 +370,8 @@
       },
       {
         "component": "text",
-        "name": "articlesContentCta",
-        "label": "Articles Cards CTA Label",
+        "name": "eventsContentCta",
+        "label": "Events Cards CTA Label",
         "valueType": "string"
       },
       {
@@ -409,7 +409,7 @@
         "name": "defaultContentCta",
         "label": "Default Cards CTA Label",
         "valueType": "string",
-        "description": "This will be used as a fallback label in case an article card is missing a content type indicator or doesn't match the provided content types."
+        "description": "This will be used as a fallback label in case an event card is missing a content type indicator or doesn't match the provided content types."
       },
       {
         "component": "tab",
