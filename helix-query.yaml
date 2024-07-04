@@ -10,6 +10,8 @@ indices:
       - /metadata/**
       - /fragments/**
       - /style-guide/**
+      - /spreadsheets/**
+      - /content/pricefx/en
     target: /query-index.json
     properties:
       title:
