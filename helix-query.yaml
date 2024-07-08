@@ -87,6 +87,7 @@ indices:
   partners:
     include:
       - /partners/**
+      - /partners
     exclude:
       - /partners/enable-and-pricefx-partnership
       - /partners/partner-delivery
