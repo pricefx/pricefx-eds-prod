@@ -87,11 +87,12 @@ indices:
   partners:
     include:
       - /partners/**
-      - /partners
     exclude:
       - /partners/enable-and-pricefx-partnership
       - /partners/partner-delivery
       - /partners/partner-showcase
+      - /partners/rise-with-sap
+      - /partners
     target: /partners-index.json
     properties:
       title:
