@@ -6,6 +6,9 @@ Disallow: /metadata/
 Disallow: /fragments/
 Disallow: /style-guide/
 Disallow: /spreadsheets/
+Disallow: /scripts/
+Disallow: /styles/
+Disallow: /blocks/
 Disallow: /*?*
 
 User-agent: GPTBot
