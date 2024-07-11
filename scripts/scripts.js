@@ -110,13 +110,6 @@ function autolinkModals(element) {
   });
 }
 
-async function loadCookieConsent(cookieConsentElement) {
-  const cookieFragmentPath = '/fragments/cookie-banner';
-  const cookieFragment = await loadFragment(cookieFragmentPath);
-  cookieConsentElement.append(cookieFragment);
-}
-
-
 /**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
@@ -316,8 +309,21 @@ async function loadLazy(doc) {
   
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
-  const cookieConsent = createElement('div', 'cookie-consent');
-  loadCookieConsent(cookieConsent);
+  // Reserve space for the cookie banner with CSS
+  const cookieBannerPlaceholder = document.createElement('div');
+  cookieBannerPlaceholder.style.visibility = 'hidden';
+  document.body.prepend(cookieBannerPlaceholder);
+
+  const bodyEl = document.querySelector('body');
+  const cookieFrag = await loadCookieBanner();
+  if (cookieFrag) {
+    const cookieBanner = cookieFrag.firstElementChild;
+    cookieBanner.style.display = 'none';
+    bodyEl.replaceChild(cookieBanner, cookieBannerPlaceholder);
+    cookieBanner.style.display = '';
+  } else {
+    cookieBannerPlaceholder.remove();
+  }
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
