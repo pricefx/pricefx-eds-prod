@@ -110,10 +110,10 @@ function autolinkModals(element) {
   });
 }
 
-async function loadCookieConsent(footer) {
+async function loadCookieConsent(cookieConsentElement) {
   const cookieFragmentPath = '/fragments/cookie-banner';
   const cookieFragment = await loadFragment(cookieFragmentPath);
-  footer.append(cookieFragment);
+  cookieConsentElement.append(cookieFragment);
 }
 
 
@@ -316,7 +316,8 @@ async function loadLazy(doc) {
   
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
-  loadCookieConsent(doc.querySelector('footer'));
+  const cookieConsent = createElement('div', 'cookie-consent');
+  loadCookieConsent(cookieConsent);
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
