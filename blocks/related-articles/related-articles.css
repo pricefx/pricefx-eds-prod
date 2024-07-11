@@ -194,6 +194,7 @@
     line-height: calc((28 / 16) * 1rem);
     padding: 0 var(--spacing-small);
     margin-top: auto;
+    text-align: left;
 }
 
 .blog-articles .article-author-link {
