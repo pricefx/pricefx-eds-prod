@@ -290,6 +290,11 @@ async function loadEager(doc) {
   }
 }
 
+async function loadCookieBanner() {
+  const cookieFragmentPath = '/fragments/cookie-banner';
+  const cookieFragment = await loadFragment(cookieFragmentPath);
+  return cookieFragment;
+}
 
 /**
  * Loads everything that doesn't need to be delayed.
