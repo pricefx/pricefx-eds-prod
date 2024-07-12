@@ -12,9 +12,16 @@ Disallow: /blocks/
 Disallow: /*?*
 
 User-agent: GPTBot
+Disallow: /
+
 User-agent: CCbot
+Disallow: /
+
 User-agent: ChatGPT-User
 Disallow: /
+
+User-agent: AhrefsBot
+Allow: /
 
 Sitemap: https://www.pricefx.com/sitemap.xml
 
