@@ -50,7 +50,7 @@ export default async function decorate(block) {
   // Move cookie banner to the beginning of <body>
   setTimeout(() => {
     if (cookieBannerContainer) {
-      bodyEl.append(cookieBannerContainer);
+      bodyEl.prepend(cookieBannerContainer);
     }
   }, 200);
 
