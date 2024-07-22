@@ -29,14 +29,14 @@ jobs:
           git remote add pricefx-eds-stage https://github.com/pricefx/pricefx-eds-stage || true
           git fetch pricefx-eds-stage main:pricefx-eds-stage-main
 
-      - name: Merge changes excluding fstab.yaml
+      - name: Merge changes excluding fstab.yaml and robots.txt
         run: |
           git merge --no-commit --no-ff --allow-unrelated-histories pricefx-eds-stage-main || true
           git checkout --theirs . || true
-          git reset HEAD fstab.yaml
-          git checkout -- fstab.yaml
+          git reset HEAD fstab.yaml robots.txt
+          git checkout -- fstab.yaml robots.txt
           git add .
-          git commit -m "Sync main branch from pricefx-eds-stage, excluding fstab.yaml"
+          git commit -m "Sync main branch from pricefx-eds-stage, excluding fstab.yaml and robots.txt"
 
       - name: Push changes to pricefx-eds-prod
         run: |
