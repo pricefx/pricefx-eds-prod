@@ -1,4 +1,4 @@
-name: prod to PROD Code Sync
+name: Stage to PROD Code Sync
 
 on:
   workflow_dispatch:
