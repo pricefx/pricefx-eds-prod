@@ -13,7 +13,8 @@
     "/content/pricefx.resource/article-index.json:/article-index.json",
     "/content/pricefx.resource/partners-index.json:/partners-index.json",
     "/content/pricefx/en/spreadsheets/customers-logo:/customers-logo.json",
-    "/content/pricefx/en/configuration/config:/.helix/config.json"
+    "/content/pricefx/en/configuration/config:/.helix/config.json",
+    "graphql/execute.json/pricefx/events:/events.json"
   ],
   "includes": [
     "/content/pricefx/",
