@@ -1022,6 +1022,19 @@ export default async function decorate(block) {
     updateBrowserUrl(searchParams, 'page', nextActivePage.textContent);
   };
 
+  const pagItems = document.querySelectorAll('.pagination-page');
+
+  for (let i = 0; i < pagItems.length; i += 1) {
+    const counter = i + 1;
+    let string = `Page ${counter}`;
+
+    if (pagItems[i].classList.contains('active-page')) {
+      string = `Page ${counter}, Current Page`;
+    }
+
+    pagItems[i].setAttribute('aria-label', string);
+  }
+
   paginationContainer.addEventListener('click', (e) => {
     if (e.target && e.target.nodeName === 'BUTTON' && e.target.className === '') {
       const { target } = e;
