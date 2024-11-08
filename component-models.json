@@ -303,6 +303,131 @@
     ]
   },
   {
+    "id": "events",
+    "fields": [
+      {
+        "component": "tab",
+        "label": "Configs",
+        "name": "configs"
+      },
+      {
+        "component": "aem-content",
+        "name": "featuredEvents",
+        "value": "",
+        "label": "Featured Events",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "searchPlaceholderText",
+        "label": "Search Placeholder Text",
+        "valueType": "string"
+      },
+      {
+        "component": "number",
+        "name": "numberOfEvents",
+        "label": "Number Of Events Display",
+        "valueType": "number",
+        "value": 6,
+        "validation": {
+          "numberMin": 3
+        }
+      },
+      {
+        "component": "multiselect",
+        "name": "sortBy",
+        "label": "Sort By",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Date",
+            "children": [
+              { "name": "Asc Date", "value": "asc-date" },
+              { "name": "Desc Date", "value": "desc-date" }
+            ]
+          },
+          {
+            "name": "Title",
+            "children": [
+              { "name": "A-Z", "value": "asc-title" },
+              { "name": "Z-A", "value": "desc-title" }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "tab",
+        "label": "Filters",
+        "name": "filters"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "filterOneTitle",
+        "value": "",
+        "label": "Filter 1 Title"
+      },
+      {
+        "component": "aem-tag",
+        "label": "Filter 1 Options",
+        "name": "filterOneTags",
+        "valueType": "string"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "filterTwoTitle",
+        "value": "",
+        "label": "Filter 2 Title"
+      },
+      {
+        "component": "aem-tag",
+        "label": "Filter 2 Options",
+        "name": "filterTwoTags",
+        "valueType": "string"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "filterThreeTitle",
+        "value": "",
+        "label": "Filter 3 Title"
+      },
+      {
+        "component": "aem-tag",
+        "label": "Filter 3 Options",
+        "name": "filterThreeTags",
+        "valueType": "string"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "filterFourTitle",
+        "value": "",
+        "label": "Filter 4 Title"
+      },
+      {
+        "component": "aem-tag",
+        "label": "Filter 4 Options",
+        "name": "filterFourTags",
+        "valueType": "string"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "filterFiveTitle",
+        "value": "",
+        "label": "Filter 5 Title"
+      },
+      {
+        "component": "aem-tag",
+        "label": "Filter 5 Options",
+        "name": "filterFiveTags",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "left-right-boxed",
     "fields": [
       {
