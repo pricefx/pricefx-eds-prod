@@ -203,8 +203,10 @@ export default async function decorate(block) {
   learningCenterContent.append(articlesContainer);
 
   // Creates a div container to hold pagination
-  const paginationContainer = document.createElement('div');
+  const paginationContainer = document.createElement('nav');
   paginationContainer.classList.add('pagination-wrapper');
+  paginationContainer.setAttribute('aria-label', 'Pagination Navigation');
+  paginationContainer.setAttribute('role', 'navigation');
   learningCenterContent.append(paginationContainer);
 
   // Markup for filterControls
@@ -570,8 +572,8 @@ export default async function decorate(block) {
   const renderPages = (articlePerPage, articleList, currentPage) => {
     const totalArticles = articleList.length;
     const totalPageNumber = Math.ceil(totalArticles / articlePerPage);
-    const firstPageMarkup = `<li class="pagination-page" id="page-1"><button>1</button></li>`;
-    const lastPageMarkup = `<li class="pagination-page" id="page-${totalPageNumber}"><button>${totalPageNumber}</button></li>`;
+    const firstPageMarkup = `<li class="pagination-page" id="page-1" aria-label="Page 1" aria-current="true"><button>1</button></li>`;
+    const lastPageMarkup = `<li class="pagination-page" id="page-${totalPageNumber}" aria-label="Page ${totalPageNumber}"><button>${totalPageNumber}</button></li>`;
     let paginationMarkup = '';
     let middlePageMarkup = '';
 
@@ -606,7 +608,7 @@ export default async function decorate(block) {
         `;
       } else {
         middlePageMarkup += `
-          <li class="pagination-page" id="page-${centerPage}"><button>${centerPage}</button></li>
+          <li class="pagination-page" id="page-${centerPage}" aria-label="Page ${centerPage}"><button>${centerPage}</button></li>
         `;
       }
     });
@@ -615,11 +617,11 @@ export default async function decorate(block) {
   };
 
   paginationContainer.innerHTML = `
-    ${Number(numOfArticles) > defaultSortedArticle.length ? '' : '<button class="pagination-prev">Previous</button>'}
+    ${Number(numOfArticles) > defaultSortedArticle.length ? '' : '<button class="pagination-prev" aria-label="Previous Page">Previous</button>'}
     <ul class="pagination-pages-list">
       ${renderPages(numOfArticles, defaultSortedArticle, 1)}
     </ul>
-    ${Number(numOfArticles) > defaultSortedArticle.length ? '' : '<button class="pagination-next">Next</button>'}
+    ${Number(numOfArticles) > defaultSortedArticle.length ? '' : '<button class="pagination-next" aria-label="Next Page">Next</button>'}
   `;
 
   const paginationPageList = document.querySelector('.pagination-pages-list');
@@ -1022,19 +1024,6 @@ export default async function decorate(block) {
     updateBrowserUrl(searchParams, 'page', nextActivePage.textContent);
   };
 
-  const pagItems = document.querySelectorAll('.pagination-page');
-
-  for (let i = 0; i < pagItems.length; i += 1) {
-    const counter = i + 1;
-    let string = `Page ${counter}`;
-
-    if (pagItems[i].classList.contains('active-page')) {
-      string = `Page ${counter}, Current Page`;
-    }
-
-    pagItems[i].setAttribute('aria-label', string);
-  }
-
   paginationContainer.addEventListener('click', (e) => {
     if (e.target && e.target.nodeName === 'BUTTON' && e.target.className === '') {
       const { target } = e;
@@ -1053,6 +1042,14 @@ export default async function decorate(block) {
         currentArticleData,
       );
       updateBrowserUrl(searchParams, 'page', target.textContent);
+
+      const pagItems = document.querySelectorAll('.pagination-page');
+      for (let i = 0; i < pagItems.length; i += 1) {
+        pagItems[i].removeAttribute('aria-current');
+        if (pagItems[i].classList.contains('active-page')) {
+          pagItems[i].setAttribute('aria-current', 'true');
+        }
+      }
     }
   });
 
