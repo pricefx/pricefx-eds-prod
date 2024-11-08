@@ -34,7 +34,7 @@
 }
 
 .filter-menu-toggle:focus {
-  outline: none;
+    background-position: right;
 }
 
 .filter-icon {

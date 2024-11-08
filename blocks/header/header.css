@@ -683,3 +683,27 @@ header a:focus {
     margin-left: 0;
   }
 }
+
+.skip-link {
+  position: absolute;
+  top: 10px; 
+  left: 10px; 
+  background: #fff; 
+  color: #000; 
+  padding: 8px 16px;
+  text-decoration: none;
+  z-index: 1000; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  opacity: 0;
+  transition: opacity 0.3s ease; 
+}
+
+.skip-link:focus {
+  opacity: 1; 
+}
+
+.skip-link:focus:not(:focus-within) {
+  position: absolute; 
+  top: -40px; 
+}
