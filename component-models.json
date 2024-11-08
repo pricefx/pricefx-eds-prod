@@ -319,23 +319,9 @@
       },
       {
         "component": "text",
-        "name": "searchPath",
-        "label": "Search Path",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
         "name": "searchPlaceholderText",
         "label": "Search Placeholder Text",
         "valueType": "string"
-      },
-      {
-        "component": "aem-content",
-        "name": "authorPath",
-        "value": "",
-        "label": "Author Directory Path",
-        "valueType": "string",
-        "description": "Please enter the path to the author directory."
       },
       {
         "component": "number",
@@ -370,18 +356,6 @@
         ]
       },
       {
-        "component": "text",
-        "name": "eventsContentCta",
-        "label": "Events Cards CTA Label",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "webinarCta",
-        "label": "Webinar Cards CTA Label",
-        "valueType": "string"
-      },
-      {
         "component": "tab",
         "label": "Filters",
         "name": "filters"
@@ -392,12 +366,6 @@
         "name": "filterOneTitle",
         "value": "",
         "label": "Filter 1 Title"
-      },
-      {
-        "component": "boolean",
-        "label": "Filter 1 is Multi-Select",
-        "name": "filterOneMultiSelect",
-        "valueType": "boolean"
       },
       {
         "component": "aem-tag",
@@ -413,12 +381,6 @@
         "label": "Filter 2 Title"
       },
       {
-        "component": "boolean",
-        "label": "Filter 2 is Multi-Select",
-        "name": "filterTwoMultiSelect",
-        "valueType": "boolean"
-      },
-      {
         "component": "aem-tag",
         "label": "Filter 2 Options",
         "name": "filterTwoTags",
@@ -430,12 +392,6 @@
         "name": "filterThreeTitle",
         "value": "",
         "label": "Filter 3 Title"
-      },
-      {
-        "component": "boolean",
-        "label": "Filter 3 is Multi-Select",
-        "name": "filterThreeMultiSelect",
-        "valueType": "boolean"
       },
       {
         "component": "aem-tag",
@@ -451,15 +407,22 @@
         "label": "Filter 4 Title"
       },
       {
-        "component": "boolean",
-        "label": "Filter 4 is Multi-Select",
-        "name": "filterFourMultiSelect",
-        "valueType": "boolean"
-      },
-      {
         "component": "aem-tag",
         "label": "Filter 4 Options",
         "name": "filterFourTags",
+        "valueType": "string"
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "filterFiveTitle",
+        "value": "",
+        "label": "Filter 5 Title"
+      },
+      {
+        "component": "aem-tag",
+        "label": "Filter 5 Options",
+        "name": "filterFiveTags",
         "valueType": "string"
       }
     ]
