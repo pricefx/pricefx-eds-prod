@@ -214,8 +214,7 @@ header nav {
   margin-right: 0;
 }
 
-.nav-list-level-1-item:hover .megamenu-wrapper,
-.nav-list-level-1-item:focus .megamenu-wrapper,
+
 .megamenu-wrapper--active {
   max-height: 600px;
   opacity: 1;
