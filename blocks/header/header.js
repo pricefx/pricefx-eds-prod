@@ -341,17 +341,24 @@ export default async function decorate(block) {
           allMegamenu.forEach((megamenu) => megamenu.classList.remove('megamenu-wrapper--active'));
         }
       });
+      const activeMegamenu = navListLevelOne.querySelector('.megamenu-wrapper');
+      activeMegamenu.classList.add('megamenu-wrapper--active');
     });
 
     navListLevelOne.addEventListener('mouseover', () => {
       allNavListLevelOne.forEach((levelOneNav) => levelOneNav.blur());
       allMegamenu.forEach((megamenu) => {
         megamenu.classList.remove('megamenu-wrapper--active');
-        megamenu.addEventListener('mouseout', () => navListLevelOne.blur());
+        megamenu.addEventListener('mouseout', () => {
+          navListLevelOne.blur();
+          allMegamenu.forEach((innerMegamenu) => innerMegamenu.classList.remove('megamenu-wrapper--active'));
+        });
       });
 
       // Reset Search ADA
       resetSearchCTA(searchToggle);
+      const activeMegamenu = navListLevelOne.querySelector('.megamenu-wrapper');
+      activeMegamenu.classList.add('megamenu-wrapper--active');
     });
   });
 
