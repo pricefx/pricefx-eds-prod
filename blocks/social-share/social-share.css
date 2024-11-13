@@ -45,6 +45,10 @@
     fill: transparent;
 }
 
+.social-share.social-share-light-theme{
+    background-color: #323232;
+}
+
 /* Resposive Styles */
 @media (width >= 480px) {
     .social-share .a2a_default_style > li:not(:last-child) {
