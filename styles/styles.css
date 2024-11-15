@@ -122,6 +122,7 @@
   --c-disabled-copy: #575858;
   --c-disabled: #ebecf0;
   --c-gray-med-drk: #545f71;
+  --c-gray-dark: #323232; 
 
   /* Misc */
   --c-white: #fff;
@@ -554,6 +555,10 @@ main .section.highlight {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.section[data-backgroundcolor="section-bg-color-dark-gray"] {
+  background-color: var(--c-gray-dark);
 }
 
 .section[data-backgroundcolor="section-bg-color-white"] {
