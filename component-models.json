@@ -407,6 +407,12 @@
         "label": "Filter 4 Title"
       },
       {
+        "component": "boolean",
+        "label": "Filter 4 is Multi-Select",
+        "name": "filterFourMultiSelect",
+        "valueType": "boolean"
+      },
+      {
         "component": "aem-tag",
         "label": "Filter 4 Options",
         "name": "filterFourTags",
