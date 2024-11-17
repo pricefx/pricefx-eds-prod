@@ -564,10 +564,7 @@ ${
             ? `<div class="event-details">
             ${featuredEventData.eventType !== '' ? renderArticleCategory(featuredEventData) : ''}
             ${
-              featuredEventData.eventTitle !== ''
-                ? `<p class="event-info"><b>${featuredEventData.eventTitle} </b><br> 
-            ${featuredEventData.eventDescription.plaintext}</p>`
-                : ''
+              featuredEventData.eventTitle !== '' ? `<p class="event-info"><b>${featuredEventData.eventTitle} </b>` : ''
             }
    
           </div>`
@@ -604,12 +601,7 @@ ${
                   event.eventType !== '' || event.eventTitle !== '' || event.eventDate !== ''
                     ? `<div class="event-details">
                     ${event.category !== '' ? renderArticleCategory(event) : ''}
-                    ${
-                      event.title !== ''
-                        ? `<p class="event-info"><b>${event.eventTitle} </b><br> 
-                    ${event.eventDescription.plaintext.length > 20 ? `${event.eventDescription.plaintext.substring(0, 50)}...` : event.eventDescription.plaintext}</p>`
-                        : ''
-                    }
+                    ${event.title !== '' ? `<p class="event-info"><b>${event.eventTitle} </b>` : ''}
                   </div>`
                     : ''
                 }
