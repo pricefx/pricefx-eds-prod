@@ -376,6 +376,7 @@
   }
   
   .event-card {
+    border-radius: 16px;
     background: var(--c-white);
     box-shadow: 0 4px 16px 0 rgba(0 0 0 / 25%);
     display: flex;
@@ -389,7 +390,7 @@
   }
   
   .event-card .event-image img {
-    border-radius: 0 0 16px 16px;
+    border-radius: 16px;
     display: block;
     height: 100%;
     object-fit: cover;
@@ -404,7 +405,7 @@
   }
   
   .event-card .event-details {
-    min-height: 140px;
+    min-height: 115px;
     padding: var(--spacing-xsmall) var(--spacing-xsmall) 0;
   }
   
