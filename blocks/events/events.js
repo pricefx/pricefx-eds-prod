@@ -343,7 +343,7 @@ export default async function decorate(block) {
   const filterThreeOptions = blockConfig.filterthreetags;
   const filterFour = blockConfig.filterfourtitle;
   const filterFourOptions = blockConfig.filterfourtags;
-  const filterFourIsMultiSelect = !!blockConfig.filterfourmultiselect;
+  const filterFourIsMultiSelect = !blockConfig.filterfourmultiselect;
   block.textContent = '';
 
   allEventsData.data.eventsList.items = filterAndModifyEvents(allEventsData.data.eventsList.items);
