@@ -343,7 +343,7 @@ export default async function decorate(block) {
   const filterThreeOptions = blockConfig.filterthreetags;
   const filterFour = blockConfig.filterfourtitle;
   const filterFourOptions = blockConfig.filterfourtags;
-  const filterFourIsMultiSelect = blockConfig.filterfourmultiselect;
+  const filterFourIsMultiSelect = !!blockConfig.filterfourmultiselect;
   block.textContent = '';
 
   allEventsData.data.eventsList.items = filterAndModifyEvents(allEventsData.data.eventsList.items);
@@ -563,9 +563,7 @@ ${
           featuredEventData.eventDate !== ''
             ? `<div class="event-details">
             ${featuredEventData.eventType !== '' ? renderArticleCategory(featuredEventData) : ''}
-            ${
-              featuredEventData.eventTitle !== '' ? `<p class="event-info"><b>${featuredEventData.eventTitle} </b>` : ''
-            }
+            ${featuredEventData.eventTitle !== '' ? `<p class="event-info">${featuredEventData.eventTitle} ` : ''}
    
           </div>`
             : ''
@@ -601,7 +599,7 @@ ${
                   event.eventType !== '' || event.eventTitle !== '' || event.eventDate !== ''
                     ? `<div class="event-details">
                     ${event.category !== '' ? renderArticleCategory(event) : ''}
-                    ${event.title !== '' ? `<p class="event-info"><b>${event.eventTitle} </b>` : ''}
+                    ${event.title !== '' ? `<p class="event-info">${event.eventTitle}` : ''}
                   </div>`
                     : ''
                 }
