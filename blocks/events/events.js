@@ -19,7 +19,7 @@ function filterAndModifyEvents(events) {
         return false;
       }
       if (event.program === 'Webinar') {
-        event.eventType = 'On-demand';
+        event.eventDate = 'On-demand';
       }
     }
 
@@ -49,6 +49,9 @@ const updateBrowserUrl = (searchParams, key, value) => {
 };
 
 const formatDate = (dateString) => {
+  if (dateString === 'On-demand') {
+    return dateString;
+  }
   const date = new Date(dateString);
   const options = {
     month: 'long',
@@ -59,7 +62,7 @@ const formatDate = (dateString) => {
 };
 
 const renderArticleCategory = (event) => {
-  const categoriesArray = event.eventType;
+  const categoriesArray = event.program;
   if (categoriesArray) {
     return `<p class="event-subtitle">${categoriesArray}</p>`;
   }
