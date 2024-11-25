@@ -3,8 +3,8 @@ import { DM_CONTENT_SERVER_URL, DM_SERVER_URL } from '../../scripts/url-constant
 
 export default function decorate(block) {
   console.log(block.children);
-  const url =
-    'https://s7d9.scene7.com/s7viewers/html5/BasicZoomViewer.html?asset=pricefxstage/widen-the-talent-pool&config=pricefxstage/image_zoom&serverUrl=https://s7d9.scene7.com/is/image/&contenturl=https://s7d9.scene7.com/is/content/';
+  const [filePath] = block.children;
+  const url = filePath.textContent.trim();
   const zoomType = 'image_zoom';
 
   block.innerHTML = '<div id="s7basiczoom_div" class="image_zoom"></div>';
