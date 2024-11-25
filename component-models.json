@@ -150,6 +150,17 @@
     ]
   },
   {
+    "id": "image-zoom",
+    "fields": [
+      {
+        "component": "text-input",
+        "name": "url",
+        "label": "Dynamic Image URL",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "button",
     "fields": [
       {
