@@ -4,46 +4,31 @@ import { DM_CONTENT_SERVER_URL, DM_SERVER_URL } from '../../scripts/url-constant
 export default function decorate(block) {
   const [filePath, zoomType] = block.children;
   const url = filePath.textContent.trim();
-  let scriptUrl = '';
-  let funcNam = '';
 
-  switch (zoomType) {
-    case 'image_zoom': {
-      scriptUrl = 'https://s7d9.scene7.com/s7viewers/html5/js/BasicZoomViewer.js';
-      funcNam = 'BasicZoomViewer';
-      break;
-    }
-    case 'Flyout': {
-      scriptUrl = 'https://s7d9.scene7.com/s7viewers/html5/js/FlyoutViewer.js';
-      funcNam = 'FlyoutViewer';
-      break;
-    }
-    case 'InlineZoom': {
-      scriptUrl = 'https://s7d9.scene7.com/s7viewers/html5/js/FlyoutViewer.js';
-      funcNam = 'FlyoutViewer';
-      break;
-    }
-    case 'ZoomVertical_dark': {
-      scriptUrl = 'https://s7d9.scene7.com/s7viewers/html5/js/ZoomVerticalViewer.js';
-      funcNam = 'ZoomVerticalViewer';
-      break;
-    }
-    case 'ZoomVertical_light': {
-      scriptUrl = 'https://s7d9.scene7.com/s7viewers/html5/js/ZoomVerticalViewer.js';
-      funcNam = 'ZoomVerticalViewer';
-      break;
-    }
-    default: {
-      scriptUrl = 'https://s7d9.scene7.com/s7viewers/html5/js/BasicZoomViewer.js';
-      funcNam = 'BasicZoomViewer';
-      console.log('default at its work');
-    }
-  }
+  const zoomTypeMapping = {
+    image_zoom: {
+      scriptUrl: 'https://s7d9.scene7.com/s7viewers/html5/js/BasicZoomViewer.js',
+      funcNam: 'BasicZoomViewer',
+    },
+    Flyout: { scriptUrl: 'https://s7d9.scene7.com/s7viewers/html5/js/FlyoutViewer.js', funcNam: 'FlyoutViewer' },
+    InlineZoom: { scriptUrl: 'https://s7d9.scene7.com/s7viewers/html5/js/FlyoutViewer.js', funcNam: 'FlyoutViewer' },
+    ZoomVertical_dark: {
+      scriptUrl: 'https://s7d9.scene7.com/s7viewers/html5/js/ZoomVerticalViewer.js',
+      funcNam: 'ZoomVerticalViewer',
+    },
+    ZoomVertical_light: {
+      scriptUrl: 'https://s7d9.scene7.com/s7viewers/html5/js/ZoomVerticalViewer.js',
+      funcNam: 'ZoomVerticalViewer',
+    },
+  };
 
   block.innerHTML = '<div id="s7basiczoom_div" class="image_zoom"></div>';
   const urlObj = new URL(url); // Create a URL object
   const params = new URLSearchParams(urlObj.search); // Get the query parameters
   const assetValue = params.get('asset');
+  let scriptUrl = '';
+  let funcNam = '';
+  ({ scriptUrl, funcNam } = zoomTypeMapping[zoomType] || zoomTypeMapping.image_zoom);
 
   loadScript(scriptUrl)
     .then(() => {
