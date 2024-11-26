@@ -36,6 +36,7 @@ export default function decorate(block) {
     default: {
       scriptUrl = 'https://s7d9.scene7.com/s7viewers/html5/js/BasicZoomViewer.js';
       funcNam = 'BasicZoomViewer';
+      console.log('default at its work');
     }
   }
 
