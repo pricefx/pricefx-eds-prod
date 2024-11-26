@@ -35,7 +35,7 @@ export default function decorate(block) {
   let funcNam = '';
   ({ scriptUrl, funcNam } = zoomTypeMapping[zoomType] || zoomTypeMapping.image_zoom);
   block.innerHTML = `<div id="s7basiczoom_div" class=${zoomType}></div>`;
-  console.log('HIiiiiiii', scriptUrl, funcNam);
+  console.log('HIiiiiiii', scriptUrl, funcNam, zoomType);
 
   loadScript(scriptUrl)
     .then(() => {
