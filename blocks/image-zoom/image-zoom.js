@@ -10,8 +10,14 @@ export default function decorate(block) {
       scriptUrl: 'https://s7d9.scene7.com/s7viewers/html5/js/BasicZoomViewer.js',
       funcNam: 'BasicZoomViewer',
     },
-    Flyout: { scriptUrl: 'https://s7d9.scene7.com/s7viewers/html5/js/FlyoutViewer.js', funcNam: 'FlyoutViewer' },
-    InlineZoom: { scriptUrl: 'https://s7d9.scene7.com/s7viewers/html5/js/FlyoutViewer.js', funcNam: 'FlyoutViewer' },
+    Flyout: {
+      scriptUrl: 'https://s7d9.scene7.com/s7viewers/html5/js/FlyoutViewer.js',
+      funcNam: 'FlyoutViewer',
+    },
+    InlineZoom: {
+      scriptUrl: 'https://s7d9.scene7.com/s7viewers/html5/js/FlyoutViewer.js',
+      funcNam: 'FlyoutViewer',
+    },
     ZoomVertical_dark: {
       scriptUrl: 'https://s7d9.scene7.com/s7viewers/html5/js/ZoomVerticalViewer.js',
       funcNam: 'ZoomVerticalViewer',
@@ -22,13 +28,13 @@ export default function decorate(block) {
     },
   };
 
-  block.innerHTML = '<div id="s7basiczoom_div" class="image_zoom"></div>';
   const urlObj = new URL(url); // Create a URL object
   const params = new URLSearchParams(urlObj.search); // Get the query parameters
   const assetValue = params.get('asset');
   let scriptUrl = '';
   let funcNam = '';
   ({ scriptUrl, funcNam } = zoomTypeMapping[zoomType] || zoomTypeMapping.image_zoom);
+  block.innerHTML = `<div id="s7basiczoom_div" class=${zoomType}></div>`;
 
   loadScript(scriptUrl)
     .then(() => {
