@@ -5,6 +5,7 @@ export default function decorate(block) {
   const filePath = block.children[0]?.textContent?.trim();
   const zoomType = block.children[1]?.textContent?.trim();
   const url = filePath.textContent.trim();
+  console.log(block);
 
   const zoomTypeMapping = {
     image_zoom: {
