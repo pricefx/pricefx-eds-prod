@@ -2,11 +2,8 @@ import { loadScript } from '../../scripts/aem.js';
 import { DM_CONTENT_SERVER_URL, DM_SERVER_URL } from '../../scripts/url-constants.js';
 
 export default function decorate(block) {
-  console.log(block);
-
-  const filePath = block.children[0]?.textContent?.trim();
-  const zoomType = block.children[1]?.textContent?.trim();
-  const url = filePath.textContent.trim();
+  const url = block.querySelector('a')?.getAttribute('href')?.trim();
+  const zoomType = block.querySelector('[data-aue-prop="zoomType"] p')?.textContent?.trim();
 
   const zoomTypeMapping = {
     image_zoom: {
