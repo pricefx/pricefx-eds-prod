@@ -144,6 +144,28 @@ const toggleMobileNavAccordion = (navToggle) => {
  */
 export default async function decorate(block) {
   block.innerHTML = '';
+
+  const skipLink = document.createElement('a');
+  skipLink.classList.add('skip-link');
+  skipLink.href = '#main-container';
+  skipLink.textContent = 'Skip to main content';
+  skipLink.setAttribute('aria-label', 'Skip to main content');
+  skipLink.setAttribute('tabindex', '0');
+  block.append(skipLink);
+
+  skipLink.addEventListener('click', (event) => {
+    event.preventDefault();
+    const mainContent = document.getElementById('main-container');
+    if (mainContent) {
+      mainContent.setAttribute('tabindex', '-1');
+      mainContent.focus();
+      window.scrollTo({
+        top: mainContent.offsetTop - document.querySelector('nav').offsetHeight,
+        behavior: 'smooth',
+      });
+    }
+  });
+
   const desktopHeader = document.createElement('div');
   desktopHeader.classList.add('desktop-header', 'desktop-view');
   const mobileHeader = document.createElement('div');
@@ -289,7 +311,7 @@ export default async function decorate(block) {
     </button>
     <div class="search-input-wrapper megamenu-wrapper" aria-hidden="true">
       <form action="/search">
-        <button type="submit">${SEARCH}</button>
+        <button aria-label="Search" type="submit">${SEARCH}</button>
         <input type="text" name="q" aria-label="Search" placeholder="Search pricefx.com" autocomplete="off">
       </form>
       <div class="search-suggestion"></div>
@@ -319,17 +341,24 @@ export default async function decorate(block) {
           allMegamenu.forEach((megamenu) => megamenu.classList.remove('megamenu-wrapper--active'));
         }
       });
+      const activeMegamenu = navListLevelOne.querySelector('.megamenu-wrapper');
+      activeMegamenu.classList.add('megamenu-wrapper--active');
     });
 
     navListLevelOne.addEventListener('mouseover', () => {
       allNavListLevelOne.forEach((levelOneNav) => levelOneNav.blur());
       allMegamenu.forEach((megamenu) => {
         megamenu.classList.remove('megamenu-wrapper--active');
-        megamenu.addEventListener('mouseout', () => navListLevelOne.blur());
+        megamenu.addEventListener('mouseout', () => {
+          navListLevelOne.blur();
+          allMegamenu.forEach((innerMegamenu) => innerMegamenu.classList.remove('megamenu-wrapper--active'));
+        });
       });
 
       // Reset Search ADA
       resetSearchCTA(searchToggle);
+      const activeMegamenu = navListLevelOne.querySelector('.megamenu-wrapper');
+      activeMegamenu.classList.add('megamenu-wrapper--active');
     });
   });
 
@@ -403,7 +432,7 @@ export default async function decorate(block) {
     </button>
     <div class="search-input-wrapper megamenu-wrapper" aria-hidden="true">
       <form action="/search">
-        <button type="submit">${SEARCH}</button>
+        <button type="submit" aria-label="Search">${SEARCH}</button>
         <input type="text" name="q" aria-label="Search" placeholder="Search pricefx.com" autocomplete="off">
       </form>
       <div class="search-suggestion"></div>

@@ -1,5 +1,20 @@
 /* || PRIMARY FONTS || */
 /* ------------------- */
+
+/* Fallback Fonts for neo-sans-pro */
+@font-face {
+  font-family: neo-sans-pro;
+  src: local('sans-serif');
+  font-display: swap;
+}
+
+/* Fallback Fonts for open-sans */
+@font-face {
+  font-family: open-sans;
+  src: local('sans-serif');
+  font-display: swap;
+}
+
 @font-face {
   font-family: neo-sans-pro;
   font-style: normal;

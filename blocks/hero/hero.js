@@ -143,7 +143,7 @@ export default async function decorate(block) {
   heroRightContainer
     .querySelectorAll('img')
     .forEach((img) =>
-      img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])),
+      img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, true, [{ width: '750' }])),
     );
 
   heroContainer.append(heroLeftContainer);
