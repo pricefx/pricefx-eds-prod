@@ -381,7 +381,6 @@ ${
       const filterContents = document.querySelectorAll('.filter-category-content');
       filterContents.forEach((content) => {
         content.style.visibility = 'visible';
-        content.style.maxHeight = '300px';
       });
 
       // Click event for Filter Accordions
