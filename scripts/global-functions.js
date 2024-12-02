@@ -110,6 +110,7 @@ function prependDomain(url, env) {
 function getEnvironment() {
   const { hostname } = window.location;
   const envMap = {
+    localhost: 'pricefx-eds',
     'pricefx-eds': 'pricefx-eds',
     'pricefx-eds-qa': 'pricefx-eds-qa',
     'pricefx-eds-stage': 'pricefx-eds-stage',
@@ -195,4 +196,13 @@ function onceIntersecting(element, callback) {
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export { environmentMode, formatDate, sortByDate, replaceBasePath, processUrl, onceIntersecting };
+export {
+  environmentMode,
+  formatDate,
+  sortByDate,
+  replaceBasePath,
+  processUrl,
+  onceIntersecting,
+  getEnvironment,
+  getEnvironmentDomain,
+};

@@ -214,8 +214,7 @@ header nav {
   margin-right: 0;
 }
 
-.nav-list-level-1-item:hover .megamenu-wrapper,
-.nav-list-level-1-item:focus .megamenu-wrapper,
+
 .megamenu-wrapper--active {
   max-height: 600px;
   opacity: 1;
@@ -683,4 +682,28 @@ header a:focus {
     width: 300px;
     margin-left: 0;
   }
+}
+
+.skip-link {
+  position: absolute;
+  top: 10px; 
+  left: 10px; 
+  background: #fff; 
+  color: #000; 
+  padding: 8px 16px;
+  text-decoration: none;
+  z-index: 1000; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  opacity: 0;
+  transition: opacity 0.3s ease; 
+}
+
+.skip-link:focus {
+  opacity: 1; 
+}
+
+.skip-link:focus:not(:focus-within) {
+  position: absolute; 
+  top: -40px; 
 }
