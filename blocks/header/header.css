@@ -136,7 +136,12 @@ header nav {
   margin-right: 0;
 }
 
-.nav-list-level-2-2 .nav-list-level-2-item:nth-last-child(-n + 3) {
+.nav-list-level-2-2 .nav-list-level-2-item:nth-child(5) {
+  grid-column: 3;
+  margin-top: 70px;
+}
+
+.nav-list-level-2-2 .nav-list-level-2-item:nth-last-child(-n + 3):not(:nth-child(5)) {
   grid-column: 4;
   margin: 0 0 5px;
 }
