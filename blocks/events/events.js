@@ -327,19 +327,19 @@ ${
           const optionSplit = option.split('/')[1];
           const optionReplace = optionSplit.includes('-') ? optionSplit.replaceAll('-', ' ') : optionSplit;
           const optionTextTransform = optionReplace;
-          const optionLabel = optionTextTransform === 'it professionals' ? 'IT Professionals' : optionTextTransform;
+          const optionLabel = optionTextTransform === 'On Demand' ? 'On-Demand' : optionTextTransform;
           if (filterIsMultiSelect !== 'true') {
             filterOptionsMarkup += `
                 <li class="filter-category-item">
                   <input type="radio" id="filter-${optionSplit}" name="${filterCategoryName}" value="${optionSplit}" data-filter-category="${filterCategoryName}" />
-                  <label for="filter-${optionSplit}">${optionSplit === 'e-books' || optionSplit === 'c-suite' ? optionSplit : optionTextTransform}</label>
+                  <label for="filter-${optionSplit}">${optionSplit === 'On-Demand' ? optionSplit : optionTextTransform}</label>
                 </li>
               `;
           } else {
             filterOptionsMarkup += `
                 <li class="filter-category-item">
                   <input type="checkbox" id="filter-${optionSplit}" name="${optionSplit}" value="${optionSplit}" data-filter-category="${filterCategoryName}" />
-                  <label for="filter-${optionSplit}">${optionSplit === 'e-books' || optionSplit === 'c-suite' ? optionSplit : optionLabel}</label>
+                  <label for="filter-${optionSplit}">${optionSplit === 'On-Demand' ? optionSplit : optionLabel}</label>
                 </li>
               `;
           }
