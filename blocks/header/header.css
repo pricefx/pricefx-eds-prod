@@ -123,7 +123,7 @@ header nav {
 }
 
 .nav-list-level-2-2 {
-  grid-template-rows: repeat(3, 60px);
+  grid-template-rows: repeat(3, 70px);
 }
 
 .nav-list-level-2-item {
@@ -141,7 +141,7 @@ header nav {
   margin-top: 70px;
 }
 
-.nav-list-level-2-2 .nav-list-level-2-item:nth-last-child(-n + 3):not(:nth-child(5)) {
+.nav-list-level-2-2 .nav-list-level-2-item:nth-last-child(-n + 2){
   grid-column: 4;
   margin: 0 0 5px;
 }
