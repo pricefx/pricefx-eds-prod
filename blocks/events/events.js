@@ -159,8 +159,17 @@ const toggleFilterAccordion = (toggle) => {
 
 export default async function decorate(block) {
   const env = getEnvironment();
-  const domain = getEnvironmentDomain(env) + GRAPHQL_ENDPOINT_PATH;
-  const fetchUrl = `https://${domain}`;
+  let domain;
+  let fetchUrl;
+  const locationHost = `${window.location.protocol}//${window.location.host}`;
+  if (env) {
+    domain = getEnvironmentDomain(env) + GRAPHQL_ENDPOINT_PATH;
+    fetchUrl = `https://${domain}`;
+  } else {
+    domain = locationHost + GRAPHQL_ENDPOINT_PATH;
+    fetchUrl = domain;
+  }
+
   fetch(fetchUrl, {
     method: 'GET',
   })
