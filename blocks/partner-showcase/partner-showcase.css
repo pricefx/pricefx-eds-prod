@@ -269,6 +269,10 @@
   text-transform: capitalize;
 }
 
+p.partner-categories-item:not(:last-child) {
+  margin-bottom: 3px;
+}
+
 .partner-cta-container {
   margin-top: var(--spacing-medium);
 }
