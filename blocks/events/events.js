@@ -162,7 +162,7 @@ export default async function decorate(block) {
   let domain;
   let fetchUrl;
   const locationHost = `${window.location.protocol}//${window.location.host}`;
-  if (!env) {
+  if (env) {
     domain = getEnvironmentDomain(env) + GRAPHQL_ENDPOINT_PATH;
     fetchUrl = `https://${domain}`;
   } else {
