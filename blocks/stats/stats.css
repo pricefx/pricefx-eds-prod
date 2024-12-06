@@ -95,21 +95,6 @@
     -webkit-text-fill-color: transparent;
 }
 
-
-.no-background .stat-description {
-    font-weight: var(--fw-regular);
-    line-height: 24px;
-    max-width: 383px;
-}
-
-.no-background .stat {
-    padding: 0 24px;
-}
-
-.stats-container-wrap.no-background {
-    padding: 64px 0;
-}
-
 @media (width >= 986px) {
     .stats.block {
         padding: 0;
@@ -121,11 +106,6 @@
         gap: 33px;
         padding: 57px 74px 53px 75px;
         width: auto;
-    }
-
-    .stats-container-wrap.no-background {
-        padding: 80px 64px;
-        gap: 24px;
     }
 
     .stat-title.large h1,
@@ -145,8 +125,5 @@
     .stat-description {
         width: 383px;
     }  
-
-    .no-background .stat-description {
-        width: 383px;
-    }  
+ 
 }

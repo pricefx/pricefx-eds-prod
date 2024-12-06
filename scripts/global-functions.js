@@ -63,8 +63,9 @@ function getEnvironmentDomain(env) {
     case 'pricefx-eds-prod':
       return 'publish-p131512-e1282666.adobeaemcloud.com';
     case 'pricefx.com':
+    case 'www.pricefx.com':
     case 'preview.pricefx.com':
-      return ''; // Return empty string for relative URL
+      return 'publish-p131512-e1282666.adobeaemcloud.com'; 
     default:
       return '';
   }
@@ -110,6 +111,7 @@ function prependDomain(url, env) {
 function getEnvironment() {
   const { hostname } = window.location;
   const envMap = {
+    localhost: 'pricefx-eds',
     'pricefx-eds': 'pricefx-eds',
     'pricefx-eds-qa': 'pricefx-eds-qa',
     'pricefx-eds-stage': 'pricefx-eds-stage',
@@ -119,11 +121,11 @@ function getEnvironment() {
   };
 
   const keys = Object.keys(envMap);
-  const result = keys.find((key) => hostname.includes(`--${key}--`) || hostname.includes(key));
+  const result = keys.find((key) => hostname.includes(`--${key}--`));
 
   // Check if the URL is external
   if (!result) {
-    return null; // If the environment is not found in the hostname, return null
+    return hostname.includes('pricefx')? hostname : 'pricefx.com'; // If the environment is not found in the hostname, return hostname
   }
 
   return result ? envMap[result] : 'pricefx.com'; // Default to live
@@ -195,4 +197,13 @@ function onceIntersecting(element, callback) {
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export { environmentMode, formatDate, sortByDate, replaceBasePath, processUrl, onceIntersecting };
+export {
+  environmentMode,
+  formatDate,
+  sortByDate,
+  replaceBasePath,
+  processUrl,
+  onceIntersecting,
+  getEnvironment,
+  getEnvironmentDomain,
+};
