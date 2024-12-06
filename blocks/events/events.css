@@ -342,7 +342,7 @@
     font-family: var(--ff-primary);
     font-size: var(--body-font-size-xs);
     font-weight: var(--fw-med);
-    letter-spacing: 0.01px;
+    letter-spacing: -0.41px;
     line-height: calc((14 / 16) * 1rem);
     position: relative;
     text-transform: uppercase;
