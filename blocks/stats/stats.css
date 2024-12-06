@@ -95,6 +95,7 @@
     -webkit-text-fill-color: transparent;
 }
 
+/*
 
 .no-background .stat-description {
     font-weight: var(--fw-regular);
@@ -108,7 +109,7 @@
 
 .stats-container-wrap.no-background {
     padding: 64px 0;
-}
+} */
 
 @media (width >= 986px) {
     .stats.block {
@@ -123,10 +124,10 @@
         width: auto;
     }
 
-    .stats-container-wrap.no-background {
+    /* .stats-container-wrap.no-background {
         padding: 80px 64px;
         gap: 24px;
-    }
+    } */
 
     .stat-title.large h1,
     .stat-title.large h2,
@@ -146,7 +147,7 @@
         width: 383px;
     }  
 
-    .no-background .stat-description {
+   /* .no-background .stat-description {
         width: 383px;
-    }  
+    }  */
 }
