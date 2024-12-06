@@ -1,6 +1,5 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { getEnvironment, getEnvironmentDomain } from '../../scripts/global-functions.js';
-// import { environmentMode, replaceBasePath } from '../../scripts/global-functions.js';
 import { GRAPHQL_ENDPOINT_PATH } from '../../scripts/url-constants.js';
 
 const isDesktop = window.matchMedia('(min-width: 986px)');
@@ -14,39 +13,22 @@ function filterAndModifyEvents(events) {
     const eventDate = new Date(event.eventDate).toISOString().split('T')[0];
 
     // Skip events that are already passed
+
     if (eventDate < today) {
       if (event.program === 'Event') {
         return false;
       }
       if (event.program === 'Webinar') {
-        event.eventDate = 'On-demand';
+        const liveStatusIndex = event.eventTags.indexOf('pricefx:status/live');
+        if (liveStatusIndex !== -1) {
+          event.eventTags.push('pricefx:status/on-demand');
+        }
       }
     }
 
-    // Hide events of type "Event"
-
-    // Modify "Webinar" type to "On-demand"
-
-    // Modify eventTags to add "pricefx:status/on-demand" if "pricefx:status/live" exists
-    const liveStatusIndex = event.eventTags.indexOf('pricefx:status/live');
-    if (liveStatusIndex !== -1) {
-      event.eventTags.push('pricefx:status/on-demand');
-    }
-
-    // Return the modified event
     return true;
   });
 }
-
-function filterEventsByPath(path) {
-  return allEventsData.data.eventsList.items.filter((event) => path.includes(event._path))[0];
-}
-
-const updateBrowserUrl = (searchParams, key, value) => {
-  searchParams.set(key, value);
-  const newRelativePathQuery = `${window.location.pathname}?${searchParams.toString()}`;
-  window.history.pushState(null, '', newRelativePathQuery);
-};
 
 const formatDate = (dateString) => {
   if (dateString === 'On-demand') {
@@ -59,6 +41,33 @@ const formatDate = (dateString) => {
     year: 'numeric',
   };
   return date.toLocaleDateString('en-US', options);
+};
+
+function showOnDemandOrDate(eventDate, program) {
+  const today = new Date().toISOString().split('T')[0];
+  // Parse the event date
+  let [eventDateFormatted] = new Date(eventDate).toISOString().split('T');
+  // Skip events that are already passed
+  if (eventDateFormatted < today) {
+    if (program === 'Webinar') {
+      eventDateFormatted = 'On-demand';
+    } else {
+      eventDateFormatted = formatDate(eventDate);
+    }
+  } else {
+    eventDateFormatted = formatDate(eventDate);
+  }
+  return eventDateFormatted;
+}
+
+function filterEventsByPath(path) {
+  return allEventsData.data.eventsList.items.filter((event) => path.includes(event._path))[0];
+}
+
+const updateBrowserUrl = (searchParams, key, value) => {
+  searchParams.set(key, value);
+  const newRelativePathQuery = `${window.location.pathname}?${searchParams.toString()}`;
+  window.history.pushState(null, '', newRelativePathQuery);
 };
 
 const renderArticleCategory = (event) => {
@@ -150,8 +159,17 @@ const toggleFilterAccordion = (toggle) => {
 
 export default async function decorate(block) {
   const env = getEnvironment();
-  const domain = getEnvironmentDomain(env) + GRAPHQL_ENDPOINT_PATH;
-  const fetchUrl = `https://${domain}`;
+  let domain;
+  let fetchUrl;
+  const locationHost = `${window.location.protocol}//${window.location.host}`;
+  if (env) {
+    domain = getEnvironmentDomain(env) + GRAPHQL_ENDPOINT_PATH;
+    fetchUrl = `https://${domain}`;
+  } else {
+    domain = locationHost + GRAPHQL_ENDPOINT_PATH;
+    fetchUrl = domain;
+  }
+
   fetch(fetchUrl, {
     method: 'GET',
   })
@@ -168,7 +186,7 @@ export default async function decorate(block) {
       const blockConfig = readBlockConfig(block);
       const featuredEvent = blockConfig.featuredevents;
       const searchPlaceholder = blockConfig.searchplaceholdertext;
-      const numOfEvents = blockConfig.numberOfEvents ? blockConfig.numberOfEvents : 3;
+      const numOfEvents = blockConfig.numberofevents ? blockConfig.numberofevents : 3;
       const defaultSort = blockConfig.sortby;
       const filterOne = blockConfig.filteronetitle;
       const filterOneOptions = blockConfig.filteronetags;
@@ -178,7 +196,11 @@ export default async function decorate(block) {
       const filterThreeOptions = blockConfig.filterthreetags;
       const filterFour = blockConfig.filterfourtitle;
       const filterFourOptions = blockConfig.filterfourtags;
-      const filterFourIsMultiSelect = blockConfig.filterfourmultiselect ? 'false' : 'true';
+      const filterFourIsMultiSelect = blockConfig.filterfourmultiselect ? 'true' : 'false';
+
+      const filterFive = blockConfig.filterfivetitle;
+      const filterFiveOptions = blockConfig.filterfivetags;
+
       block.textContent = '';
 
       allEventsData.data.eventsList.items = filterAndModifyEvents(allEventsData.data.eventsList.items);
@@ -232,9 +254,7 @@ export default async function decorate(block) {
       paginationContainer.setAttribute('role', 'navigation');
       eventsContent.append(paginationContainer);
 
-      const defaultSortedArticle = allEventsData.data.eventsList.items.sort(
-        (a, b) => new Date(b.eventDate) - new Date(a.eventDate),
-      );
+      const defaultSortedArticle = noFeaturedEventData.sort((a, b) => new Date(b.eventDate) - new Date(a.eventDate));
 
       const queryStr = 'page=1&sortBy=desc-date';
       const searchParams = new URLSearchParams(queryStr);
@@ -315,23 +335,20 @@ ${
         optionsArray.forEach((option) => {
           const optionSplit = option.split('/')[1];
           const optionReplace = optionSplit.includes('-') ? optionSplit.replaceAll('-', ' ') : optionSplit;
-          const optionTextTransform =
-            optionReplace.length <= 4 && optionReplace !== 'news' && optionReplace !== 'food'
-              ? optionReplace.toUpperCase()
-              : optionReplace;
-          const optionLabel = optionTextTransform === 'it professionals' ? 'IT Professionals' : optionTextTransform;
+          const optionTextTransform = optionReplace;
+          const optionLabel = optionTextTransform === 'On Demand' ? 'On-Demand' : optionTextTransform;
           if (filterIsMultiSelect !== 'true') {
             filterOptionsMarkup += `
                 <li class="filter-category-item">
                   <input type="radio" id="filter-${optionSplit}" name="${filterCategoryName}" value="${optionSplit}" data-filter-category="${filterCategoryName}" />
-                  <label for="filter-${optionSplit}">${optionSplit === 'e-books' || optionSplit === 'c-suite' ? optionSplit : optionTextTransform}</label>
+                  <label for="filter-${optionSplit}">${optionSplit === 'On-Demand' ? optionSplit : optionTextTransform}</label>
                 </li>
               `;
           } else {
             filterOptionsMarkup += `
                 <li class="filter-category-item">
                   <input type="checkbox" id="filter-${optionSplit}" name="${optionSplit}" value="${optionSplit}" data-filter-category="${filterCategoryName}" />
-                  <label for="filter-${optionSplit}">${optionSplit === 'e-books' || optionSplit === 'c-suite' ? optionSplit : optionLabel}</label>
+                  <label for="filter-${optionSplit}">${optionSplit === 'On-Demand' ? optionSplit : optionLabel}</label>
                 </li>
               `;
           }
@@ -366,13 +383,13 @@ ${
   ${filterTwo !== '' ? renderFilterCategory(2, filterTwo, false, filterTwoOptions, 'filter-all-type', 'filter-type') : ''}
   ${filterThree !== '' ? renderFilterCategory(3, filterThree, false, filterThreeOptions, 'filter-all-industry', 'filter-industry') : ''}
   ${filterFour !== '' ? renderFilterCategory(4, filterFour, filterFourIsMultiSelect, filterFourOptions, 'filter-all-capability', 'filter-capability') : ''}
+  ${filterFive !== '' ? renderFilterCategory(4, filterFive, false, filterFiveOptions, 'filter-all-topic', 'filter-topic') : ''}
 `;
 
       // Set initial max-height for Filter Categories to create smooth accordion transition
       const filterContents = document.querySelectorAll('.filter-category-content');
       filterContents.forEach((content) => {
         content.style.visibility = 'visible';
-        content.style.maxHeight = '300px';
       });
 
       // Click event for Filter Accordions
@@ -434,13 +451,13 @@ ${
                 event.eventType !== '' || event.eventTitle !== '' || event.eventDate !== ''
                   ? `<div class="event-details">
                   ${event.category !== '' ? renderArticleCategory(event) : ''}
-                  ${event.title !== '' ? `<p class="event-info">${event.eventTitle}` : ''}
+                  ${event.title !== '' ? `<p class="event-info"><b>${event.eventTitle}</b></p>` : ''}
                 </div>`
                   : ''
               }
               <div class="event-cta-container">
                 ${renderArticleCtaLabel(event)}
-                ${event.readingTime !== '' ? `<p class="event-readtime">${formatDate(event.eventDate)}</p>` : ''}
+                ${event.readingTime !== '' ? `<p class="event-readtime">${showOnDemandOrDate(event.eventDate, event.program)}</p>` : ''}
               </div>
             </div>
           </li>
@@ -452,7 +469,7 @@ ${
       const appendEvents = (articleJsonData) => {
         EventsContainer.innerHTML = renderArticleCard(articleJsonData);
       };
-      appendEvents(allEventsData.data.eventsList.items);
+      appendEvents(noFeaturedEventData);
 
       // Render pagination pages
       const renderPages = (articlePerPage, articleList, currentPage) => {
@@ -552,6 +569,7 @@ ${
         'filter-type': [],
         'filter-industry': [],
         'filter-capability': [],
+        'filter-topic': [],
       };
 
       // Updates the URL Params based on selected filters
@@ -568,7 +586,11 @@ ${
           updateBrowserUrl(searchParams, 'filter-industry', valuesString);
         }
         if (selectedFilters['filter-capability'].length > 0) {
-          updateBrowserUrl(searchParams, 'filter-capability', selectedFilters['filter-capability'][0]);
+          const valuesString = selectedFilters['filter-capability'].toString();
+          updateBrowserUrl(searchParams, 'filter-capability', valuesString);
+        }
+        if (selectedFilters['filter-topic'].length > 0) {
+          updateBrowserUrl(searchParams, 'filter-topic', selectedFilters['filter-topic'][0]);
         }
       };
 
@@ -592,7 +614,7 @@ ${
           appendEvents(articleJson);
         }
 
-        currentSortedEvents = allEventsData.data.eventsList.items;
+        currentSortedEvents = articleJson;
 
         if (articleJson.length === 0) {
           EventsContainer.innerHTML = `
@@ -757,7 +779,12 @@ ${
         if (state === true && value.includes('all')) {
           selectedFilters[key].pop();
           searchParams.delete(key);
-        } else if (state === true && key === 'filter-program') {
+        } else if (
+          (state === true && key === 'filter-program') ||
+          key === 'filter-type' ||
+          key === 'filter-industry' ||
+          key === 'filter-topic'
+        ) {
           selectedFilters[key].pop();
           selectedFilters[key].push(value);
           updateFiltersUrlParams();
@@ -767,6 +794,7 @@ ${
         } else if (state === false && selectedFilters[key].includes(value)) {
           selectedFilters[key].splice(selectedFilters[key].indexOf(value), 1);
           searchParams.delete(key);
+          updateFiltersUrlParams();
         }
         const newRelativePathQuery = `${window.location.pathname}?${searchParams.toString()}`;
         window.history.pushState(null, '', newRelativePathQuery);
@@ -802,6 +830,14 @@ ${
         if (filters['filter-capability'].length > 0) {
           articleJson = articleJson.filter((event) =>
             filters['filter-capability'].some((searchTag) =>
+              event.eventTags.some((tag) => tag.toLowerCase().includes(searchTag.toLowerCase())),
+            ),
+          );
+        }
+
+        if (filters['filter-topic'].length > 0 && Array.isArray(filters['filter-topic'])) {
+          articleJson = articleJson.filter((event) =>
+            filters['filter-topic'].some((searchTag) =>
               event.eventTags.some((tag) => tag.toLowerCase().includes(searchTag.toLowerCase())),
             ),
           );

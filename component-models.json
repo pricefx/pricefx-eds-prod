@@ -150,6 +150,37 @@
     ]
   },
   {
+    "id": "image-zoom",
+    "fields": [
+      {
+        "component": "text-input",
+        "name": "url",
+        "label": "Dynamic Image URL",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "zoomType",
+        "label": "Zoom Type",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Basic Zoom",
+            "value": "image_zoom"
+          },
+          {
+            "name": "Inline Zoom",
+            "value": "InlineZoom"
+          },
+          {
+            "name": "Zoom Vertical",
+            "value": "ZoomVertical_dark"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "button",
     "fields": [
       {
@@ -901,6 +932,39 @@
         "name": "accordion-title",
         "label": "Title",
         "value": ""
+      },
+      {
+        "component": "select",
+        "name": "type",
+        "value": "h3",
+        "label": "Type",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "h1",
+            "value": "h1"
+          },
+          {
+            "name": "h2",
+            "value": "h2"
+          },
+          {
+            "name": "h3",
+            "value": "h3"
+          },
+          {
+            "name": "h4",
+            "value": "h4"
+          },
+          {
+            "name": "h5",
+            "value": "h5"
+          },
+          {
+            "name": "h6",
+            "value": "h6"
+          }
+        ]
       },
       {
         "component": "richtext",
