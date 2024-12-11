@@ -460,6 +460,16 @@ header nav {
   visibility: hidden;
 }
 
+#mobile-nav-level-2-2 > .nav-mobile-list-level-2-category:nth-of-type(5) {
+  order: 3;
+}
+
+#mobile-nav-level-2-2 > .nav-mobile-list-level-2-category:nth-of-type(4),
+#mobile-nav-level-2-2 > .nav-mobile-list-level-2-category:nth-of-type(6),
+#mobile-nav-level-2-2 > .nav-mobile-list-level-2-category:nth-of-type(7) {
+  order: 4;
+}
+
 .nav-mobile-list-level-2-category::before,
 .nav-mobile-list-level-2-category .nav-mobile-list-level-2-category-link,
 .nav-mobile-list-level-2-category-link {
