@@ -407,7 +407,7 @@ ${
         featuredEventContainer.innerHTML = `
     <div class="event-image">
       <picture>
-        <img src="${featuredEventData.eventImage._publishUrl || ''}" alt="${featuredEventData.imageAlt || featuredEventData.program}">
+        <img src="${featuredEventData.eventImage._dmS7Url || ''}?wid=577" alt="${featuredEventData.imageAlt || featuredEventData.program}">
       </picture>
     </div>
     <div class="event-content">
@@ -443,7 +443,7 @@ ${
           <li class="event-card">
             <div class="event-image">
               <picture>
-                <img src="${event.eventImage._publishUrl || ''}" alt="${event.imageAlt || event.eventTitle}">
+                <img src="${event.eventImage._dmS7Url || ''}?wid=577" alt="${event.imageAlt || event.eventTitle}">
               </picture>
             </div>
             <div class="event-content">
