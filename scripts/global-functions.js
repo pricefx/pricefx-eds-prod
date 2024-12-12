@@ -125,7 +125,7 @@ function getEnvironment() {
 
   // Check if the URL is external
   if (!result) {
-    return hostname.includes('pricefx')? hostname : 'pricefx.com'; // If the environment is not found in the hostname, return hostname
+    return hostname.includes('pricefx')? hostname : ''; // If the environment is not found in the hostname, return hostname
   }
 
   return result ? envMap[result] : 'pricefx.com'; // Default to live
