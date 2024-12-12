@@ -159,8 +159,8 @@ const toggleFilterAccordion = (toggle) => {
 
 export default async function decorate(block) {
   const env = getEnvironment();
-  const domain = getEnvironmentDomain(env) + GRAPHQL_ENDPOINT_PATH;
-  const fetchUrl = `https://${domain}`;
+  const domain = getEnvironmentDomain(env);
+  const fetchUrl = domain ? `https://${domain}${GRAPHQL_ENDPOINT_PATH}` : GRAPHQL_ENDPOINT_PATH;
   fetch(fetchUrl, {
     method: 'GET',
   })
