@@ -336,16 +336,14 @@ export default async function decorate(block) {
 
       // Iterate through all categories and process those that contain 'partner-type'
       categoriesArray.forEach((category) => {
-        if (category.includes('partner-type')) {
-          const removePrefixCategory = category.split('/')[2];
-          const replaceHyphenCategory = removePrefixCategory.replaceAll('-', ' ');
-          const replaceAmpCategory = replaceHyphenCategory.includes('&amp;')
-            ? replaceHyphenCategory.replace('&amp;', '&')
-            : replaceHyphenCategory;
+        const removePrefixCategory = category.split('/')[2];
+        const replaceHyphenCategory = removePrefixCategory.replaceAll('-', ' ');
+        const replaceAmpCategory = replaceHyphenCategory.includes('&amp;')
+          ? replaceHyphenCategory.replace('&amp;', '&')
+          : replaceHyphenCategory;
 
-          // Append the processed category to the markup
-          markup += `<p class="partner-categories-item">${replaceAmpCategory}</p>`;
-        }
+        // Append the processed category to the markup
+        markup += `<p class="partner-categories-item">${replaceAmpCategory}</p>`;
       });
 
       // Return all categories as markup if any were found
