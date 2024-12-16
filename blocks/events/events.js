@@ -407,7 +407,7 @@ ${
         featuredEventData.eventType !== '' || featuredEventData.eventTitle !== '' || featuredEventData.eventDate !== ''
           ? `<div class="event-details">
           ${featuredEventData.eventType !== '' ? renderArticleCategory(featuredEventData) : ''}
-          ${featuredEventData.eventTitle !== '' ? `<p class="event-info"><b>${featuredEventData.eventTitle} </b></p>` : ''}
+          ${featuredEventData.eventTitle !== '' ? `<p class="event-info"><h3>${featuredEventData.eventTitle} </h3></p>` : ''}
  
         </div>`
           : ''
@@ -607,6 +607,7 @@ ${
         }
 
         currentSortedEvents = articleJson;
+        currentEvenData = currentSortedEvents;
 
         if (articleJson.length === 0) {
           EventsContainer.innerHTML = `
