@@ -121,7 +121,12 @@ function getEnvironment() {
   };
 
   const keys = Object.keys(envMap);
-  const result = keys.find((key) => hostname.includes(`${key}`));
+  let result;
+  if (hostname === 'localhost') {
+    result = keys.find((key) => hostname.includes(`${key}`));
+  } else {
+    result = keys.find((key) => hostname.includes(`--${key}--`));
+  }
 
   // Check if the URL is external
   if (!result) {
