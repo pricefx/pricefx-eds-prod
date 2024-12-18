@@ -161,6 +161,7 @@ export default async function decorate(block) {
   const env = getEnvironment();
   const domain = getEnvironmentDomain(env);
   const fetchUrl = domain ? `https://${domain}${GRAPHQL_ENDPOINT_PATH}` : GRAPHQL_ENDPOINT_PATH;
+
   fetch(fetchUrl, {
     method: 'GET',
   })
@@ -398,7 +399,7 @@ ${
         featuredEventContainer.innerHTML = `
     <div class="event-image">
       <picture>
-        <img src="${featuredEventData.eventImage._dmS7Url || ''}" alt="${featuredEventData.imageAlt || featuredEventData.program}">
+        <img src="${featuredEventData.eventImage ? featuredEventData.eventImage._dmS7Url : ''}?wid=577" alt="${featuredEventData.imageAlt || featuredEventData.program}">
       </picture>
     </div>
     <div class="event-content">
@@ -406,7 +407,7 @@ ${
         featuredEventData.eventType !== '' || featuredEventData.eventTitle !== '' || featuredEventData.eventDate !== ''
           ? `<div class="event-details">
           ${featuredEventData.eventType !== '' ? renderArticleCategory(featuredEventData) : ''}
-          ${featuredEventData.eventTitle !== '' ? `<p class="event-info"><b>${featuredEventData.eventTitle} </b></p>` : ''}
+          ${featuredEventData.eventTitle !== '' ? `<p class="event-info"><h3>${featuredEventData.eventTitle} </h3></p>` : ''}
  
         </div>`
           : ''
@@ -434,7 +435,7 @@ ${
           <li class="event-card">
             <div class="event-image">
               <picture>
-                <img src="${event.eventImage._dmS7Url || ''}" alt="${event.imageAlt || event.eventTitle}">
+                <img src="${event.eventImage ? event.eventImage._dmS7Url : ''}?wid=577" alt="${event.imageAlt || event.eventTitle}">
               </picture>
             </div>
             <div class="event-content">
@@ -606,6 +607,7 @@ ${
         }
 
         currentSortedEvents = articleJson;
+        currentEvenData = currentSortedEvents;
 
         if (articleJson.length === 0) {
           EventsContainer.innerHTML = `
@@ -989,5 +991,115 @@ ${
         const nextActivePage = activePage.previousElementSibling;
         handlePaginationNav(paginationList, nextActivePage);
       });
+
+      // Set up page state on load based on URL Params
+      const updateStateFromUrlParams = (articleJson) => {
+        const getUrlParams = window.location.search;
+        const loadedSearchParams = new URLSearchParams(getUrlParams);
+        const articlesOnLoad = articleJson;
+        if (getUrlParams === '') {
+          return;
+        }
+
+        sortByEl.value = loadedSearchParams.get('sortBy');
+        handleSortEvents(loadedSearchParams.get('sortBy'), articlesOnLoad);
+        searchParams.set('sortBy', loadedSearchParams.get('sortBy'));
+
+        if (
+          loadedSearchParams.get('filter-type') !== null ||
+          loadedSearchParams.get('filter-industry') !== null ||
+          loadedSearchParams.get('filter-capability') !== null ||
+          loadedSearchParams.get('filter-topic') !== null ||
+          loadedSearchParams.get('filter-program') !== null
+        ) {
+          let filterCapabilities = [];
+          if (loadedSearchParams.get('filter-type') !== null) {
+            selectedFilters['filter-type'].push(loadedSearchParams.get('filter-type'));
+          }
+          if (loadedSearchParams.get('filter-capability') !== null) {
+            filterCapabilities = loadedSearchParams.get('filter-capability').includes(',')
+              ? loadedSearchParams.get('filter-capability').split(',')
+              : loadedSearchParams.get('filter-capability');
+            if (Array.isArray(filterCapabilities)) {
+              filterCapabilities.forEach((industryItem) => selectedFilters['filter-capability'].push(industryItem));
+            } else {
+              selectedFilters['filter-capability'].push(filterCapabilities);
+            }
+          }
+
+          if (loadedSearchParams.get('filter-industry') !== null) {
+            selectedFilters['filter-industry'].push(loadedSearchParams.get('filter-industry'));
+          }
+          if (loadedSearchParams.get('filter-topic') !== null) {
+            selectedFilters['filter-topic'].push(loadedSearchParams.get('filter-topic'));
+          }
+          if (loadedSearchParams.get('filter-program') !== null) {
+            selectedFilters['filter-program'].push(loadedSearchParams.get('filter-program'));
+          }
+
+          const loadedFilters = {
+            'filter-type':
+              loadedSearchParams.get('filter-type') !== null ? [loadedSearchParams.get('filter-type')] : [],
+            'filter-industry':
+              loadedSearchParams.get('filter-type') !== null ? [loadedSearchParams.get('filter-industry')] : [],
+            'filter-capability': filterCapabilities,
+            'filter-topic':
+              loadedSearchParams.get('filter-topic') !== null ? [loadedSearchParams.get('filter-topic')] : [],
+            'ilter-program':
+              loadedSearchParams.get('ilter-program') !== null ? [loadedSearchParams.get('ilter-program')] : [],
+          };
+          const filterValuesArray = [];
+          const loadedFilterValues = Object.values(loadedFilters);
+          loadedFilterValues.forEach((filterValue) => {
+            if (filterValue.length === 1) {
+              filterValuesArray.push(filterValue[0]);
+            } else if (filterValue.length > 1 && Array.isArray(filterValue)) {
+              filterValue.forEach((value) => filterValuesArray.push(value));
+            } else {
+              filterValuesArray.push(filterValue);
+            }
+          });
+          allFilterOptions.forEach((filterOption) => {
+            if (filterValuesArray.includes(filterOption.value)) {
+              filterOption.checked = true;
+              handleFilterEvents(loadedFilters, articlesOnLoad);
+            }
+          });
+        }
+
+        if (loadedSearchParams.get('search') !== null) {
+          searchInput.setAttribute('value', loadedSearchParams.get('search'));
+          searchInput.value = loadedSearchParams.get('search');
+          handleSearch(loadedSearchParams.get('search'), currentEvenData);
+          searchParams.set('search', loadedSearchParams.get('search'));
+        }
+
+        if (loadedSearchParams.get('page') !== '1') {
+          paginationPageList.innerHTML = renderPages(
+            numOfEvents,
+            currentEvenData,
+            Number(loadedSearchParams.get('page')),
+          );
+          const pageList = paginationPageList.querySelectorAll('.pagination-page');
+          if (pageList.length > 1) {
+            pageList.forEach((page) => {
+              page.classList.remove('active-page');
+              if (loadedSearchParams.get('page') === page.textContent) {
+                page.classList.add('active-page');
+              }
+            });
+          }
+          if (paginationPageList.lastElementChild.classList.contains('active-page')) {
+            nextPageButton.classList.add('hidden');
+          }
+          appendNewActiveArticlePage(
+            Number(loadedSearchParams.get('page')) * Number(numOfEvents) - Number(numOfEvents),
+            Number(loadedSearchParams.get('page')) * Number(numOfEvents),
+            Number(loadedSearchParams.get('page')),
+            currentEvenData,
+          );
+        }
+      };
+      updateStateFromUrlParams(currentEvenData);
     });
 }

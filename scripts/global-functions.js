@@ -65,7 +65,7 @@ function getEnvironmentDomain(env) {
     case 'pricefx.com':
     case 'www.pricefx.com':
     case 'preview.pricefx.com':
-      return 'publish-p131512-e1282666.adobeaemcloud.com'; 
+      return 'publish-p131512-e1282666.adobeaemcloud.com';
     default:
       return '';
   }
@@ -121,11 +121,11 @@ function getEnvironment() {
   };
 
   const keys = Object.keys(envMap);
-  const result = keys.find((key) => hostname.includes(`--${key}--`));
+  const result = keys.find((key) => hostname.includes(`${key}`));
 
   // Check if the URL is external
   if (!result) {
-    return hostname.includes('pricefx')? hostname : ''; // If the environment is not found in the hostname, return hostname
+    return hostname.includes('pricefx') ? hostname : ''; // If the environment is not found in the hostname, return hostname
   }
 
   return result ? envMap[result] : 'pricefx.com'; // Default to live
