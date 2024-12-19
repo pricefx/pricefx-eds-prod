@@ -184,6 +184,7 @@
   
   .filter-category {
     margin-bottom: 27px;
+    border-top: 1px solid var(--c-gray-border);
   }
   
   .filter-category-item {
@@ -561,7 +562,7 @@
       border: none;
       box-shadow: 0 0 14px 0 rgba(0 0 0 / 25%);
       left: 0;
-      padding: 18px var(--spacing-small);
+      padding: 18px var(--spacing-xxsmall);
       position: fixed;
       top: 116px;
       z-index: 1;

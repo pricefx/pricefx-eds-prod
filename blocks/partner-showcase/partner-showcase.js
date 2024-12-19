@@ -332,16 +332,26 @@ export default async function decorate(block) {
   const renderPartnerCategory = (partner) => {
     if (partner.category !== '') {
       const categoriesArray = partner.category.split(',');
-      const firstCategory = categoriesArray.find((category) => category.includes('partner-type'));
       let markup = '';
-      const removePrefixCategory = firstCategory.split('/')[2];
-      const replaceHyphenCategory = removePrefixCategory.replaceAll('-', ' ');
-      const replaceAmpCategory = replaceHyphenCategory.includes('&amp;')
-        ? replaceHyphenCategory.replace('&amp;', '&')
-        : replaceHyphenCategory;
-      markup = `<p class="partner-categories-item">${replaceAmpCategory}</p>`;
+
+      // Iterate through all categories and process those that contain 'partner-type'
+      categoriesArray.forEach((category) => {
+        const removePrefixCategory = category.split('/')[2];
+        if (removePrefixCategory) {
+          const replaceHyphenCategory = removePrefixCategory.replaceAll('-', ' ');
+          const replaceAmpCategory = replaceHyphenCategory.includes('&amp;')
+            ? replaceHyphenCategory.replace('&amp;', '&')
+            : replaceHyphenCategory;
+
+          // Append the processed category to the markup
+          markup += `<p class="partner-categories-item">${replaceAmpCategory}</p>`;
+        }
+      });
+
+      // Return all categories as markup if any were found
       return markup;
     }
+
     return '';
   };
 

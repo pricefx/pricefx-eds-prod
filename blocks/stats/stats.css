@@ -95,6 +95,7 @@
     -webkit-text-fill-color: transparent;
 }
 
+
 @media (width >= 986px) {
     .stats.block {
         padding: 0;
@@ -125,5 +126,5 @@
     .stat-description {
         width: 383px;
     }  
- 
+
 }
