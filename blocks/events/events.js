@@ -798,7 +798,7 @@ ${
 
       const handleFilterEvents = (filters, articleList) => {
         let articleJson = articleList;
-        if (filters['filter-program'].length > 0) {
+        if (filters['filter-program'] && filters['filter-program'].length > 0) {
           articleJson = articleJson.filter((event) =>
             filters['filter-program'].some((searchTag) =>
               event.eventTags.some((tag) => tag.toLowerCase().includes(searchTag.toLowerCase())),
@@ -806,7 +806,7 @@ ${
           );
         }
 
-        if (filters['filter-type'].length > 0 && Array.isArray(filters['filter-type'])) {
+        if (filters['filter-type'] && filters['filter-type'].length > 0 && Array.isArray(filters['filter-type'])) {
           articleJson = articleJson.filter((event) =>
             filters['filter-type'].some((searchTag) =>
               event.eventTags.some((tag) => tag.toLowerCase().includes(searchTag.toLowerCase())),
@@ -814,7 +814,11 @@ ${
           );
         }
 
-        if (filters['filter-industry'].length > 0 && Array.isArray(filters['filter-industry'])) {
+        if (
+          filters['filter-industry'] &&
+          filters['filter-industry'].length > 0 &&
+          Array.isArray(filters['filter-industry'])
+        ) {
           articleJson = articleJson.filter((event) =>
             filters['filter-industry'].some((searchTag) =>
               event.eventTags.some((tag) => tag.toLowerCase().includes(searchTag.toLowerCase())),
@@ -822,7 +826,7 @@ ${
           );
         }
 
-        if (filters['filter-capability'].length > 0) {
+        if (filters['filter-capability'] && filters['filter-capability'].length > 0) {
           articleJson = articleJson.filter((event) =>
             filters['filter-capability'].some((searchTag) =>
               event.eventTags.some((tag) => tag.toLowerCase().includes(searchTag.toLowerCase())),
@@ -830,7 +834,7 @@ ${
           );
         }
 
-        if (filters['filter-topic'].length > 0 && Array.isArray(filters['filter-topic'])) {
+        if (filters['filter-topic'] && filters['filter-topic'].length > 0 && Array.isArray(filters['filter-topic'])) {
           articleJson = articleJson.filter((event) =>
             filters['filter-topic'].some((searchTag) =>
               event.eventTags.some((tag) => tag.toLowerCase().includes(searchTag.toLowerCase())),
