@@ -247,7 +247,8 @@ export default async function decorate(block) {
       eventsContent.append(paginationContainer);
 
       const defaultSortedArticle = noFeaturedEventData.sort((a, b) => new Date(b.eventDate) - new Date(a.eventDate));
-
+      noFeaturedEventData = defaultSortedArticle;
+      currentEvenData = defaultSortedArticle;
       const queryStr = 'page=1&sortBy=desc-date';
       const searchParams = new URLSearchParams(queryStr);
 
@@ -461,6 +462,7 @@ ${
       const appendEvents = (articleJsonData) => {
         EventsContainer.innerHTML = renderArticleCard(articleJsonData);
       };
+      noFeaturedEventData = noFeaturedEventData.sort((a, b) => new Date(b.eventDate) - new Date(a.eventDate));
       appendEvents(noFeaturedEventData);
 
       // Render pagination pages
