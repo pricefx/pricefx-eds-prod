@@ -167,12 +167,41 @@ function loadGTM() {
   document.head.prepend(scriptTag);
 }
 
+/**
+ * Loads a non module JS file.
+ * @param {string} src URL to the JS file
+ * @param {Object} attrs additional optional attributes
+ */
+async function loadTrustArcScript(src, attrs) {
+  return new Promise((resolve, reject) => {
+    if (!document.querySelector(`head > #teconsent > script[src="${src}"]`)) {
+      const script = document.createElement('script');
+      script.src = src;
+      if (attrs) {
+        // eslint-disable-next-line no-restricted-syntax, guard-for-in
+        for (const attr in attrs) {
+          script.setAttribute(attr, attrs[attr]);
+        }
+      }
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.append(script);
+    } else {
+      resolve();
+    }
+  });
+}
+
 function addCookieBanner() {
   return new Promise((resolve) => {
     const cookieBanner = document.createElement('div');
     cookieBanner.id = 'consent-banner';
-    cookieBanner.innerHTML = `<div id="teconsent"></div>`;
     document.querySelector('head').append(cookieBanner);
+    
+    const cookieScript = document.createElement('div');
+    cookieScript.id = 'teconsent';
+    document.querySelector('head').append(cookieScript);
+    
     resolve();
   });
 }
@@ -190,7 +219,7 @@ if (!window.location.hostname.includes('localhost') && environmentMode() === 'pu
 
   // trustarc
   addCookieBanner().then(() => {
-    loadScript('https://consent.trustarc.com/v2/notice/jwqzim', {
+    loadTrustArcScript('https://consent.trustarc.com/v2/notice/jwqzim', {
       type: 'text/javascript',
       async: 'async'
     });
