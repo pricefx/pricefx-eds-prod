@@ -185,7 +185,8 @@ async function loadTrustArcScript(src, attrs) {
       }
       script.onload = resolve;
       script.onerror = reject;
-      document.head.append(script);
+      const teconsent = document.querySelector('head > #teconsent');
+      teconsent.append(script);
     } else {
       resolve();
     }
