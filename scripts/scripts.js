@@ -316,10 +316,10 @@ async function loadLazy(doc) {
   loadFooter(doc.querySelector('footer'));
 
   const bodyEl = document.querySelector('body');
-  const cookieFrag = await loadCookieBanner();
-  if (cookieFrag) {
-    bodyEl.prepend(cookieFrag.firstElementChild);
-  }
+  // const cookieFrag = await loadCookieBanner();
+  // if (cookieFrag) {
+  //   bodyEl.prepend(cookieFrag.firstElementChild);
+  // }
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
