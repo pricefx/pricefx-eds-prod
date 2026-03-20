@@ -14,7 +14,7 @@ import {
   getMetadata,
 } from './aem.js';
 import { environmentMode } from './global-functions.js';
-import { loadFragment } from '../blocks/fragment/fragment.js';
+// import { loadFragment } from '../blocks/fragment/fragment.js';
 import addPageSchema from './schema.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -290,11 +290,11 @@ async function loadEager(doc) {
   }
 }
 
-async function loadCookieBanner() {
-  const cookieFragmentPath = '/fragments/cookie-banner';
-  const cookieFragment = await loadFragment(cookieFragmentPath);
-  return cookieFragment;
-}
+// async function loadCookieBanner() {
+//   const cookieFragmentPath = '/fragments/cookie-banner';
+//   const cookieFragment = await loadFragment(cookieFragmentPath);
+//   return cookieFragment;
+// }
 
 /**
  * Loads everything that doesn't need to be delayed.
@@ -315,7 +315,7 @@ async function loadLazy(doc) {
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
 
-  const bodyEl = document.querySelector('body');
+  // const bodyEl = document.querySelector('body');
   // const cookieFrag = await loadCookieBanner();
   // if (cookieFrag) {
   //   bodyEl.prepend(cookieFrag.firstElementChild);
